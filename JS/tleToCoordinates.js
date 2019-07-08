@@ -84,6 +84,7 @@ function convertTLEtoCoordinates(tleLine1,tleLine2){
       //  console.log(latitudeStr);
 
     longLat = {long:longitudeStr,lat:latitudeStr};
+	update(longLat);
     return longLat;
 }
 
@@ -172,6 +173,8 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
  */
 
 function fetchTLEFromServer(noradID, username, password){
+
+	
 
   $.ajax({
               

@@ -1,21 +1,22 @@
 
-
-
 <!doctype html>
 <html lang="en">
 <head>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title></title>
     <script src="node_modules/openmct/dist/openmct.js"></script>
     <script src="node_modules/satellite.js/dist/satellite.min.js"></script>
-    <script src="tleToCoordinates.js"></script>
-
-
+	 <script src="tleToCoordinates.js"></script>
+	
+	
+	
     <script>
         var THIRTY_MINUTES = 30 * 60 * 1000;
         document.addEventListener("DOMContentLoaded", function () {
-            // openmct.install(new OpenMCTMapPlugin());
+            //openmct.install(new OpenMCTMapPlugin());
+			
             openmct.install(openmct.plugins.MyItems());
             openmct.install(openmct.plugins.LocalStorage());
             openmct.install(openmct.plugins.Espresso());
@@ -23,9 +24,7 @@
             openmct.install(openmct.plugins.ExampleImagery());
             openmct.install(openmct.plugins.UTCTimeSystem());
             openmct.install(openmct.plugins.ImportExport());
-            openmct.install(openmct.plugins.AutoflowView({
-                    type: "telemetry.panel"
-                }));
+		
             openmct.install(openmct.plugins.Conductor({
                 menuOptions: [
                     {
@@ -47,58 +46,13 @@
                     }
                 ]
             }));
-            openmct.install(openmct.plugins.SummaryWidget());
-              openmct.install(openmct.plugins.Notebook());
             openmct.time.clock('local', {start: -THIRTY_MINUTES, end: 0});
             openmct.time.timeSystem('utc');
             openmct.setAssetPath("node_modules/openmct/dist");
             openmct.start();
 
 
-
-
-             //Get the current entered value from the page and process them here 
-
-            var TLEdata;
-            var noradID = 25544;
-            var username = 'raggy1995@gmail.com';
-            var password = '';
-
-            var latArray = [];
-            var longArray = [];
-            var longLatArray = [];
-            fetchTLEFromServer(noradID, username, password);
-
-            //Set the interval to convert the current TLE for the ISS and repeat every 500ms
-            setInterval(function(){
-              longLat = convertTLEtoCoordinates(tleLine1,tleLine2);
-              console.log(longLat);
-              // latArray.push(longLat["lat"]);
-              // longArray.push(longLat["long"]);
-
-              // console.log(latArray);
-              // console.log(longArray);
-
-            },3000);
-
-
-            //Test the time offset for the TLE models
-            setTimeout(() => {
-              for(var i = 1; i <= 10; i++){
-                longLatArray.push(convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,i)); 
-               }
-              console.log(longLatArray);
-            }, 5000);
-
-            
-
-            
-
-
-
           });
-        
-
     </script>
     <link rel="stylesheet" href="node_modules/openmct/dist/platform/commonUI/general/res/css/startup-base.css">
     <link rel="stylesheet" href="node_modules/openmct/dist/platform/commonUI/general/res/css/openmct.css">
@@ -112,4 +66,15 @@
         <div class="l-splash s-splash"></div>
     </div>
 </body>
+
+			<input type="text" placeholder="Enter a value">
+<br><br>
+			
 </html>
+
+
+
+
+
+
+
