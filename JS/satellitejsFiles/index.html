@@ -57,7 +57,7 @@
             var TLEdata;
             var noradID = 25544;
             var username = 'raggy1995@gmail.com';
-            var password = '';
+            var password = 'SuStainablePW12';
 
             var latArray = [];
             var longArray = [];
@@ -76,8 +76,10 @@
 
             },3000);
 
+
+            //Test the time offset for the TLE models
             setTimeout(() => {
-              for(var i = 0; i < 10; i++){
+              for(var i = 1; i <= 10; i++){
                 longLatArray.push(convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,i)); 
                }
               console.log(longLatArray);

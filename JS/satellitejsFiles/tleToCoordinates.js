@@ -15,9 +15,14 @@
  * Include package in html using: <script src="tleToCoordinates.js"></script>
  * use functions as required
  * 
- *     
+ * Globals:
+ * longLat = JSON of current longitude and latitude data
+ * tleLine1,tleLine2 TLE data for the user defined TLE from NORAD  
 */
 
+var longLat = {long:0, lat:0};
+var tleLine1;
+var tleLine2;
 
 function convertTLEtoCoordinates(tleLine1,tleLine2){
 
@@ -78,7 +83,7 @@ function convertTLEtoCoordinates(tleLine1,tleLine2){
       //  console.log(longitudeStr);
       //  console.log(latitudeStr);
 
-    var longLat = {long:longitudeStr,lat:latitudeStr};
+    longLat = {long:longitudeStr,lat:latitudeStr};
     return longLat;
 }
 
@@ -99,7 +104,7 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
   // var positionAndVelocity = satellite.sgp4(satrec, timeSinceTleEpochMinutes);
 
   //  Or you can use a JavaScript Date
-  var positionAndVelocity = satellite.propagate(satrec, new Date());
+  var positionAndVelocity = satellite.propagate(satrec, offsetDate);
 
   // The position_velocity result is a key-value pair of ECI coordinates.
   // These are the base results from which all other coordinates are derived.
@@ -116,7 +121,7 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
   // You will need GMST for some of the coordinate transforms.
   // http://en.wikipedia.org/wiki/Sidereal_time#Definition
  
-  var gmst = satellite.gstime(new Date());
+  var gmst = satellite.gstime(offsetDate);
 
   // You can get ECF, Geodetic, Look Angles, and Doppler Factor.
   var positionEcf   = satellite.eciToEcf(positionEci, gmst),
@@ -157,17 +162,7 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
 
 
 
-var longLat = {long:0, lat:0};
-var tleLine1;
-var tleLine2;
-
-
-
-/**
- * 
- * @param {*} noradID 
- * @param {*} username 
- * @param {*} password 
+/** 
  * 
  * Fetches TLE data from remote server (space-track.org)
  * 

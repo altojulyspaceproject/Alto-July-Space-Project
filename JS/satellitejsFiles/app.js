@@ -78,8 +78,6 @@
     // Expose everything else as static files
     app.use(express['static'](options.directory));
 
-    // makeNoises();
-
     //Handle any post requests to the self made page
     app.all('/postExternal',function (req,res){
     
