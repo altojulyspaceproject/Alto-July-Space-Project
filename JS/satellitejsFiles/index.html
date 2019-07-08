@@ -50,43 +50,46 @@
             openmct.start();
 
 
-            // $.ajax({
-            //   url: 'https://www.space-track.org/basicspacedata/query/class/tle/NORAD_CAT_ID/25544/orderby/EPOCH%20desc/limit/1/',
-            //   // data: {action: 'test'},
-            //   type: 'post',
-            //   success: function(output) {
-            //       console.log(output);
-            //   }
-               
-            // });
+
+
+             //Get the current entered value from the page and process them here 
+
+            var TLEdata;
+            var noradID = 25544;
+            var username = 'raggy1995@gmail.com';
+            var password = '';
+
+            var latArray = [];
+            var longArray = [];
+            var longLatArray = [];
+            fetchTLEFromServer(noradID, username, password);
+
+            //Set the interval to convert the current TLE for the ISS and repeat every 500ms
+            setInterval(function(){
+              longLat = convertTLEtoCoordinates(tleLine1,tleLine2);
+              console.log(longLat);
+              // latArray.push(longLat["lat"]);
+              // longArray.push(longLat["long"]);
+
+              // console.log(latArray);
+              // console.log(longArray);
+
+            },3000);
+
+            setTimeout(() => {
+              for(var i = 0; i < 10; i++){
+                longLatArray.push(convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,i)); 
+               }
+              console.log(longLatArray);
+            }, 5000);
+
+            
+
+            
+
 
 
           });
-
-          //Hardcoded TLE from NORAD
-            var TLE = {"COMMENT":"GENERATED VIA SPACETRACK.ORG API","ORIGINATOR":"18 SPCS","NORAD_CAT_ID":"25544","OBJECT_NAME":"ISS (ZARYA)","OBJECT_TYPE":"PAYLOAD","CLASSIFICATION_TYPE":"U","INTLDES":"98067A","EPOCH":"2019-07-04 09:15:05","EPOCH_MICROSECONDS":"854752","MEAN_MOTION":"15.50956609","ECCENTRICITY":"0.0007157","INCLINATION":"51.6428","RA_OF_ASC_NODE":"275.946","ARG_OF_PERICENTER":"105.5654","MEAN_ANOMALY":"340.6454","EPHEMERIS_TYPE":"0","ELEMENT_SET_NO":"999","REV_AT_EPOCH":"17792","BSTAR":"9.0797e-06","MEAN_MOTION_DOT":"7.1e-07","MEAN_MOTION_DDOT":"0","FILE":"2506219","TLE_LINE0":"0 ISS (ZARYA)","TLE_LINE1":"1 25544U 98067A   19185.38548443  .00000071  00000-0  90797-5 0  9998","TLE_LINE2":"2 25544  51.6428 275.9460 0007157 105.5654 340.6454 15.50956609177925","OBJECT_ID":"1998-067A","OBJECT_NUMBER":"25544","SEMIMAJOR_AXIS":"6792.068","PERIOD":"92.845","APOGEE":"418.794","PERIGEE":"409.072"};
-            console.log(TLE);
-          
-            var tleLine1 = TLE["TLE_LINE1"];
-            var tleLine2 = TLE["TLE_LINE2"];
-
-          setTimeout(function(){
-            var documentElementToAppendTo = document.getElementsByClassName("abs holder holder-object t-main-view ng-isolate-scope");
-            console.log(documentElementToAppendTo);
-
-            var headerElement = document.createElement('H1');
-            headerElement.innerHTML = "Hello World!";
-            headerElement.style.paddingLeft = '200px';
-            headerElement.id = 'coordinatesHeader';
-            documentElementToAppendTo[0].appendChild(headerElement);
-          },1000);
-
-          //Set the interval to convert the current TLE for the ISS and repeat every 500ms
-          setInterval(function(){
-            var longLat = convertTLEtoCoordinates(tleLine1,tleLine2);
-            document.getElementById('coordinatesHeader').innerHTML = longLat["lat"].toFixed(4) + "  " + longLat["long"].toFixed(4);
-          },3000);
-
         
 
     </script>
