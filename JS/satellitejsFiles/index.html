@@ -23,6 +23,9 @@
             openmct.install(openmct.plugins.ExampleImagery());
             openmct.install(openmct.plugins.UTCTimeSystem());
             openmct.install(openmct.plugins.ImportExport());
+            openmct.install(openmct.plugins.AutoflowView({
+                    type: "telemetry.panel"
+                }));
             openmct.install(openmct.plugins.Conductor({
                 menuOptions: [
                     {
@@ -44,6 +47,8 @@
                     }
                 ]
             }));
+            openmct.install(openmct.plugins.SummaryWidget());
+              openmct.install(openmct.plugins.Notebook());
             openmct.time.clock('local', {start: -THIRTY_MINUTES, end: 0});
             openmct.time.timeSystem('utc');
             openmct.setAssetPath("node_modules/openmct/dist");
@@ -57,7 +62,7 @@
             var TLEdata;
             var noradID = 25544;
             var username = 'raggy1995@gmail.com';
-            var password = 'SuStainablePW12';
+            var password = '';
 
             var latArray = [];
             var longArray = [];
