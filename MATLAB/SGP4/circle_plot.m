@@ -26,5 +26,5 @@ end
 end
 
 
-geoplot(xunit,yunit) % plot each point on the circle 
+geoplot(xunit,yunit,'b') % plot each point on the circle 
 end
