@@ -2,7 +2,10 @@
 <html>
 <body>
 
+  <link rel="stylesheet" href="./webMap/res/webMap.css">
+    <div id="map"></div>
 
+ 
 
 <form>
 	<p style = "color:white"> Username : </p> <br>
@@ -40,13 +43,16 @@ longLat = {long:0,lat:0};
 
 
 </script>
+ <script async defer
+ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD2QUO09KrtwuLJEdTx6p-PpGjYUhbaA5o&callback=initMap">
+ </script>
 
-<script src = "app1.js"> </script>
+ <script src="./webMap/res/webMap.js"></script>
 <script src="node_modules/openmct/dist/openmct.js"></script>
 <script src="node_modules/satellite.js/dist/satellite.min.js"></script>
 <script src="tleToCoordinates.js"></script>
 <script src = "ButtonHandler.js"> </script>
-<script src="./webMap/res/webMap.js"></script>
+
 
 
 
