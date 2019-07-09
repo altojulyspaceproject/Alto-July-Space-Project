@@ -1,7 +1,13 @@
-function circle_plot(x,y,z,r)
+%% Circle plot function is a function that plots a circle in latitude and longitude for the footprint of a satellite 
+%%%% Author: Steph
+%% inputs: x = latitude (single value) y=longitude (single value), r is the coverage distance in km 
+%% outputs, plots each point on the circumference of the circle using geoplot
+
+
+function circle_plot(x,y,r)
 angleCirc=0:pi/50:2*pi;
 
-%xy=lla2ecef([x,y,z]);
+
 
 xunit = r *cos(angleCirc); % r is coverage (km), find one side of the triangle that defines the point on the circle 
 
