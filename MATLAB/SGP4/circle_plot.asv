@@ -1,0 +1,24 @@
+function circle_plot(x,y,z,r)
+angleCirc=0:pi/50:2*pi;
+
+%xy=lla2ecef([x,y,z]);
+
+xunit = r *cos(angleCirc); % r is coverage (km), find one side of the triangle that defines the point on the circle 
+
+for f = 1 :1:length(xunit)
+if xunit(f)>90
+    xunit(f)=xunit(f)-180;
+elseif xunit(f) <-90
+   xunit(f) =xunit(f)+180;
+ end
+% zunit(f) = z;
+end
+
+yunit = r*sin(angleCirc); % find the other side of
+xunit = xunit *180 / 6372/ pi+x;
+yunit = yunit *180 / 6372/ pi+y;
+%z = ones(size(yunit))*z;
+%xy = ecef2lla([xunit',yunit',z']);
+% plotUnits = ecef2lla([xunit',yunit',zunit']);
+geoplot(xunit,yunit)
+end
