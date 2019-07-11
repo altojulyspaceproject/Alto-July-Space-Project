@@ -19,12 +19,16 @@ xunit = xunit *180 / 6372/ pi+x; %xunit is in km, x is latitude, change xunit to
 yunit = yunit *180 / 6372/ pi+y; % yunit is km, y is longitude, change yunit to degrees and combine 
 for f = 1 :1:length(xunit) % check latitude is between -90 and 90
 if xunit(f)>90
-    xunit(f)=xunit(f)-180;
+    xunit(f)=xunit(f)-90;
+    xunit(f)=90-xunit(f);
+    yunit(f)=yunit(f)+180;
 elseif xunit(f) <-90
-   xunit(f) =xunit(f)+180;
+   xunit(f) =xunit(f)+90;
+   xunit(f)=-90-xunit(f);
+   yunit(f)=yunit(f)+180;
 end
 end
 
 
-geoscatter(xunit,yunit,'b','.') % plot each point on the circle 
+geoplot(xunit,yunit,'b') % plot each point on the circle 
 end
