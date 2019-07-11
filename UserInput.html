@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h4 style = "color: red">Enter Satellite ID</h4>
+<scri
+
+<input type="text" id="myText">
+<input type="text" id="longitude">
+
+<button style = "color:red" onclick="myFunction()">Track</button>
+
+<p id="demo"></p>
+
+<script>
+var x  = 55;
+function myFunction() {
+  x = document.getElementById("myText").value;
+  console.log(x);
+  update(x);
+  update(document.getElementById("longitude").value);
+}
+</script>
+
+<script src = "app1.js"> </script>
+
+
+</body>
+</html>
