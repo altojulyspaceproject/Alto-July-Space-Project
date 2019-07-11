@@ -9,9 +9,9 @@ angleCirc=0:pi/50:2*pi;
 
 
 
-xunit = r *sin(angleCirc); % r is coverage (km), find one side of the triangle that defines the point on the circle % vertical
+xunit = r *sin(angleCirc); % r is coverage (km), find one side of the triangle that defines the point on the circle 
 
-xunit = xunit *180 / 6372/ pi+x; % converting xunit to degrees and combining with latitude 
+xunit = xunit *180 / 6372/ pi+x; % converting xunit to degrees and combining with latitdu
 
 
 yunit = r*cos(angleCirc); % find the other side of the triangle % horizontal
