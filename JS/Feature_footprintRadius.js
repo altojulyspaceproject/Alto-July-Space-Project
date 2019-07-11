@@ -26,7 +26,8 @@ function footprintRadius(latitude, altitude){
     var rEquitorial = 6356; // Radius of Earth at equator
     var rPolar = 6356.8;    // Radius of Earth at Pole
     //  Usable Earth radius taking into account the oblateness of the Earth.
-    var rEarth = rEquitorial * rPolar / Math.sqrt( Math.pow(rPolar,  2) * Math.pow(Math.cos(latitude), 2) + Math.pow(rEquitorial,2) * Math.pow(Math.sin(latitude), 2) );
+    var latitude2 = latitude * Math.PI / 180;
+    var rEarth = rEquitorial * rPolar / Math.sqrt( Math.pow(rPolar,  2) * Math.pow(Math.cos(latitude2), 2) + Math.pow(rEquitorial,2) * Math.pow(Math.sin(latitude2), 2) );
     //  Angle of the right angle triangle that connects the centre of the Earth to the object and to the tangential line of the object to the Earth.
     var thetaA = Math.asin(rEarth / (altitude + rEarth));
     //  Distance from the object to the horizon along a tangential line using the angle of the right angle triangle with hypontenuse along the same line (thetaA).
@@ -36,7 +37,7 @@ function footprintRadius(latitude, altitude){
     //  Angle between the polar axis and the radius of the Earth connecting to the point on the horizon.
     var theta = Math.asin(lengthRight / rEarth);
     //  The distance that defines the radius of the footprint of the object.
-    var radius = rEarth * (theta - 5* Math.PI / 180); // In the same units as altitude input.
+    var radius = rEarth * (theta);// - 5 * Math.PI / 180); // In the same units as altitude input.
 
     return radius;
 }
