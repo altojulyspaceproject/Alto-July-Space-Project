@@ -26,5 +26,5 @@ end
 end
 
 
-geoplot(xunit,yunit,'b') % plot each point on the circle 
+geoscatter(xunit,yunit,'b','.') % plot each point on the circle 
 end
