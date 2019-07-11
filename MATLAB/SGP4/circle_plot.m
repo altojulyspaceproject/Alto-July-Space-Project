@@ -18,9 +18,11 @@ yunit = r*sin(angleCirc); % find the other side of the triangle
 xunit = xunit *180 / 6372/ pi+x; %xunit is in km, x is latitude, change xunit to degrees and combine 
 yunit = yunit *180 / 6372/ pi+y; % yunit is km, y is longitude, change yunit to degrees and combine 
 for f = 1 :1:length(xunit) % check latitude is between -90 and 90
+    
+    %% accounting for when the latitude is at at the poles 
 if xunit(f)>90
     xunit(f)=xunit(f)-90;
-    xunit(f)=90-xunit(f);
+    xunit(f)=90-xunit(f); 
     yunit(f)=yunit(f)+180;
 elseif xunit(f) <-90
    xunit(f) =xunit(f)+90;
