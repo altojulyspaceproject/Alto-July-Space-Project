@@ -1,3 +1,7 @@
+%% teme2ecef converts coordinates in teme to ecef. 
+%%% Author : Matt
+%% inputs: x, y, z values in metres teme, epoch date as a datetime vector and time since the TLE was made 
+%% outputs xyz coordinates in ecef in metres 
 function [X,Y,Z] = teme2ecef(X,Y,Z,Epoch,T)
 
 Deg2Rad = pi/180;

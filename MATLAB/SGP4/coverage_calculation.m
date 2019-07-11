@@ -1,3 +1,8 @@
+%% coverage calculation takes the latitude and altitude of the satellite and calculates coverage in km
+% author: Steph and Adrian 
+%% inputs: latidude and altitude 
+%% outputs the angle between the altitude and the furthest point on the ground and the coverage distance in meters 
+
 function [theta,coverageRad]=coverage_calculation(latitude,altitude)
 for f=1:1:length(altitude)
     rEquitorial = 6356; % equitorial radius of earth 
