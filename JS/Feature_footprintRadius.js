@@ -11,7 +11,7 @@
  * 
  * Usage: Used to calculate the distance that defines the radius of the visible Earth footprint for a space object (satellite).
  * 
- * Include package in html using: <script src="dataPlot.js"></script>
+ * Include package in html using: <script src="Feature_footprintRadius.js"></script>
  * 
  * Inputs:
  *        latitude - The latitude of the object.
