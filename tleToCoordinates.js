@@ -192,6 +192,38 @@ function fetchTLEFromServer(noradID, username, password){
          tleLine2 = TLEdata["TLE_LINE2"];
       }
 
+      var latHolder = [];
+      var latHolderPrevious = [];
+      var longHolder = [];
+      var longHolderPrevious = [];
+    
+      for(var i = 0; i <= 90; i++){
+        var returned = convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,i); 
+        latHolder.push( parseFloat(returned["lat"]));
+        longHolder.push(parseFloat(returned["long"]));
+      }
+      for(var i = 0; i <= 90; i++){
+        var returned = convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,-i); 
+        latHolderPrevious.push( parseFloat(returned["lat"]));
+        longHolderPrevious.push(parseFloat(returned["long"]));
+      }
+
+
+      var container = document.getElementById("plotlyGraph");
+      // dataPlot(container,latHolder,longHolder,latHolderPrevious,longHolderPrevious);
+      //Plot future path
+      dataPlot(container,latHolder,longHolder,'Future path','markers');
+      //Plot past path
+      dataPlot(container,latHolderPrevious,longHolderPrevious,'Previous path','markers');
+      //Plot object location
+      dataPlot(container,latHolder[0],longHolder[0],'Object location','markers');
+      //Calculate the radius of visible Earth
+      var Radius = footprintRadius(latHolder[0],420);
+      //Turns the radius into lat/lon coords
+      var circleCoords = footprintPlot(latHolder[0],longHolder[0], Radius);
+      //Plot the visible Earth
+      dataPlot(container,circleCoords[0],circleCoords[1],'Footprint','lines');
+
     }   
   });
 

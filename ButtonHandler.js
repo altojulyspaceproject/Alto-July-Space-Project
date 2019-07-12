@@ -1,25 +1,14 @@
-var UserName
-var Password;
-var NoradID;
 
+function ButtonHandler(username , password, noradID) {
 
-function ButtonHandler(username , upassword, noradid) {
-
-	UserName = username;
-	Password = upassword;
-	NoradID = noradid;
-	
-	
-	fetchTLEFromServer(NoradID, UserName, Password);
+	fetchTLEFromServer(noradID, username, password);
 	
 	setInterval(function(){
 	  longLat = convertTLEtoCoordinates(tleLine1,tleLine2);
-	  update(longLat);
-	  console.log(longLat);
+    update(longLat);
+    
 	},3000);
-	
-	
-	
+
 }
 
 
