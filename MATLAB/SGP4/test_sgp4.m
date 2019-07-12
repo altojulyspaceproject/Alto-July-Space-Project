@@ -14,8 +14,9 @@
 %% Setting the environment
 clc
 clear
-close all
+close all   
 format long g
+
 
 %% Defining Constants
 colour = ['g','c','m'];
@@ -30,17 +31,29 @@ MINUTES_PER_DAY_CUBED = (MINUTES_PER_DAY * MINUTES_PER_DAY_SQUARED);
 objectsNum = inputdlg('How many objects do you want to track? 1, 2 or 3');
 switch str2num(objectsNum{1})
     case 1
-        norad=inputdlg({'Enter the NORAD ID number, 25544 for ISS : '},'s'); % user input for the NORAD ID
+        norad=inputdlg({'Enter the NORAD ID number, 25544 for ISS : '}); % user input for the NORAD ID
         
     case 2
-        norad=inputdlg({'Enter the NORAD ID number, 25544 for ISS : ','Enter the NORAD ID number, 25544 for ISS : '},'s'); % user input for the NORAD ID
+        norad=inputdlg({'Enter the NORAD ID number, 25544 for ISS : ','Enter the NORAD ID number, 25544 for ISS : '}); % user input for the NORAD ID
         
     case 3
-        norad=inputdlg({'Enter the NORAD ID number, 25544 for ISS : ','Enter the NORAD ID number, 25544 for ISS : ','Enter the NORAD ID number, 25544 for ISS : '},'s'); % user input for the NORAD ID
+        norad=inputdlg({'Enter the NORAD ID number, 25544 for ISS : ','Enter the NORAD ID number, 25544 for ISS : ','Enter the NORAD ID number, 25544 for ISS : '}); % user input for the NORAD ID
         
 end
-username = inputdlg('Enter Your Spacetrack Username/Email: ','s'); %user input for the space-track username
-password = inputdlg('Enter Your Spacetrack Password: ','s'); % user input for the password
+username = inputdlg('Enter Your Spacetrack Username/Email: '); %user input for the space-track username
+figUI=uifigure('Position',[100 100 350 275]);
+%text=uitext('Enter Your SpaceTrack Password');
+lbl = uilabel(figUI,'Position',[100 200 100 22]);
+lbl.Text = 'Enter Password';
+passwordUI = uieditfield(figUI,'Position',[100 175 100 22]);
+passwordUI.FontColor='white';
+passwordUI.BackgroundColor='white';
+waitfor(passwordUI,'Value')
+
+password = string(passwordUI.Value);
+delete(figUI)
+%%password = inputdlg('Enter Your Spacetrack Password: '); % user input for the password
+
 count = inputdlg('How many TLEs do you want? Type 1 for most recent 2 for 2 most recent etc, 0 for between 2 dates: '); % user input number of TLEs required
 dateStart=inputdlg('Put in the start date or 0. format: yyyy-mm-dd : ','s'); %  user input for the start date of the TLEs
 if strcmp(dateStart,'0') % checking if the dateStart value is zero, ie set number of most recent TLEs was selected
