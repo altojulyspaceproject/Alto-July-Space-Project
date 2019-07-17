@@ -202,7 +202,10 @@ function fetchTLEFromServer(noradID, username, password){
       var longHolder = [];
       var longHolderPrevious = [];
     
+<<<<<<< HEAD:tleToCoordinates.js
     
+=======
+>>>>>>> b8c79a9f382f28691a43bb189a83d7f3323c92e9:JS/V1/tleToCoordinates.js
       for(var i = 0; i <= 90; i++){
         var returned = convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,i); 
         latHolder.push( parseFloat(returned["lat"]));
@@ -213,6 +216,7 @@ function fetchTLEFromServer(noradID, username, password){
         latHolderPrevious.push( parseFloat(returned["lat"]));
         longHolderPrevious.push(parseFloat(returned["long"]));
       }
+<<<<<<< HEAD:tleToCoordinates.js
        latlongHolder = [latHolder,longHolder,latHolderPrevious,longHolderPrevious];
 
        return(latlongHolder);
@@ -237,14 +241,31 @@ function fetchTLEFromServer(noradID, username, password){
       dataPlot(container,latHolderPrevious,longHolderPrevious,'Previous path','markers',"yellow",6);
       //Plot object location
       dataPlot(container,latHolder[0],longHolder[0],'Object location','markers',"pink",10);
+=======
+
+
+      var container = document.getElementById("plotlyGraph");
+      // dataPlot(container,latHolder,longHolder,latHolderPrevious,longHolderPrevious);
+      //Plot future path
+      dataPlot(container,latHolder,longHolder,'Future path','markers');
+      //Plot past path
+      dataPlot(container,latHolderPrevious,longHolderPrevious,'Previous path','markers');
+      //Plot object location
+      dataPlot(container,latHolder[0],longHolder[0],'Object location','markers');
+>>>>>>> b8c79a9f382f28691a43bb189a83d7f3323c92e9:JS/V1/tleToCoordinates.js
       //Calculate the radius of visible Earth
       var Radius = footprintRadius(latHolder[0],420);
       //Turns the radius into lat/lon coords
       var circleCoords = footprintPlot(latHolder[0],longHolder[0], Radius);
       //Plot the visible Earth
+<<<<<<< HEAD:tleToCoordinates.js
       dataPlot(container,circleCoords[0],circleCoords[1],'Footprint','lines',"blue",6);
       //dataPlot(container,allPlotLat,allPlotLon,allTraceNames,allPlotType);
       return;
+=======
+      dataPlot(container,circleCoords[0],circleCoords[1],'Footprint','lines');
+
+>>>>>>> b8c79a9f382f28691a43bb189a83d7f3323c92e9:JS/V1/tleToCoordinates.js
     }   
 
     function plotReal1(latHolder,longHolder,latHolderPrevious,longHolderPrevious){
