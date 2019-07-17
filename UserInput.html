@@ -2,27 +2,71 @@
 <html>
 <body>
 
-<h4 style = "color: red">Enter Satellite ID</h4>
-<scri
+    <link rel="stylesheet" href="./webMap/res/webMap.css">
+    <div id='plotlyGraph' style='width: 1000px; height: 500px;' ></div>
+    <div id="map" style='width: 1000px; height: 500px;'></div>
+    
 
-<input type="text" id="myText">
-<input type="text" id="longitude">
+    <div style="float:right; margin-top:-900px; margin-right:100px;">
+      <form>
+        <p style = "color:white"> Username : </p> <br>
+        <input type = "text"  id = "userName">  <br> 
+        <p style = "color:white"> Password : </p> <br> 
+        <input type = "Password" id = "Password"> <br>
+        <p style = "color:white">Norad ID: </p> <br>
+        <input type="text" id="NoradId"> <br>        
+      </form>        
+      <button style = "color:red" onclick="submitForm()">Track</button>
+    </div>
+      
+      
+  
 
-<button style = "color:red" onclick="myFunction()">Track</button>
+
+<script async defer
+ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD2QUO09KrtwuLJEdTx6p-PpGjYUhbaA5o&callback=initMap">
+</script>
+
+<script src="./webMap/res/webMap.js"></script>
+<script src="node_modules/openmct/dist/openmct.js"></script>
+<script src="node_modules/satellite.js/dist/satellite.min.js"></script>
+<script src="tleToCoordinates.js"></script>
+<script src="ButtonHandler.js"> </script>
+<script src="plotly-latest.min.js"></script>
+<script src="Feature_dataVisualise.js"></script>
+
+<script>
+  function submitForm() {
+  
+    var noradID = document.getElementById("NoradId").value;
+    var userName = document.getElementById("userName").value;
+    var password = document.getElementById("Password").value;
+
+    ButtonHandler(userName, password , noradID);   
+  }
+  
+  longLat = {long:0,lat:0};
+  
+
+    
+    
+</script>
+
+ 
+
+
+<br>
+
+
 
 <p id="demo"></p>
 
-<script>
-var x  = 55;
-function myFunction() {
-  x = document.getElementById("myText").value;
-  console.log(x);
-  update(x);
-  update(document.getElementById("longitude").value);
-}
-</script>
 
-<script src = "app1.js"> </script>
+
+
+
+
+
 
 
 </body>

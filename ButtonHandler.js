@@ -1,34 +1,16 @@
-var UserName
-var Password;
-var NoradID;
 
+function ButtonHandler(username , password, noradID) {
 
-function ButtonHandler(username , upassword, noradid) {
-
-	UserName = username;
-	Password = upassword;
-	NoradID = noradid;
+	fetchTLEFromServer(noradID, username, password);
 	
-
-	console.log(UserName);
-	console.log(Password);
-	console.log(NoradID);
+	setInterval(function(){
+	  longLat = convertTLEtoCoordinates(tleLine1,tleLine2);
+    update(longLat);
+    
+	},3000);
 
 }
 
 
 
 
-fetchTLEFromServer(noradID, username, password);
-
-//Set the interval to convert the current TLE for the ISS and repeat every 500ms
-setInterval(function(){
-  longLat = convertTLEtoCoordinates(tleLine1,tleLine2);
-  console.log(longLat);
-  // latArray.push(longLat["lat"]);
-  // longArray.push(longLat["long"]);
-
-  // console.log(latArray);
-  // console.log(longArray);
-
-},3000);

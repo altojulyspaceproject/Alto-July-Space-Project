@@ -8,7 +8,9 @@
     <title></title>
     <script src="node_modules/openmct/dist/openmct.js"></script>
     <script src="node_modules/satellite.js/dist/satellite.min.js"></script>
-	 <script src="tleToCoordinates.js"></script>
+    <script src="tleToCoordinates.js"></script>
+    <script src="dataPlot.js"></script>
+    <script src="plotly-latest.min.js"></script>
 	
 	
 	
@@ -51,6 +53,8 @@
             openmct.setAssetPath("node_modules/openmct/dist");
             openmct.start();
 
+            // var container = document.getElementById("plotlyGraph");
+            // dataPlot(container,latHolder,longHolder,latHolderPrevious,longHolderPrevious);
 
           });
     </script>
@@ -62,12 +66,15 @@
     <link rel="shortcut icon" href="node_modules/openmct/dist/platform/commonUI/general/res/images/favicons/favicon.ico">
 </head>
 <body class="user-environ">
-    <div class="l-splash-holder s-splash-holder">
+    <!-- <div class="l-splash-holder s-splash-holder">
         <div class="l-splash s-splash"></div>
-    </div>
+    </div> -->
+
+    <div id='plotlyGraph'></div>
+
+
 </body>
 
-			<input type="text" placeholder="Enter a value">
 <br><br>
 			
 </html>
