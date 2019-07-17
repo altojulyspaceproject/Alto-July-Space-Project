@@ -2,28 +2,71 @@
 <html>
 <body>
 
-<h4 style = "color: red">Enter Satellite ID</h4>
-<scri
-
-<input type="text" id="myText">
-<input type="text" id="longitude">
-
-<button style = "color:red" onclick="myFunction()">Track</button>
-
-<p id="demo"></p>
-
-<script>
-var x  = 55;
-function myFunction() {
-  x = document.getElementById("myText").value;
-  console.log(x);
-  update(x);
-  update(document.getElementById("longitude").value);
-}
+    <link rel="stylesheet" href="./webMap/res/webMap.css">
+    <div id='plotlyGraph' style='width: 1000px; height: 500px;' ></div>
+    <div id="map" style='width: 1000px; height: 500px;'></div>
+    <div style="float:right; margin-top:-900px; margin-right:100px;">
+      <form>
+        <p style = "color:white"> GS Lat:  <br>
+          <input type = "text"  id = "Latitude">  <br></p>
+          <p style = "color:white"> GS Lon:  <br>
+          <input type = "text"  id = "Longitude">  <br></p>
+          <p style = "color:white"> Username:  <br>
+          <input type = "text"  id = "userName">  <br></p>
+          <p style = "color:white"> Password:  <br> 
+          <input type = "Password" id = "Password"> <br></p>
+          <p style = "color:white">Norad ID:  <br>
+          <input type="text" id="NoradId"> <br></p>
+      </form>        
+      <button style = "color:red" onclick="submitForm()">Track</button>
+    </div>
+    <div style="float:right; margin-top:-550px; margin-right:50px;">
+      <p style = "color:white"> Latitude:
+      <output type = "text"  id = "dataLatitude"></p>
+      <p style = "color:white"> Longitude:
+      <output type = "text"  id = "dataLongitude"></p>
+      <p style = "color:white"> Altitude:
+      <output type = "text"  id = "dataAltitude"></p>
+      <p style = "color:white"> Time:
+      <output type = "text"  id = "dataTime"></p>
+      <p style = "color:white"> Azimuth:
+      <output type = "text"  id = "dataAzimuth"></p>
+      <p style = "color:white"> Elevation:
+      <output type = "text"  id = "dataElevation"></p>
+    </div>
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD2QUO09KrtwuLJEdTx6p-PpGjYUhbaA5o&callback=initMap">
 </script>
 
-<script src = "app1.js"> </script>
+<script src="./webMap/res/webMap.js"></script>
+<script src="node_modules/openmct/dist/openmct.js"></script>
+<script src="node_modules/satellite.js/dist/satellite.min.js"></script>
+<script src="tleToCoordinates.js"></script>
+<script src="ButtonHandler.js"> </script>
+<script src="plotly-latest.min.js"></script>
+<script src="Feature_dataVisualise.js"></script>
 
+<script>
+  document.getElementById("dataLatitude").value = 100;
+  document.getElementById("dataLongitude").value = 123;
+  document.getElementById("dataAltitude").value = 456;
+  document.getElementById("dataTime").value = 2787;
+  document.getElementById("dataAzimuth").value = 0;
+  document.getElementById("dataElevation").value = 9001;
 
+  function submitForm() {
+  
+    var noradID = document.getElementById("NoradId").value;
+    var userName = document.getElementById("userName").value;
+    var password = document.getElementById("Password").value;
+    var groundLatitude  = document.getElementById("Latitude").value;
+    var groundLongitude = document.getElementById("Longitude").value;
+
+    ButtonHandler(userName, password ,noradID, groundLatitude, groundLongitude);   
+  }
+  longLat = {long:0,lat:0};
+</script>
+<br>
+<p id="demo"></p>
 </body>
 </html>
