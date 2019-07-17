@@ -5,7 +5,6 @@
     <link rel="stylesheet" href="./webMap/res/webMap.css">
     <div id='plotlyGraph' style='width: 1000px; height: 500px;' ></div>
     <div id="map" style='width: 1000px; height: 500px;'></div>
-<<<<<<< HEAD
     <div style="float:right; margin-top:-900px; margin-right:100px;">
       <form>
         <p style = "color:white"> GS Lat:  <br>
@@ -39,30 +38,6 @@
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD2QUO09KrtwuLJEdTx6p-PpGjYUhbaA5o&callback=initMap">
 </script>
 
-=======
-    
-
-    <div style="float:right; margin-top:-900px; margin-right:100px;">
-      <form>
-        <p style = "color:white"> Username : </p> <br>
-        <input type = "text"  id = "userName">  <br> 
-        <p style = "color:white"> Password : </p> <br> 
-        <input type = "Password" id = "Password"> <br>
-        <p style = "color:white">Norad ID: </p> <br>
-        <input type="text" id="NoradId"> <br>        
-      </form>        
-      <button style = "color:red" onclick="submitForm()">Track</button>
-    </div>
-      
-      
-  
-
-
-<script async defer
- src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD2QUO09KrtwuLJEdTx6p-PpGjYUhbaA5o&callback=initMap">
-</script>
-
->>>>>>> b8c79a9f382f28691a43bb189a83d7f3323c92e9
 <script src="./webMap/res/webMap.js"></script>
 <script src="node_modules/openmct/dist/openmct.js"></script>
 <script src="node_modules/satellite.js/dist/satellite.min.js"></script>
@@ -72,46 +47,12 @@
 <script src="Feature_dataVisualise.js"></script>
 
 <script>
-<<<<<<< HEAD
   document.getElementById("dataLatitude").value = 100;
   document.getElementById("dataLongitude").value = 123;
   document.getElementById("dataAltitude").value = 456;
   document.getElementById("dataTime").value = 2787;
   document.getElementById("dataAzimuth").value = 0;
   document.getElementById("dataElevation").value = 9001;
-=======
-  function submitForm() {
-  
-    var noradID = document.getElementById("NoradId").value;
-    var userName = document.getElementById("userName").value;
-    var password = document.getElementById("Password").value;
-
-    ButtonHandler(userName, password , noradID);   
-  }
-  
-  longLat = {long:0,lat:0};
-  
-
-    
-    
-</script>
-
- 
-
-
-<br>
-
-
-
-<p id="demo"></p>
-
-
-
-
-
-
-
->>>>>>> b8c79a9f382f28691a43bb189a83d7f3323c92e9
 
   function submitForm() {
   

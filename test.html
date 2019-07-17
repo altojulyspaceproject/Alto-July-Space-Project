@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title></title>
+    <script src = "feature_trackerCalcs.js"></script>
+</head>
+<body>
+        
+<script>
+var groundStation = [-37,144,0.5];
+var satellitePos = [-32,158,400];
+var antennaOrientation = [180,45,5];
+
+trackerCalcs(groundStation,satellitePos,antennaOrientation);
+
+//Title: trackerCalcs
+//Author: Adrian +Steph(rewrote in JS )
+// Inputs: 
+    //position of satellite, position of ground station, antenna orientation
+//Outputs: 
+    // continually update antenna orientation to point towards satellite
+
+//all coordinates are in azimuth, altitude and distance from centre of antenna. 
+// convert all degrees to radians and all kilometres to metres 
+
+
+//groundStation = [Lat(deg),Long(deg),altitude(km)]
+//satellitePos = [lat(deg),long(deg),altitude(km)]
+//antennaOrientation = [azimuth(deg),elevation(deg),antenna height (m)]
+
+    
+ 
+
+
+</script>
+</body>
+</html>
