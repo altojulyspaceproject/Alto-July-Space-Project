@@ -29,9 +29,9 @@ closed-lib
 
 # Node, Bower dependencies
 !node_modules/
-node_modules/*
-!node_modules/openmct
 
+node_modules/*
+!node_modules/openmct/
 bower_components
 
 # Protractor logs
