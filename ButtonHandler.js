@@ -11,16 +11,14 @@
 
 
     //Should be a set timeout that updates the localStorage every 3 seconds 
-
-
     setTimeout(function(){
       plotReal(); // plot function to initiate the map
     },3000);
     
     setInterval(function(){
      
-      updateLocalStorageSatelliteData(); //Update current time
-      updateLocalStorageTimeData(); //Update Previous/Past Times
+      updateLocalStorageSatelliteData(); //Update current time to localStorage
+      updateLocalStorageTimeData(); //Update Previous/Past Times to localStorage
 
       setTimeout(function(){ 
         plotReal1(); // updating the plot 

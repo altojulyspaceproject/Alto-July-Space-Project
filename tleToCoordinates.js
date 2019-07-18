@@ -269,68 +269,7 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
 
 }
 
-    function plotReal(){
-      
-      var latHolder = JSON.parse(window.localStorage.getItem('nextLat90'));
-      var longHolder = JSON.parse(window.localStorage.getItem('nextLong90'));
-      var latHolderPrevious = JSON.parse(window.localStorage.getItem('prevLat90'));
-      var longHolderPrevious = JSON.parse(window.localStorage.getItem('prevLong90'));
-
-      var gsLatitude = JSON.parse(window.localStorage.getItem('gsLat'));
-      var gsLongitude = JSON.parse(window.localStorage.getItem('gsLong'));
-    
-      var container = document.getElementById("plotlyGraph");
-
-      //Plot GS location
-      dataPlot(container,gsLatitude,gsLongitude,'GS','markers','purple',15);
-      //Plot future path
-      dataPlot(container,latHolder,longHolder,'Future path','markers',"red",6);
-      //Plot past path
-      dataPlot(container,latHolderPrevious,longHolderPrevious,'Previous path','markers',"yellow",6);
-      //Plot object location
-      dataPlot(container,latHolder[0],longHolder[0],'Object location','markers',"pink",10);
-      //Calculate the radius of visible Earth
-      var Radius = footprintRadius(latHolder[0],420);
-      //Turns the radius into lat/lon coords
-      var circleCoords = footprintPlot(latHolder[0],longHolder[0], Radius);
-      //Plot the visible Earth
-      dataPlot(container,circleCoords[0],circleCoords[1],'Footprint','lines',"blue",6);
-      //dataPlot(container,allPlotLat,allPlotLon,allTraceNames,allPlotType);
-      return;
-    }   
-
-    function plotReal1(){
-    
-      var latHolder = JSON.parse(window.localStorage.getItem('nextLat90'));
-      var longHolder = JSON.parse(window.localStorage.getItem('nextLong90'));
-      var latHolderPrevious = JSON.parse(window.localStorage.getItem('prevLat90'));
-      var longHolderPrevious = JSON.parse(window.localStorage.getItem('prevLong90'));
-
-      var gsLatitude = JSON.parse(window.localStorage.getItem('gsLat'));
-      var gsLongitude = JSON.parse(window.localStorage.getItem('gsLong'));
-
-      var container = document.getElementById("plotlyGraph");
   
-      //Plot GS location
-      dataPlotUpdate(container,gsLatitude,gsLongitude,'GS','markers','purple',15);
-      
-      //Plot future path
-      dataPlotUpdate(container,latHolder,longHolder,'Future path','markers',"red",6);
-      
-      //Plot past path
-      dataPlotUpdate(container,latHolderPrevious,longHolderPrevious,'Previous path','markers',"yellow",6);
-      
-      //Plot object location
-      dataPlotUpdate(container,latHolder[0],longHolder[0],'Object location','markers',"pink",15);
-      //Calculate the radius of visible Earth
-      var Radius = footprintRadius(latHolder[0],420);
-      
-      //Turns the radius into lat/lon coords
-      var circleCoords = footprintPlot(latHolder[0],longHolder[0], Radius);
-      //Plot the visible Earth
-      dataPlotUpdate(container,circleCoords[0],circleCoords[1],'Footprint','lines',"blue",6);
-    
-    }   
 
 
 
