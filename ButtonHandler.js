@@ -1,11 +1,7 @@
 
-
-
-  function ButtonHandler(username , password, noradID, groundLatitude, groundLongitude) {
-
-
-
-    var refreshCounter=0;
+  
+  
+  function buttonHandler(username , password, noradID) {
 
     //Fetch the TLE from Space-track  
     fetchTLEFromServer(noradID, username, password); //See tleToCoordinates.js
@@ -15,29 +11,66 @@
 
 
     //Should be a set timeout that updates the localStorage every 3 seconds 
+    setTimeout(function(){
+      plotReal(); // plot function to initiate the map
+    },3000);
     
     setInterval(function(){
      
-      updateLocalStorageSatelliteData();
-      update(longLat); // updates the google maps  
+      updateLocalStorageSatelliteData(); //Update current time to localStorage
+      updateLocalStorageTimeData(); //Update Previous/Past Times to localStorage
 
-    },3000);
+      updateOnscreenValues();
 
-    
-    setTimeout(function(){
-      plotReal(latlongHolder[0],latlongHolder[1],latlongHolder[2],latlongHolder[3]); // plot function to initiate the map
-    },3000);
-
-    setInterval(function(){
-      newLatLongPlotData(tleLine1,tleLine2) //retriveing new lat/long data for the map 
-
-      longLat = convertTLEtoCoordinates(tleLine1,tleLine2); // new data for the google maps 
-      update(longLat); // updates the google maps 
 
       setTimeout(function(){ 
-          plotReal1(latlongHolder[0],latlongHolder[1],latlongHolder[2],latlongHolder[3]); // updating the plot 
-      },500);
+        plotReal1(); // updating the plot 
+      },500);  
+
+      var newAnt = compareAzEl(0,0);
+      antAz = newAnt[0];
+      antEl = newAnt[1];
 
     },3000);
+
   }
-console.log(latlongHolder );
+
+
+
+
+  function updateOnscreenValues(){
+  
+
+    var gsLat = JSON.parse(window.localStorage.getItem('gsLat'));
+    var gsLong = JSON.parse(window.localStorage.getItem('gsLong'));
+    var gsAlt = JSON.parse(window.localStorage.getItem('gsAlt')); 
+
+    var AntennaAz = JSON.parse(window.localStorage.getItem('gsAziumth'));
+    var AntennaEl = JSON.parse(window.localStorage.getItem('gsElevation'));
+
+    var satLat = JSON.parse(window.localStorage.getItem('lat'));
+    var satLong = JSON.parse(window.localStorage.getItem('long'));
+    var satAlt = JSON.parse(window.localStorage.getItem('altitude'));
+
+    //Update Inputs
+    document.getElementById('GSLatitude').value = gsLat;
+    document.getElementById('GSLongitude').value = gsLong;
+    document.getElementById('GSAltitude').value = gsAlt;
+    document.getElementById('AntAz').value = AntennaAz;
+    document.getElementById('AntEl').value = AntennaEl;
+    document.getElementById('AntAlt').value = gsAlt;
+
+    //Update Text Display
+    document.getElementById('dataLatitude').value = satLat;
+    document.getElementById('dataLongitude').value = satLong;
+    document.getElementById('dataAltitude').value = satAlt;
+    // document.getElementById('dataTime').value = '1234';
+    document.getElementById('dataAzimuth').value = AntennaAz;
+    document.getElementById('dataElevation').value = AntennaEl;
+
+
+
+
+
+  }
+  

@@ -23,6 +23,8 @@
 var longLat = {long:0, lat:0};
 var tleLine1;
 var tleLine2;
+var azimuth1;
+var elevation1;
 
 function convertTLEtoCoordinates(tleLine1,tleLine2){
 
@@ -42,11 +44,9 @@ function convertTLEtoCoordinates(tleLine1,tleLine2){
 
    // Set the Observer at 122.03 West by 36.96 North, in RADIANS
    var observerGd = {
-      //  longitude: satellite.degreesToRadians(-122.0308),
-      //  latitude: satellite.degreesToRadians(36.9613422),
        longitude: satellite.degreesToRadians(144.9633),       
        latitude: satellite.degreesToRadians(-37.8141),
-       height: 0.370
+       height: 0.054
    };
 
    // You will need GMST for some of the coordinate transforms.
@@ -69,9 +69,11 @@ function convertTLEtoCoordinates(tleLine1,tleLine2){
        satelliteZ = positionEci.z;
 
    // Look Angles may be accessed by `azimuth`, `elevation`, `range_sat` properties.
-   var azimuth   = lookAngles.azimuth,
-       elevation = lookAngles.elevation,
+      var azimuth   = lookAngles.azimuth;
+       elevation = lookAngles.elevation;
        rangeSat  = lookAngles.rangeSat;
+       azimuth1 = azimuth;
+       elevation1=elevation;
 
    // Geodetic coords are accessed via `longitude`, `latitude`, `height`.
    var longitude = positionGd.longitude,
@@ -97,8 +99,9 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
   offsetDate.addMinutes(minutesToOffset);
 
    // Initialize a satellite record
+   
   var satrec = satellite.twoline2satrec(tleLine1, tleLine2);
-
+ 
   //  Propagate satellite using time since epoch (in minutes).
   // var positionAndVelocity = satellite.sgp4(satrec, timeSinceTleEpochMinutes);
 
@@ -112,8 +115,8 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
 
   // Set the Observer at 122.03 West by 36.96 North, in RADIANS
   var observerGd = {
-      longitude: satellite.degreesToRadians(-122.0308),
-      latitude: satellite.degreesToRadians(36.9613422),
+    longitude: satellite.degreesToRadians(144.9633),       
+    latitude: satellite.degreesToRadians(-37.8141),
       height: 0.370
   };
 
@@ -150,14 +153,6 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
   var longitudeStr = satellite.degreesLong(longitude),
       latitudeStr  = satellite.degreesLat(latitude);
 
-      //Used to update the details on the side of the main page.
-      document.getElementById("dataLatitude").value = latitudeStr;
-      document.getElementById("dataLongitude").value = longitudeStr;
-      document.getElementById("dataAltitude").value = height;
-      document.getElementById("dataTime").value = 2787;
-      document.getElementById("dataAzimuth").value = 0;
-      document.getElementById("dataElevation").value = 9001;
-
    var longLat = {long:longitudeStr,lat:latitudeStr,alt:height};
    return longLat;
  
@@ -188,7 +183,6 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
         //Parse the data coming from Space-Track
         TLEdata = JSON.parse(output)[0];
       
-
         //If successful 
         //Todo: error handling 
         if(TLEdata != undefined){
@@ -199,7 +193,6 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
           tleLine2 = TLEdata["TLE_LINE2"];
         }
 
-      
         var latHolder = [];
         var latHolderPrevious = [];
        
@@ -233,12 +226,14 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
           "tleLine0":tleLine0,
           "tleLine1":tleLine1,
           "tleLine2":tleLine2,
+
           "lat":currentSatelliteData["lat"],
           "long":currentSatelliteData["long"],
           "altitude":currentSatelliteData["alt"],
-          "satJSAziumth":currentSatelliteData["azimuth"],
-          "satJSelevation":currentSatelliteData["elevation"],
-          "satJSrangeSat":currentSatelliteData["rangeSat"],
+
+          "gsAziumth": (currentSatelliteData["azimuth"] *180) / Math.PI  ,
+          "gsElevation": (currentSatelliteData["elevation"] *180) / Math.PI ,
+          "gsRangeSat":currentSatelliteData["rangeSat"],
 
           "nextLat90":latHolder,
           "nextLong90":longHolder,
@@ -247,13 +242,18 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
           "prevLat90":latHolderPrevious,
           "prevLong90":longHolderPrevious,
           "prevAlt90":altHolderPrevious,
+         
+          "gsLat":-37.8141,
+          "gsLong":144.9633,
+          "gsAlt":0.054
         };
+
 
         //For each value in Satellite Data, write this to a key value pair, and write to local storage
         for ( let prop in satelliteData){
           var key = prop; 
           var value = satelliteData[prop];
-          window.localStorage.setItem(key,value);
+          window.localStorage.setItem(key, JSON.stringify(value));
 
         };
         return(latlongHolder);
@@ -263,60 +263,7 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
 
 }
 
-    function plotReal(latHolder,longHolder,latHolderPrevious,longHolderPrevious){
-      var container = document.getElementById("plotlyGraph");
-      // var allPlotLat = [latHolder, latHolderPrevious, latHolder[0],circleCoords[0]];
-      // var allPlotLon =[longHolder, longHolderPrevious, longHolder[0],circleCoords[1]];
-      //var allTraceNames = ['Future path','Previous path','Object location','Footprint'];
-      //var allPlotType = ['markers', 'markers', 'markers', 'lines'];
-      //dataPlot(container,latHolder,longHolder,latHolderPrevious,longHolderPrevious,"red",6);
-      //Plot GS location
-      dataPlot(document.getElementById("plotlyGraph"),document.getElementById("Latitude").value,document.getElementById("Longitude").value,'GS','markers','purple',15);
-      //Plot future path
-      dataPlot(container,latHolder,longHolder,'Future path','markers',"red",6);
-      //Plot past path
-      dataPlot(container,latHolderPrevious,longHolderPrevious,'Previous path','markers',"yellow",6);
-      //Plot object location
-      dataPlot(container,latHolder[0],longHolder[0],'Object location','markers',"pink",10);
-      //Calculate the radius of visible Earth
-      var Radius = footprintRadius(latHolder[0],420);
-      //Turns the radius into lat/lon coords
-      var circleCoords = footprintPlot(latHolder[0],longHolder[0], Radius);
-      //Plot the visible Earth
-      dataPlot(container,circleCoords[0],circleCoords[1],'Footprint','lines',"blue",6);
-      //dataPlot(container,allPlotLat,allPlotLon,allTraceNames,allPlotType);
-      return;
-    }   
-
-    function plotReal1(latHolder,longHolder,latHolderPrevious,longHolderPrevious){
-    
-        var container = document.getElementById("plotlyGraph");
-         //dataPlotUpdate(container,latHolder,longHolder,latHolderPrevious,longHolderPrevious,0);
-        //Plot future path
-
-       // var allPlotLat = [latHolder, latHolderPrevious, latHolder[0],circleCoords[0]];
-        //var allPlotLon =[longHolder, longHolderPrevious, longHolder[0],circleCoords[1]];
-        //var allTraceNames = ['Future path','Previous path','Object location','Footprint'];
-        //var allPlotType = ['markers', 'markers', 'markers', 'lines'];
-        //Plot GS location
-        dataPlotUpdate(document.getElementById("plotlyGraph"),document.getElementById("Latitude").value,document.getElementById("Longitude").value,'GS','markers','purple',15);
-        //Plot future path
-        dataPlotUpdate(container,latHolder,longHolder,'Future path','markers',"red",6);
-        //Plot past path
-        dataPlotUpdate(container,latHolderPrevious,longHolderPrevious,'Previous path','markers',"yellow",6);
-        //Plot object location
-       dataPlotUpdate(container,latHolder[0],longHolder[0],'Object location','markers',"pink",15);
-        //Calculate the radius of visible Earth
-        var Radius = footprintRadius(latHolder[0],420);
-        
-        //Turns the radius into lat/lon coords
-        var circleCoords = footprintPlot(latHolder[0],longHolder[0], Radius);
-        //Plot the visible Earth
-        dataPlotUpdate(container,circleCoords[0],circleCoords[1],'Footprint','lines',"blue",6);
-      // dataPlotUpdate(container,allPlotLat,allPlotLon,allTraceNames,allPlotType);
-        return;
   
-      }   
 
 
 
@@ -326,7 +273,6 @@ function newLatLongPlotData(tleLine1,tleLine2){
     var latHolderPrevious = [];
     var longHolder = [];
     var longHolderPrevious = [];
-
 
     for(var i = 0; i <= 90; i++){
       var returned = convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,i); 
@@ -352,17 +298,65 @@ function updateLocalStorageSatelliteData(){
   //Needs to update local storage for current lat,long,alt 
 
   var currentSatelliteData = convertTLEtoCoordinates(tleLine1,tleLine2);
-  var satelliteJSON = {
+  var satelliteData = {
     "lat":currentSatelliteData["lat"],
     "long":currentSatelliteData["long"],
-    "altitude":currentSatelliteData["alt"]
-  }
-   
-  for ( let prop in satelliteJSON){
-    var key = prop; 
-    var value = satelliteJSON[prop];
-    window.localStorage.setItem(key,value);
+    "altitude":currentSatelliteData["alt"],
 
+    "gsAziumth": (currentSatelliteData["azimuth"] *180) / Math.PI  ,
+    "gsElevation": (currentSatelliteData["elevation"] *180) / Math.PI ,
+    "gsRangeSat":currentSatelliteData["rangeSat"],
+  }
+  //Update all values in local storage
+  for ( let prop in satelliteData){
+    var key = prop; 
+    var value = satelliteData[prop];
+    window.localStorage.setItem(key, JSON.stringify(value));
+   
   };
+
+}
+
+
+
+function updateLocalStorageTimeData(){
+  // a new function for updating the map data 
+  var latHolder = [];
+  var latHolderPrevious = [];
+  var altHolder = [];
+  var longHolder = [];
+  var longHolderPrevious = [];
+  var altHolderPrevious = [];
+
+  for(var i = 0; i <= 90; i++){
+    var returned = convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,i); //Convert TLE to long,lat
+    latHolder.push( parseFloat(returned["lat"]));  //Get +90 minutes of latitude
+    longHolder.push(parseFloat(returned["long"])); //Get +90 minutes of longitude
+    altHolder.push(parseFloat(returned["alt"])); //Get +90 minutes of altitude
+
+    var returned = convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,-i);  //Convert TLE to long,lat
+    latHolderPrevious.push( parseFloat(returned["lat"])); //Get -90 minutes of latitude
+    longHolderPrevious.push(parseFloat(returned["long"])); //Get -90 minutes of longitude
+    altHolderPrevious.push(parseFloat(returned["alt"])); //Get -90 minutes of altitude
+  }
+
+  var satelliteData = {
+
+    "nextLat90":latHolder,
+    "nextLong90":longHolder,
+    "nextAlt90":altHolder,
+    
+    "prevLat90":latHolderPrevious,
+    "prevLong90":longHolderPrevious,
+    "prevAlt90":altHolderPrevious,
+  };
+
+  //Loop through and write updated values to local storage
+  for ( let prop in satelliteData){
+    var key = prop; 
+    var value = satelliteData[prop];
+    window.localStorage.setItem(key, JSON.stringify(value)); 
+  };
+
 
 }
