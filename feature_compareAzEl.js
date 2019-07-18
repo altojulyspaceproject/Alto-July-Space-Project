@@ -7,17 +7,30 @@
 
 function compareAzEl(antAz,antEl){
    
-  var acceptableRange = 0.05;
-  var azDif = azimuth1-antAz;
-  var elDif = elevation1 - antEl; 
+  var acceptableRange = 0.10;
 
-  if (azDif < acceptableRange && azDif>-acceptableRange && elDif <acceptableRange && elDif>-acceptableRange){
-    document.getElementById("dataTime").value = "On Target";
+  var satAz = JSON.parse(window.localStorage.getItem('gsAziumth'));
+  var satEl = JSON.parse(window.localStorage.getItem('gsElevation'));
+
+
+  var azDif = satAz - antAz;
+  var elDif = satEl - antEl; 
+
+  console.log(azDif);
+  console.log(elDif);
+  console.log(satAz);
+  console.log(satEl);
+
+  if (  (azDif < acceptableRange)  && 
+        (azDif > -acceptableRange) && 
+        (elDif < acceptableRange)  && 
+        (elDif>-acceptableRange))  {
+           document.getElementById("dataTime").value = "On Target";
   }
   else{
       document.getElementById("dataTime").value="Off Target";
-      antAz = azimuth1;
-      antEl = elevation1;
+      antAz = satAz;
+      antEl = satEl;
   }
   return [antAz,antEl];
 }

@@ -235,6 +235,9 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
           "gsElevation": (currentSatelliteData["elevation"] *180) / Math.PI ,
           "gsRangeSat":currentSatelliteData["rangeSat"],
 
+          "antAz":0,
+          "antEl":0,
+
           "nextLat90":latHolder,
           "nextLong90":longHolder,
           "nextAlt90":altHolder,
