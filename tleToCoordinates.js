@@ -158,7 +158,7 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
       document.getElementById("dataAzimuth").value = 0;
       document.getElementById("dataElevation").value = 9001;
 
-   var longLat = {long:longitudeStr,lat:latitudeStr,alt:altitude};
+   var longLat = {long:longitudeStr,lat:latitudeStr,alt:height};
    return longLat;
  
 }
@@ -251,14 +251,11 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
           "prevAlt90":altHolderPrevious,
         };
 
-        console.log(satelliteData);
-
         //For each value in Satellite Data, write this to a key value pair, and write to local storage
         for ( let prop in satelliteData){
           var key = prop; 
           var value = satelliteData[prop];
           window.localStorage.setItem(key,value);
- 
 
         };
         return(latlongHolder);
