@@ -216,14 +216,12 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
           longHolder.push(parseFloat(returned["long"])); //Get +90 minutes of longitude
           altHolder.push(parseFloat(returned["alt"])); //Get +90 minutes of altitude
 
-
           var returned = convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,-i);  //Convert TLE to long,lat
           latHolderPrevious.push( parseFloat(returned["lat"])); //Get -90 minutes of latitude
           longHolderPrevious.push(parseFloat(returned["long"])); //Get -90 minutes of longitude
           altHolderPrevious.push(parseFloat(returned["alt"])); //Get -90 minutes of altitude
-
-
         }
+
         var currentSatelliteData = convertTLEtoCoordinates(tleLine1,tleLine2);
         latlongHolder = [latHolder,longHolder,latHolderPrevious,longHolderPrevious];
 
@@ -320,26 +318,51 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
   
       }   
 
+
+
 function newLatLongPlotData(tleLine1,tleLine2){ 
     // a new function for updating the map data 
-var latHolder = [];
-var latHolderPrevious = [];
-var longHolder = [];
-var longHolderPrevious = [];
+    var latHolder = [];
+    var latHolderPrevious = [];
+    var longHolder = [];
+    var longHolderPrevious = [];
 
 
-for(var i = 0; i <= 90; i++){
-  var returned = convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,i); 
-  latHolder.push( parseFloat(returned["lat"]));
-  longHolder.push(parseFloat(returned["long"]));
+    for(var i = 0; i <= 90; i++){
+      var returned = convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,i); 
+      latHolder.push( parseFloat(returned["lat"]));
+      longHolder.push(parseFloat(returned["long"]));
+    }
+    for(var i = 0; i <= 90; i++){
+      var returned = convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,-i); 
+      latHolderPrevious.push( parseFloat(returned["lat"]));
+      longHolderPrevious.push(parseFloat(returned["long"]));
+    }
+    latlongHolder = [latHolder,longHolder,latHolderPrevious,longHolderPrevious];
+
+    return(latlongHolder);
+
 }
-for(var i = 0; i <= 90; i++){
-  var returned = convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,-i); 
-  latHolderPrevious.push( parseFloat(returned["lat"]));
-  longHolderPrevious.push(parseFloat(returned["long"]));
-}
- latlongHolder = [latHolder,longHolder,latHolderPrevious,longHolderPrevious];
 
- return(latlongHolder);
+
+
+
+function updateLocalStorageSatelliteData(){
+
+  //Needs to update local storage for current lat,long,alt 
+
+  var currentSatelliteData = convertTLEtoCoordinates(tleLine1,tleLine2);
+  var satelliteJSON = {
+    "lat":currentSatelliteData["lat"],
+    "long":currentSatelliteData["long"],
+    "altitude":currentSatelliteData["alt"]
+  }
+   
+  for ( let prop in satelliteJSON){
+    var key = prop; 
+    var value = satelliteJSON[prop];
+    window.localStorage.setItem(key,value);
+
+  };
 
 }
