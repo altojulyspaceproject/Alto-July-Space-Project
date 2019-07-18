@@ -5,22 +5,30 @@
     <link rel="stylesheet" href="./webMap/res/webMap.css">
     <div id='plotlyGraph' style='width: 1000px; height: 500px;' ></div>
     <div id="map" style='width: 1000px; height: 500px;'></div>
-    <div style="float:right; margin-top:-900px; margin-right:100px;">
+    <div style="float:right; margin-top:-1000px; margin-right:100px;">
       <form>
         <p style = "color:white"> GS Lat:  <br>
-          <input type = "text"  id = "Latitude">  <br></p>
+          <input type = "text"  id = "GSLatitude">  <br></p>
           <p style = "color:white"> GS Lon:  <br>
-          <input type = "text"  id = "Longitude">  <br></p>
+          <input type = "text"  id = "GSLongitude">  <br></p>
+          <p style = "color:white"> GS Alt:  <br>
+          <input type = "text"  id = "GSAltitude">  <br></p>
           <p style = "color:white"> Username:  <br>
           <input type = "text"  id = "userName">  <br></p>
           <p style = "color:white"> Password:  <br> 
           <input type = "Password" id = "Password"> <br></p>
           <p style = "color:white">Norad ID:  <br>
           <input type="text" id="NoradId"> <br></p>
+          <p style = "color:white">Antenna Azimuth:  <br>
+          <input type="text" id="AntAz"> <br></p>
+          <p style = "color:white">Antenna Elevation:  <br>
+          <input type="text" id="AntEl"> <br></p>
+          <p style = "color:white">Antenna Alt:  <br>
+            <input type="text" id="AntAlt"> <br></p>
       </form>        
       <button style = "color:red" onclick="submitForm()">Track</button>
     </div>
-    <div style="float:right; margin-top:-550px; margin-right:50px;">
+    <div style="float:right; margin-top:-450px; margin-right:50px;">
       <p style = "color:white"> Latitude:
       <output type = "text"  id = "dataLatitude"></p>
       <p style = "color:white"> Longitude:
@@ -43,26 +51,32 @@
 <script src="node_modules/satellite.js/dist/satellite.min.js"></script>
 <script src="tleToCoordinates.js"></script>
 <script src="ButtonHandler.js"> </script>
+<script src = "feature_compareAzEl.js"></script>
 <script src="plotly-latest.min.js"></script>
 <script src="Feature_dataVisualise.js"></script>
+<script src = "feature_trackerCalcs.js"></script>
+
 
 <script>
-  document.getElementById("dataLatitude").value = 100;
-  document.getElementById("dataLongitude").value = 123;
-  document.getElementById("dataAltitude").value = 456;
-  document.getElementById("dataTime").value = 2787;
-  document.getElementById("dataAzimuth").value = 0;
-  document.getElementById("dataElevation").value = 9001;
+  // document.getElementById("dataLatitude").value = 100;
+  // document.getElementById("dataLongitude").value = 123;
+  // document.getElementById("dataAltitude").value = 456;
+  // document.getElementById("dataTime").value = 2787;
+  // document.getElementById("dataAzimuth").value = 0;
+  // document.getElementById("dataElevation").value = 9001;
 
   function submitForm() {
   
     var noradID = document.getElementById("NoradId").value;
     var userName = document.getElementById("userName").value;
     var password = document.getElementById("Password").value;
-    var groundLatitude  = document.getElementById("Latitude").value;
-    var groundLongitude = document.getElementById("Longitude").value;
-
-    ButtonHandler(userName, password ,noradID, groundLatitude, groundLongitude);   
+    var groundLatitude  = document.getElementById("GSLatitude").value;
+    var groundLongitude = document.getElementById("GSLongitude").value;
+    var groundAltitude = document.getElementById("GSAltitude").value;
+    var antAzimuth = document.getElementById("AntAz").value;
+    var antElevation = document.getElementById("AntEl").value;
+    var antAlt = document.getElementById("AntAlt").value;
+    ButtonHandler(userName, password ,noradID, groundLatitude, groundLongitude,groundAltitude,antAzimuth,antElevation,antAlt);   
   }
   longLat = {long:0,lat:0};
 </script>

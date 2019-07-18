@@ -23,6 +23,8 @@
 var longLat = {long:0, lat:0};
 var tleLine1;
 var tleLine2;
+var azimuth1;
+var elevation1;
 
 function convertTLEtoCoordinates(tleLine1,tleLine2){
 
@@ -67,9 +69,11 @@ function convertTLEtoCoordinates(tleLine1,tleLine2){
        satelliteZ = positionEci.z;
 
    // Look Angles may be accessed by `azimuth`, `elevation`, `range_sat` properties.
-   var azimuth   = lookAngles.azimuth,
-       elevation = lookAngles.elevation,
+      var azimuth   = lookAngles.azimuth;
+       elevation = lookAngles.elevation;
        rangeSat  = lookAngles.rangeSat;
+       azimuth1 = azimuth;
+       elevation1=elevation;
 
    // Geodetic coords are accessed via `longitude`, `latitude`, `height`.
    var longitude = positionGd.longitude,
@@ -156,9 +160,9 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
       document.getElementById("dataLatitude").value = latitudeStr;
       document.getElementById("dataLongitude").value = longitudeStr;
       document.getElementById("dataAltitude").value = height;
-      document.getElementById("dataTime").value = 2787;
-      document.getElementById("dataAzimuth").value = 0;
-      document.getElementById("dataElevation").value = 9001;
+      //document.getElementById("dataTime").value = today.getHours();
+      // document.getElementById("dataAzimuth").value = 0;
+      // document.getElementById("dataElevation").value = 9001;
 
    var longLat = {long:longitudeStr,lat:latitudeStr};
    return longLat;
@@ -230,7 +234,7 @@ function fetchTLEFromServer(noradID, username, password){
       //var allPlotType = ['markers', 'markers', 'markers', 'lines'];
       //dataPlot(container,latHolder,longHolder,latHolderPrevious,longHolderPrevious,"red",6);
       //Plot GS location
-      dataPlot(document.getElementById("plotlyGraph"),document.getElementById("Latitude").value,document.getElementById("Longitude").value,'GS','markers','purple',15);
+      dataPlot(document.getElementById("plotlyGraph"),document.getElementById("GSLatitude").value,document.getElementById("GSLongitude").value,'GS','markers','purple',15);
       //Plot future path
       dataPlot(container,latHolder,longHolder,'Future path','markers',"red",6);
       //Plot past path
@@ -258,7 +262,7 @@ function fetchTLEFromServer(noradID, username, password){
         //var allTraceNames = ['Future path','Previous path','Object location','Footprint'];
         //var allPlotType = ['markers', 'markers', 'markers', 'lines'];
         //Plot GS location
-        dataPlotUpdate(document.getElementById("plotlyGraph"),document.getElementById("Latitude").value,document.getElementById("Longitude").value,'GS','markers','purple',15);
+        dataPlotUpdate(document.getElementById("plotlyGraph"),document.getElementById("GSLatitude").value,document.getElementById("GSLongitude").value,'GS','markers','purple',15);
         //Plot future path
         dataPlotUpdate(container,latHolder,longHolder,'Future path','markers',"red",6);
         //Plot past path

@@ -14,7 +14,7 @@
 //antennaOrientation = [azimuth(deg),elevation(deg),antenna height (m)]
 
 function trackerCalcs(groundStation, satellitePos,antennaOrientation){
-    
+    console.log([groundStation, satellitePos, antennaOrientation])
     // Defining all of the inputs and converting to the correct units 
 
     //Ground Station coords 
@@ -48,8 +48,10 @@ function trackerCalcs(groundStation, satellitePos,antennaOrientation){
             //east = 90 deg
             //south = 180 deg
             //west = 270 deg
-
-    var satelliteAzimuth = Math.abs(Math.atan(delta_long/delta_lat));
+    var X = Math.cos(groundStationLat)*Math.sin(delta_long);
+    var Y = Math.cos(satelliteLat)*Math.sin(groundStationLat)-Math.sin(satelliteLat)*Math.cos(groundStationLat)*Math.cos(delta_long);
+    var satelliteAzimuth = Math.abs(Math.atan(X/Y));
+    console.log(satelliteAzimuth)
     if (delta_long > 0 && delta_lat<0){
         satelliteAzimuth = satelliteAzimuth+Math.PI/2;
     }
@@ -72,7 +74,7 @@ function trackerCalcs(groundStation, satellitePos,antennaOrientation){
 
     //calculate elevation (using law of cosines) with earth radius and earth radius plus altitude
     var satelliteAltitude = Math.acos(  (Math.pow(rEarthEq,2) + Math.pow(ground_to_sat,2) - Math.pow(centre_to_sat,2) ) / (2 * rEarthEq * ground_to_sat) ) - Math.PI  / 2;
-
+console.log([satelliteAltitude,ground_to_sat,centre_to_sat,rEarthEq])
     //convert coordinates into cartesian
 
     //create the vector for satellite position from aximuth, altitude, distance to satellite
@@ -83,13 +85,16 @@ console.log(satellitePos+"satellite")
 console.log(antennaPos+"antenna")
     //take the dot product of the satellite position and antenna orientation, desired result is a zero scalar which means the antenna is aligned with the satellite
     var diff_factor = satellitePos[0]*antennaPos[0]+satellitePos[1]*antennaPos[1]+satellitePos[2]*antennaPos[2];
-
+console.log(diff_factor)
     if (diff_factor > Math.pow(10,-5) || diff_factor < Math.pow(-10,-5)){
+        var accurate = false;
         console.log("set alt/az to satelliteAltitude*180/PI, satelitteAzimuth*180/PI")
     }
     else{
+        var accurate = true;
         console.log("accurate")
     }
+return [accurate,satelliteAzimuth,satelliteAltitude];
 }
 
 
