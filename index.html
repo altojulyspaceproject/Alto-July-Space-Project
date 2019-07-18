@@ -17,8 +17,7 @@
     <script>
         var THIRTY_MINUTES = 30 * 60 * 1000;
         document.addEventListener("DOMContentLoaded", function () {
-            //openmct.install(new OpenMCTMapPlugin());
-			
+          			
             openmct.install(openmct.plugins.MyItems());
             openmct.install(openmct.plugins.LocalStorage());
             openmct.install(openmct.plugins.Espresso());
@@ -52,9 +51,6 @@
             openmct.time.timeSystem('utc');
             openmct.setAssetPath("node_modules/openmct/dist");
             openmct.start();
-
-            // var container = document.getElementById("plotlyGraph");
-            // dataPlot(container,latHolder,longHolder,latHolderPrevious,longHolderPrevious);
 
           });
     </script>

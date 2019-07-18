@@ -5,7 +5,6 @@
     // satLoc = satLocation;
     satLoc["lat"] = satLocation["lat"];
     satLoc["lng"] = satLocation["long"];
-    console.log(satLoc);
   }
   marker = new google.maps.Marker(
     {

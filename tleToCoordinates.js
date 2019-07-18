@@ -189,14 +189,19 @@ function fetchTLEFromServer(noradID, username, password){
         
       //Parse the data coming from Space-Track
       TLEdata = JSON.parse(output)[0];
-      console.log(TLEdata);
+     
+      
       //If successful 
       //Todo: error handling 
       if(TLEdata != undefined){
-         tleLine1 = TLEdata["TLE_LINE1"];
-         tleLine2 = TLEdata["TLE_LINE2"];
+        tleSatName = TLEdata["OBJECT_NAME"];
+        tleEpoch = TLEdata["EPOCH"]; 
+        tleLine0 = TLEdata["TLE_LINE0"];
+        tleLine1 = TLEdata["TLE_LINE1"];
+        tleLine2 = TLEdata["TLE_LINE2"];
       }
 
+     
       var latHolder = [];
       var latHolderPrevious = [];
       var longHolder = [];
@@ -204,16 +209,38 @@ function fetchTLEFromServer(noradID, username, password){
     
     
       for(var i = 0; i <= 90; i++){
-        var returned = convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,i); 
-        latHolder.push( parseFloat(returned["lat"]));
-        longHolder.push(parseFloat(returned["long"]));
+        var returned = convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,i); //Convert TLE to long,lat
+        latHolder.push( parseFloat(returned["lat"]));  //Get +90 minutes of latitude
+        longHolder.push(parseFloat(returned["long"])); //Get +90 minutes of longitude
+
+        var returned = convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,-i);  //Convert TLE to long,lat
+        latHolderPrevious.push( parseFloat(returned["lat"])); //Get -90 minutes of latitude
+        longHolderPrevious.push(parseFloat(returned["long"])); //Get -90 minutes of longitude
+
       }
-      for(var i = 0; i <= 90; i++){
-        var returned = convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,-i); 
-        latHolderPrevious.push( parseFloat(returned["lat"]));
-        longHolderPrevious.push(parseFloat(returned["long"]));
-      }
+    
        latlongHolder = [latHolder,longHolder,latHolderPrevious,longHolderPrevious];
+
+
+       var satelliteData = {
+        "satName":tleSatName,
+        "epoch":tleEpoch,
+        "tleLine0":tleLine0,
+        "tleLine1":tleLine1,
+        "tleLine2":tleLine2,
+        "lat":latHolder[0],
+        "long":longHolder[0],
+        "altitude":420,
+
+        "nextLat90":latHolder,
+        "nextLong90":longHolder,
+        
+        "prevLat90":latHolderPrevious,
+        "prevLong90":longHolderPrevious
+      };
+
+       window.localStorage.setItem('satellite1Data',JSON.stringify(satelliteData));
+       console.log(  window.localStorage.getItem('satellite1Data')  );
 
        return(latlongHolder);
     }
