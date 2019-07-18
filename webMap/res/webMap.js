@@ -5,6 +5,10 @@
     // satLoc = satLocation;
     satLoc["lat"] = satLocation["lat"];
     satLoc["lng"] = satLocation["long"];
+
+    // lat = 
+    // long = 
+
   }
   marker = new google.maps.Marker(
     {
@@ -37,7 +41,11 @@
 
   window.setInterval(function() {
     // satLoc['lat'] = satLoc['lat']+1;
-    var latlng = new google.maps.LatLng(satLoc["lat"], satLoc["lng"]);
+
+    var lat = window.localStorage.getItem('lat');
+    var long = window.localStorage.getItem('long');
+
+    var latlng = new google.maps.LatLng(lat, long);
     marker.setPosition(latlng);
     
   }, 1000);

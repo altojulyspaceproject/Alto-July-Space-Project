@@ -14,6 +14,15 @@
     // .then(everything else)
 
 
+    //Should be a set timeout that updates the localStorage every 3 seconds 
+    
+    setInterval(function(){
+     
+      updateLocalStorageSatelliteData();
+      update(longLat); // updates the google maps  
+
+    },3000);
+
     
     setTimeout(function(){
       plotReal(latlongHolder[0],latlongHolder[1],latlongHolder[2],latlongHolder[3]); // plot function to initiate the map
