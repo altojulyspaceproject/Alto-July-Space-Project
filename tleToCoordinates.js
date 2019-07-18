@@ -44,8 +44,6 @@ function convertTLEtoCoordinates(tleLine1,tleLine2){
 
    // Set the Observer at 122.03 West by 36.96 North, in RADIANS
    var observerGd = {
-      //  longitude: satellite.degreesToRadians(-122.0308),
-      //  latitude: satellite.degreesToRadians(36.9613422),
        longitude: satellite.degreesToRadians(144.9633),       
        latitude: satellite.degreesToRadians(-37.8141),
        height: 0.054
@@ -117,8 +115,8 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
 
   // Set the Observer at 122.03 West by 36.96 North, in RADIANS
   var observerGd = {
-      longitude: satellite.degreesToRadians(-122.0308),
-      latitude: satellite.degreesToRadians(36.9613422),
+    longitude: satellite.degreesToRadians(144.9633),       
+    latitude: satellite.degreesToRadians(-37.8141),
       height: 0.370
   };
 
@@ -154,14 +152,6 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
   //  Convert the RADIANS to DEGREES for pretty printing (appends "N", "S", "E", "W", etc).
   var longitudeStr = satellite.degreesLong(longitude),
       latitudeStr  = satellite.degreesLat(latitude);
-
-      //Used to update the details on the side of the main page.
-      document.getElementById("dataLatitude").value = latitudeStr;
-      document.getElementById("dataLongitude").value = longitudeStr;
-      document.getElementById("dataAltitude").value = height;
-      //document.getElementById("dataTime").value = today.getHours();
-      // document.getElementById("dataAzimuth").value = 0;
-      // document.getElementById("dataElevation").value = 9001;
 
    var longLat = {long:longitudeStr,lat:latitudeStr,alt:height};
    return longLat;
@@ -241,9 +231,9 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
           "long":currentSatelliteData["long"],
           "altitude":currentSatelliteData["alt"],
 
-          "satJSAziumth":currentSatelliteData["azimuth"],
-          "satJSelevation":currentSatelliteData["elevation"],
-          "satJSrangeSat":currentSatelliteData["rangeSat"],
+          "gsAziumth": (currentSatelliteData["azimuth"] *180) / Math.PI  ,
+          "gsElevation": (currentSatelliteData["elevation"] *180) / Math.PI ,
+          "gsRangeSat":currentSatelliteData["rangeSat"],
 
           "nextLat90":latHolder,
           "nextLong90":longHolder,
@@ -313,9 +303,9 @@ function updateLocalStorageSatelliteData(){
     "long":currentSatelliteData["long"],
     "altitude":currentSatelliteData["alt"],
 
-    "satJSAziumth":currentSatelliteData["azimuth"],
-    "satJSelevation":currentSatelliteData["elevation"],
-    "satJSrangeSat":currentSatelliteData["rangeSat"],
+    "gsAziumth": (currentSatelliteData["azimuth"] *180) / Math.PI  ,
+    "gsElevation": (currentSatelliteData["elevation"] *180) / Math.PI ,
+    "gsRangeSat":currentSatelliteData["rangeSat"],
   }
   //Update all values in local storage
   for ( let prop in satelliteData){
