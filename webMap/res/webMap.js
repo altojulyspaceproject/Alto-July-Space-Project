@@ -1,15 +1,6 @@
   //global val to be updated by satellite.js output
   let satLoc = {lat: -10.97, lng: -1.28};
 
-  function update(satLocation) {
-    // satLoc = satLocation;
-    satLoc["lat"] = satLocation["lat"];
-    satLoc["lng"] = satLocation["long"];
-
-    // lat = 
-    // long = 
-
-  }
   marker = new google.maps.Marker(
     {
       position: satLoc,
@@ -40,8 +31,7 @@
     });
 
   window.setInterval(function() {
-    // satLoc['lat'] = satLoc['lat']+1;
-
+  
     var lat = window.localStorage.getItem('lat');
     var long = window.localStorage.getItem('long');
 
