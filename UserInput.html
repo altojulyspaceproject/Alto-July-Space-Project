@@ -2,7 +2,6 @@
 <html>
 <body>
 
-    <link rel="stylesheet" href="./webMap/res/webMap.css">
     <div id='plotlyGraph' style='width: 1000px; height: 500px;' ></div>
     <div id="map" style='width: 1000px; height: 500px;'></div>
     <div style="float:right; margin-top:-900px; margin-right:100px;">
@@ -13,11 +12,11 @@
           <input type = "text"  id = "Longitude">  <br></p>
           <p style = "color:white"> Username:  <br>
           <input type = "text"  id = "userName">  <br></p>
-          <p style = "color:white"> Password:  <br> 
+          <p style = "color:white"> Password:  <br>
           <input type = "Password" id = "Password"> <br></p>
           <p style = "color:white">Norad ID:  <br>
           <input type="text" id="NoradId"> <br></p>
-      </form>        
+      </form>
       <button style = "color:red" onclick="submitForm()">Track</button>
     </div>
     <div style="float:right; margin-top:-550px; margin-right:50px;">
@@ -34,17 +33,13 @@
       <p style = "color:white"> Elevation:
       <output type = "text"  id = "dataElevation"></p>
     </div>
-<script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD2QUO09KrtwuLJEdTx6p-PpGjYUhbaA5o&callback=initMap">
-</script>
 
-<script src="./webMap/res/webMap.js"></script>
 <script src="node_modules/openmct/dist/openmct.js"></script>
 <script src="node_modules/satellite.js/dist/satellite.min.js"></script>
 <script src="tleToCoordinates.js"></script>
 <script src="ButtonHandler.js"> </script>
 <script src="plotly-latest.min.js"></script>
-<script src="Feature_dataVisualise.js"></script>
+<script src="plotlyAuxMod.js"></script>
 
 <script>
   document.getElementById("dataLatitude").value = 100;
@@ -55,14 +50,14 @@
   document.getElementById("dataElevation").value = 9001;
 
   function submitForm() {
-  
+
     var noradID = document.getElementById("NoradId").value;
     var userName = document.getElementById("userName").value;
     var password = document.getElementById("Password").value;
     var groundLatitude  = document.getElementById("Latitude").value;
     var groundLongitude = document.getElementById("Longitude").value;
 
-    ButtonHandler(userName, password ,noradID, groundLatitude, groundLongitude);   
+    ButtonHandler(userName, password ,noradID, groundLatitude, groundLongitude);
   }
   longLat = {long:0,lat:0};
 </script>
