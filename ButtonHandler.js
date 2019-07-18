@@ -1,7 +1,7 @@
 
-
-
-  function ButtonHandler(username , password, noradID, groundLatitude, groundLongitude) {
+  
+  
+  function buttonHandler(username , password, noradID) {
 
     //Fetch the TLE from Space-track  
     fetchTLEFromServer(noradID, username, password); //See tleToCoordinates.js
@@ -24,9 +24,11 @@
         plotReal1(); // updating the plot 
       },500);  
 
+      var newAnt = compareAzEl(AntAz,AntEl);
+		antAz = newAnt[0];
+		antEl = newAnt[1];
+
     },3000);
 
     
-   
-
-  }
+  

@@ -23,6 +23,8 @@
 var longLat = {long:0, lat:0};
 var tleLine1;
 var tleLine2;
+var azimuth1;
+var elevation1;
 
 function convertTLEtoCoordinates(tleLine1,tleLine2){
 
@@ -69,9 +71,11 @@ function convertTLEtoCoordinates(tleLine1,tleLine2){
        satelliteZ = positionEci.z;
 
    // Look Angles may be accessed by `azimuth`, `elevation`, `range_sat` properties.
-   var azimuth   = lookAngles.azimuth,
-       elevation = lookAngles.elevation,
+      var azimuth   = lookAngles.azimuth;
+       elevation = lookAngles.elevation;
        rangeSat  = lookAngles.rangeSat;
+       azimuth1 = azimuth;
+       elevation1=elevation;
 
    // Geodetic coords are accessed via `longitude`, `latitude`, `height`.
    var longitude = positionGd.longitude,
@@ -155,9 +159,9 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
       document.getElementById("dataLatitude").value = latitudeStr;
       document.getElementById("dataLongitude").value = longitudeStr;
       document.getElementById("dataAltitude").value = height;
-      document.getElementById("dataTime").value = 2787;
-      document.getElementById("dataAzimuth").value = 0;
-      document.getElementById("dataElevation").value = 9001;
+      //document.getElementById("dataTime").value = today.getHours();
+      // document.getElementById("dataAzimuth").value = 0;
+      // document.getElementById("dataElevation").value = 9001;
 
    var longLat = {long:longitudeStr,lat:latitudeStr,alt:height};
    return longLat;
