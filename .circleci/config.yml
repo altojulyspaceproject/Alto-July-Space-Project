@@ -23,9 +23,9 @@ jobs:
         - run:
             name: npm run test
             command: npm run test
-        - run:
-            name: npm run lint
-            command: npm run lint
+        # - run:
+        #     name: npm run lint
+        #     command: npm run lint
         - run:
             name: npm run checkstyle
             command: npm run checkstyle
