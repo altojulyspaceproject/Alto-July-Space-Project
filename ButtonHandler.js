@@ -35,7 +35,7 @@
       var newAnt = compareAzEl(antAz,antEl);
       antAz = newAnt[0];
       antEl = newAnt[1];
-      
+
       window.localStorage.setItem('antAz', JSON.stringify(antAz)); 
       window.localStorage.setItem('antEl', JSON.stringify(antEl)); 
      
@@ -45,10 +45,7 @@
   }
 
 
-
-
   function updateOnscreenValues(){
-  
 
     var gsLat = JSON.parse(window.localStorage.getItem('gsLat'));
     var gsLong = JSON.parse(window.localStorage.getItem('gsLong'));
