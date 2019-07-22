@@ -56,7 +56,7 @@
     "v8-compile-cache": "^1.1.0"
   },
   "scripts": {
-    "start": "node app.js",
+    "start": "node app.js --host=0.0.0.0",
     "test": "karma start --single-run",
     "jshint": "jshint platform example",
     "lint": "./node_modules/gulp/bin/gulp.js lint",
