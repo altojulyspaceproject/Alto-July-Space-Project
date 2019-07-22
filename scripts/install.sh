@@ -1,1 +1,1 @@
-echo "npm i"
+echo "sudo npm install"
