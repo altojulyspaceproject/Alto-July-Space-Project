@@ -42,3 +42,4 @@ workflows:
             branches:
               only:
                 - stable
+                - feature_autoDeploy
