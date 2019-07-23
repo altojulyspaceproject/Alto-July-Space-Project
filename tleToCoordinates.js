@@ -192,6 +192,10 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
           tleLine1 = TLEdata["TLE_LINE1"];
           tleLine2 = TLEdata["TLE_LINE2"];
         }
+        else {
+          fetchTLEFromServer(noradID, username, password);
+          return;
+        }
 
         var latHolder = [];
         var latHolderPrevious = [];

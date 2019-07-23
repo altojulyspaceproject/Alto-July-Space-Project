@@ -2,7 +2,6 @@
   <!DOCTYPE html>
   <html>
     <head>
-
       <script src="node_modules/openmct/dist/openmct.js"></script>
       <script src="node_modules/satellite.js/dist/satellite.min.js"></script>
       <script src="tleToCoordinates.js"></script>
@@ -13,36 +12,17 @@
       <script src="feature_trackerCalcs.js"></script>
       <script src="dataPlot.js"></script>
 
-    </head>
-
-    <style>
-    
-      .map{
-        width: 1000px;
-        height: 500px;
-      }
-      
-
-    </style>
-
-
-    <body style='background-color:grey'>
-
-      <div id='plotlyGraph' class='map' ></div>
-        
-        <div style="float:right; margin-top:-500px; margin-right:100px;">
-          <form>
-            <p style = "color:white"> Username:  <br>  <input type = "text"  id = "userName">  <br> </p>    
-            <p style = "color:white"> Password:  <br>  <input type = "Password" id = "Password"> <br> </p> 
-            <p style = "color:white"> Norad ID:  <br>  <input type = "text" id="NoradId"> <br> </p>           
-          </form>
-          <button style = "color:red" onclick="submitForm()">Track</button>
-        </div>
-
-
-
       <style>
-      
+        .map{
+          width: 1000px;
+          height: 500px;
+        }
+
+        .inputFields{
+          float:right; 
+          margin-top:-500px; 
+          margin-right:100px;
+        }
         .container{
           display: flex;
         }
@@ -66,11 +46,23 @@
           border-bottom: 2px solid white;
           margin-left: 50px;
           margin-bottom: 3px;
-
         }
-       
-
       </style>
+    </head>
+
+
+    <body style='background-color:grey'>
+
+      <div id='plotlyGraph' class='map'> </div>
+        
+      <div class="inputFields">
+        <form>
+          <p style = "color:white"> Username:  <br> <input type = "text"  id = "userName">  <br> </p>    
+          <p style = "color:white"> Password:  <br> <input type = "Password" id = "Password"> <br> </p> 
+          <p style = "color:white"> Norad ID:  <br> <input type = "text" id="NoradId"> <br> </p>           
+        </form>
+        <button style = "color:red" onclick="submitForm()">Track</button>
+      </div>
 
       <div style="display: flex">
         <div class='container'>
@@ -78,7 +70,7 @@
             <h7 class='h7title'> Satellite Information</h7> <br> <br>
             <div id='StaticData'>
               
-              <h7 id='satName'> Satellite Name: </h7>   <br>
+              <h7 id='satName'> Satellite Name: </h7> <br>
               <h7 id='satPeriod'> Satellite Period: </h7> <br>
               <h7 id='satTimeTle'> Time since TLE: </h7> <br>
               <h7 id='satAzimuth'> Satellite Aziumuth: </h7> <br>
@@ -87,7 +79,7 @@
               <br>
             </div>
 
-            <div >
+            <div>
               <h7 id='changeElevation'> Change in Elevation: </h7> <br>
               <h7 id='satAltitude'> Satellite Altitude:  </h7> <br>
               <h7 id='satLatitude'> Satellite Latitude: </h7> <br>
@@ -96,9 +88,7 @@
               <h7 id='satArrow'> Satellite Arrow: </h7> <br>
               <br>
               <br>
-
             </div>
-
           </div>
         </div>   <!-- end container -->
 

@@ -92,7 +92,7 @@ function dataPlot(container, latitude, longitude, name, marker){
 
 
 
-function plotReal(){
+function initialiseMap(){
       
   var latHolder = JSON.parse(window.localStorage.getItem('nextLat90'));
   var longHolder = JSON.parse(window.localStorage.getItem('nextLong90'));
@@ -106,23 +106,27 @@ function plotReal(){
 
   //Plot GS location
   dataPlot(container,gsLatitude,gsLongitude,'GS','markers','purple',15);
+
   //Plot future path
   dataPlot(container,latHolder,longHolder,'Future path','markers',"red",6);
+
   //Plot past path
   dataPlot(container,latHolderPrevious,longHolderPrevious,'Previous path','markers',"yellow",6);
+
   //Plot object location
   dataPlot(container,latHolder[0],longHolder[0],'Object location','markers',"pink",10);
+
   //Calculate the radius of visible Earth
   var Radius = footprintRadius(latHolder[0],420);
+
   //Turns the radius into lat/lon coords
   var circleCoords = footprintPlot(latHolder[0],longHolder[0], Radius);
+ 
   //Plot the visible Earth
   dataPlot(container,circleCoords[0],circleCoords[1],'Footprint','lines',"blue",6);
-  //dataPlot(container,allPlotLat,allPlotLon,allTraceNames,allPlotType);
-  return;
 }   
 
-function plotReal1(){
+function updateAndRedrawMap(){
 
   var latHolder = JSON.parse(window.localStorage.getItem('nextLat90'));
   var longHolder = JSON.parse(window.localStorage.getItem('nextLong90'));
@@ -145,11 +149,13 @@ function plotReal1(){
   
   //Plot object location
   dataPlotUpdate(container,latHolder[0],longHolder[0],'Object location','markers',"pink",15);
+  
   //Calculate the radius of visible Earth
   var Radius = footprintRadius(latHolder[0],420);
   
   //Turns the radius into lat/lon coords
   var circleCoords = footprintPlot(latHolder[0],longHolder[0], Radius);
+
   //Plot the visible Earth
   dataPlotUpdate(container,circleCoords[0],circleCoords[1],'Footprint','lines',"blue",6);
 

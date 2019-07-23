@@ -10,7 +10,7 @@
 
     //Should be a set timeout that updates the localStorage every 3 seconds 
     setTimeout(function(){
-      plotReal(); // plot function to initiate the map
+      initialiseMap(); // plot function to initiate the map
     },3000);
     
     setInterval(function(){
@@ -20,7 +20,7 @@
       updateOnscreenValues(); //Change the Satellite and Groundstation Information
 
       setTimeout(function(){ 
-        plotReal1(); // updating the plot 
+        updateAndRedrawMap(); // updating the plot 
       },500);  
 
       correctGroundStationTracking(); //CHeck if the ground station is pointing in the right direction
@@ -32,26 +32,22 @@
 
   function updateOnscreenValues(){
 
+    var satEpoch = JSON.parse(window.localStorage.getItem('epoch'));
+    var satName = JSON.parse(window.localStorage.getItem('satName'));
+    var satAlt = JSON.parse(window.localStorage.getItem('altitude')).toFixed(2);
+    var satLat = JSON.parse(window.localStorage.getItem('lat')).toFixed(4);
+    var satLong = JSON.parse(window.localStorage.getItem('long')).toFixed(4);
+
+
     var gsLat = JSON.parse(window.localStorage.getItem('gsLat')).toFixed(4);
     var gsLong = JSON.parse(window.localStorage.getItem('gsLong')).toFixed(4);
     var gsAlt = JSON.parse(window.localStorage.getItem('gsAlt')).toFixed(2); 
 
-   
-    var satAz = JSON.parse(window.localStorage.getItem('gsAziumth')).toFixed(4);
-    var satEl = JSON.parse(window.localStorage.getItem('gsElevation')).toFixed(4);
-
-    var antAz = JSON.parse(window.localStorage.getItem('antAz')).toFixed(4);
-    var antEl = JSON.parse(window.localStorage.getItem('antEl')).toFixed(4);
-
-    var satLat = JSON.parse(window.localStorage.getItem('lat')).toFixed(4);
-    var satLong = JSON.parse(window.localStorage.getItem('long')).toFixed(4);
-    var satAlt = JSON.parse(window.localStorage.getItem('altitude')).toFixed(2);
-    var satName = JSON.parse(window.localStorage.getItem('satName'));
-    var satEpoch = JSON.parse(window.localStorage.getItem('epoch'));
-
+    var gsAz = JSON.parse(window.localStorage.getItem('gsAziumth')).toFixed(4);
+    var gsEl = JSON.parse(window.localStorage.getItem('gsElevation')).toFixed(4);
+    
     var tracking = JSON.parse(window.localStorage.getItem('trackingAlgorithm'));
-    
-    
+        
     //Update container
     document.getElementById('satTimeTle').innerHTML = "Time since TLE: " + satEpoch;
     document.getElementById('satName').innerHTML = "Satellite Name: " + satName;
@@ -61,16 +57,9 @@
     
     document.getElementById('gsLatitude').innerHTML = "Ground Station Latitude: " + gsLat;
     document.getElementById('gsLongitude').innerHTML = "Ground Station Longitude: " + gsLong;
-    document.getElementById('gsAzimuth').innerHTML = "Ground Station Azimuth: " + satAz;
-    document.getElementById('gsElevation').innerHTML = "Ground Station Elevation: " + satEl;
+    document.getElementById('gsAzimuth').innerHTML = "Ground Station Azimuth: " + gsAz;
+    document.getElementById('gsElevation').innerHTML = "Ground Station Elevation: " + gsEl;
     document.getElementById("trackingAlgorithm").innerHTML = "Tracking Algorithm: " + tracking;
-
-
-    
-
-
-
-
 
   }
   
