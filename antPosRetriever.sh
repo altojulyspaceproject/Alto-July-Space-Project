@@ -16,10 +16,10 @@ Azimuth=$1
 Elevation=$2
 Model=$3
 #
-rotctld --model=Model
+rotctld --model=$Model
 #
-$\get_pos
-
+foo=\get_pos
+echo {$foo[@]}
 
 
 
