@@ -51,6 +51,13 @@
           float:right;
           padding-right: 5px;
         }
+
+        .white{
+          color:white;
+        }
+        .red{
+          color: red;
+        }
       </style>
     </head>
 
@@ -61,11 +68,11 @@
         
       <div class="inputFields">
         <form>
-          <p style = "color:white"> Username:  <br> <input type = "text"  id = "userName">  <br> </p>    
-          <p style = "color:white"> Password:  <br> <input type = "Password" id = "Password"> <br> </p> 
-          <p style = "color:white"> Norad ID:  <br> <input type = "text" id="NoradId"> <br> </p>           
+          <p class = "white"> Username:  <br> <input type = "text"  id = "userName">  <br> </p>    
+          <p class = "white"> Password:  <br> <input type = "Password" id = "Password"> <br> </p> 
+          <p class = "white"> Norad ID:  <br> <input type = "text" id="NoradId"> <br> </p>           
         </form>
-        <button style = "color:red" onclick="submitForm()">Track</button>
+        <button class = "red" onclick="submitForm()"> Track </button>
       </div>
 
       <div style="display: flex">
@@ -75,21 +82,23 @@
             <div id='StaticData'>
               
               <h7> Satellite Name:           </h7> <h7 class='h7pad' id='satName'>   </h7> <br>
-              <h7> Satellite Period (mins):  </h7> <h7 class='h7pad' id='satPeriod'> </h7> <br>
-              <h7> TLE Gen Time              </h7> <h7 class='h7pad' id='satTimeTle'></h7> <br>
-              <h7> Satellite Aziumuth:       </h7> <h7 class='h7pad' id='satAzimuth'></h7> <br>
-              <h7> Next Pass:                </h7> <h7 class='h7pad' id='nextPass'>  </h7> <br>
+              <!-- <h7> Satellite Period (mins):  </h7> <h7 class='h7pad' id='satPeriod'> </h7> <br> -->
+              <h7> TLE Gen Time:              </h7> <h7 class='h7pad' id='satTimeTle'></h7> <br>
+              <!-- <h7> Satellite Aziumuth:       </h7> <h7 class='h7pad' id='satAzimuth'></h7> <br> -->
+              <!-- <h7> Next Pass:                </h7> <h7 class='h7pad' id='nextPass'>  </h7> <br> -->
               <br>
               <br>
             </div>
 
             <div>
-              <h7> Change in Elevation:    </h7> <h7 class='h7pad' id='changeElevation'></h7> <br>
+              <!-- <h7> Change in Elevation:    </h7> <h7 class='h7pad' id='changeElevation'></h7> <br> -->
               <h7> Satellite Altitude (m): </h7> <h7 class='h7pad' id='satAltitude'>    </h7> <br>
+              <br>
+
               <h7> Satellite Latitude:     </h7> <h7 class='h7pad' id='satLatitude'>    </h7> <br>
               <h7> Satellite Longitude:    </h7> <h7 class='h7pad' id='satLongitude'>   </h7> <br>
-              <h7> Satellite Speed (m/s):  </h7> <h7 class='h7pad' id='satSpeed'>       </h7> <br>
-              <h7> Satellite Arrow:        </h7> <h7 class='h7pad' id='satArrow'>       </h7> <br>
+              <!-- <h7> Satellite Speed (m/s):  </h7> <h7 class='h7pad' id='satSpeed'>       </h7> <br> -->
+              <!-- <h7> Satellite Arrow:        </h7> <h7 class='h7pad' id='satArrow'>       </h7> <br> -->
               <br>
               <br>
             </div>
@@ -102,10 +111,15 @@
               <h7 class='h7title2'> Ground Station Information</h7> <br> <br>
               <h7> Ground Station Latitude:    </h7> <h7 class='h7pad' id='gsLatitude'>       </h7> <br>
               <h7> Ground Station Longitude:   </h7> <h7 class='h7pad' id='gsLongitude'>      </h7> <br>
+              <br>
               <h7> Ground Station Azimuth:     </h7> <h7 class='h7pad' id='gsAzimuth'>        </h7> <br>
               <h7> Ground Station Elevation:   </h7> <h7 class='h7pad' id='gsElevation'>      </h7> <br>
+              <br>
+
               <h7> Tracking Algorithm:         </h7> <h7 class='h7pad' id='trackingAlgorithm'></h7> <br>
-              <h7> Ground Station Weather:     </h7> <h7 class='h7pad' id='gsWeather'>        </h7> <br>
+              <br>
+
+              <!-- <h7> Ground Station Weather:     </h7> <h7 class='h7pad' id='gsWeather'>        </h7> <br> -->
               <h7> UTC:                        </h7> <h7 class='h7pad' id='gsUTC'>            </h7> <br>
               <br>
               <br>

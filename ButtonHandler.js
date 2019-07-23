@@ -5,7 +5,7 @@
 
     //Fetch the TLE from Space-track  
     fetchTLEFromServer(noradID, username, password); //See tleToCoordinates.js
-    //Need to promise on the TLEFromServer
+    //TODO: promise on the TLEFromServer
     // .then(everything else)
 
     //Should be a set timeout that updates the localStorage every 3 seconds 
@@ -37,7 +37,6 @@
     var satAlt = JSON.parse(window.localStorage.getItem('altitude')).toFixed(2);
     var satLat = JSON.parse(window.localStorage.getItem('lat')).toFixed(4);
     var satLong = JSON.parse(window.localStorage.getItem('long')).toFixed(4);
-
 
     var gsLat = JSON.parse(window.localStorage.getItem('gsLat')).toFixed(4);
     var gsLong = JSON.parse(window.localStorage.getItem('gsLong')).toFixed(4);
