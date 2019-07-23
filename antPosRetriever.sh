@@ -18,9 +18,8 @@ Model=$3
 #
 rotctld --model=Model
 #
-foo=\get_pos
-echo "your variable"
-echo {$foo[@]}
+$\get_pos
+
 
 
 
