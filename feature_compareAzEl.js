@@ -25,10 +25,10 @@ function compareAzEl(antAz,antEl){
         (azDif > -acceptableRange) && 
         (elDif < acceptableRange)  && 
         (elDif>-acceptableRange))  {
-           document.getElementById("dataTime").value = "On Target";
+           document.getElementById("trackingAlgorithm").innerHTML = "On Target";
   }
   else{
-      document.getElementById("dataTime").value="Off Target";
+      document.getElementById("trackingAlgorithm").innerHTML = "Off Target";
       antAz = satAz;
       antEl = satEl;
   }

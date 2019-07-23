@@ -47,37 +47,41 @@
 
   function updateOnscreenValues(){
 
-    var gsLat = JSON.parse(window.localStorage.getItem('gsLat'));
-    var gsLong = JSON.parse(window.localStorage.getItem('gsLong'));
-    var gsAlt = JSON.parse(window.localStorage.getItem('gsAlt')); 
+    var gsLat = JSON.parse(window.localStorage.getItem('gsLat')).toFixed(4);
+    var gsLong = JSON.parse(window.localStorage.getItem('gsLong')).toFixed(4);
+    var gsAlt = JSON.parse(window.localStorage.getItem('gsAlt')).toFixed(2); 
 
-    var satAz = JSON.parse(window.localStorage.getItem('gsAziumth'));
-    var satEl = JSON.parse(window.localStorage.getItem('gsElevation'));
+   
+    var satAz = JSON.parse(window.localStorage.getItem('gsAziumth')).toFixed(4);
+    var satEl = JSON.parse(window.localStorage.getItem('gsElevation')).toFixed(4);
 
-    var antAz = JSON.parse(window.localStorage.getItem('antAz'));
-    var antEl = JSON.parse(window.localStorage.getItem('antEl'));
+    var antAz = JSON.parse(window.localStorage.getItem('antAz')).toFixed(4);
+    var antEl = JSON.parse(window.localStorage.getItem('antEl')).toFixed(4);
 
-    var satLat = JSON.parse(window.localStorage.getItem('lat'));
-    var satLong = JSON.parse(window.localStorage.getItem('long'));
-    var satAlt = JSON.parse(window.localStorage.getItem('altitude'));
+    var satLat = JSON.parse(window.localStorage.getItem('lat')).toFixed(4);
+    var satLong = JSON.parse(window.localStorage.getItem('long')).toFixed(4);
+    var satAlt = JSON.parse(window.localStorage.getItem('altitude')).toFixed(2);
+    var satName = JSON.parse(window.localStorage.getItem('satName'));
+    var satEpoch = JSON.parse(window.localStorage.getItem('epoch'));
 
 
 
-    //Update Inputs
-    document.getElementById('GSLatitude').value = gsLat;
-    document.getElementById('GSLongitude').value = gsLong;
-    document.getElementById('GSAltitude').value = gsAlt;
-    document.getElementById('AntAz').value = satAz;
-    document.getElementById('AntEl').value = satEl;
-    document.getElementById('AntAlt').value = gsAlt;
+    //Update container
+   
 
-    //Update Text Display
-    document.getElementById('dataLatitude').value = satLat;
-    document.getElementById('dataLongitude').value = satLong;
-    document.getElementById('dataAltitude').value = satAlt;
-    // document.getElementById('dataTime').value = '1234';
-    document.getElementById('dataAzimuth').value = antAz;
-    document.getElementById('dataElevation').value = antEl;
+    document.getElementById('satLatitude').innerHTML = "Satellite Latitude: " + satLat;
+    document.getElementById('satLongitude').innerHTML = "Satellite Longitude: " + satLong;
+    document.getElementById('satAltitude').innerHTML = "Satellite Longitude: " + satAlt;
+    document.getElementById('satName').innerHTML = "Satellite Name: " + satName;
+    document.getElementById('satTimeTle').innerHTML = "Time since TLE: " + satEpoch;
+
+    document.getElementById('gsLatitude').innerHTML = "Ground Station Latitude: " + gsLat;
+    document.getElementById('gsLongitude').innerHTML = "Ground Station Longitude: " + gsLong;
+    document.getElementById('gsAzimuth').innerHTML = "Ground Station Azimuth: " + satAz;
+    document.getElementById('gsElevation').innerHTML = "Ground Station Elevation: " + satEl;
+
+
+    
 
 
 
