@@ -21,7 +21,7 @@ hooks:
       timeout: 300
       runas: ec2-user
 permissions:
-  - object: /home/ec2-user/project
+  - object: /home/ec2-user
     pattern: "**"
     owner: ec2-user
     mode: 444
