@@ -1,6 +1,6 @@
 #!/bin/bash
-$chmod +x antPosRetriever.sh
-
+# $chmod +X antPosRetriever.sh
+#
 #Antenna Position Retriever
 #
 #
@@ -18,8 +18,8 @@ Model=$3
 #
 rotctld --model=$Model
 #
-foo=\get_pos
-echo {$foo[@]}
+\get_pos
+
 
 
 

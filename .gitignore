@@ -41,3 +41,4 @@ protractor/logs
 npm-debug.log
 
 package-lock.json
+/nbproject/private/
