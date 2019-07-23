@@ -47,19 +47,25 @@
     var gsEl = JSON.parse(window.localStorage.getItem('gsElevation')).toFixed(4);
     
     var tracking = JSON.parse(window.localStorage.getItem('trackingAlgorithm'));
+
+    var UTC = new Date();
         
     //Update container
-    document.getElementById('satTimeTle').innerHTML = "Time since TLE: " + satEpoch;
-    document.getElementById('satName').innerHTML = "Satellite Name: " + satName;
-    document.getElementById('satAltitude').innerHTML = "Satellite Altitude: " + satAlt;
-    document.getElementById('satLatitude').innerHTML = "Satellite Latitude: " + satLat;
-    document.getElementById('satLongitude').innerHTML = "Satellite Longitude: " + satLong;
+    document.getElementById('satTimeTle').innerHTML =  satEpoch;
+    document.getElementById('satName').innerHTML = satName;
+    document.getElementById('satAltitude').innerHTML = satAlt;
+    document.getElementById('satLatitude').innerHTML = satLat;
+    document.getElementById('satLongitude').innerHTML = satLong;
     
-    document.getElementById('gsLatitude').innerHTML = "Ground Station Latitude: " + gsLat;
-    document.getElementById('gsLongitude').innerHTML = "Ground Station Longitude: " + gsLong;
-    document.getElementById('gsAzimuth').innerHTML = "Ground Station Azimuth: " + gsAz;
-    document.getElementById('gsElevation').innerHTML = "Ground Station Elevation: " + gsEl;
-    document.getElementById("trackingAlgorithm").innerHTML = "Tracking Algorithm: " + tracking;
+    document.getElementById('gsLatitude').innerHTML = gsLat;
+    document.getElementById('gsLongitude').innerHTML = gsLong;
+    document.getElementById('gsAzimuth').innerHTML = gsAz;
+    document.getElementById('gsElevation').innerHTML = gsEl;
+    document.getElementById("trackingAlgorithm").innerHTML = tracking;
+
+    document.getElementById("gsUTC").innerHTML = UTC.toUTCString();
+
+
 
   }
   

@@ -165,8 +165,6 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
    * 
    * Fetches TLE data from remote server (space-track.org)
    * 
-   * Then uses a global to set the longitude and latitude 
-   * 
    * 
    */
   var latlongHolder=[];
@@ -180,11 +178,18 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
       type: 'POST',
       success: function(output) {
           
+        console.log(output);
+        //Handle the timeout of the data..
+        if(output == 'undefined'){
+          fetchTLEFromServer(noradID, username, password);
+          return;
+        }
         //Parse the data coming from Space-Track
         TLEdata = JSON.parse(output)[0];
       
         //If successful 
         //Todo: error handling 
+       
         if(TLEdata != undefined){
           tleSatName = TLEdata["OBJECT_NAME"];
           tleEpoch = TLEdata["EPOCH"]; 
@@ -193,7 +198,7 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
           tleLine2 = TLEdata["TLE_LINE2"];
         }
         else {
-          fetchTLEFromServer(noradID, username, password);
+          
           return;
         }
 
@@ -269,33 +274,6 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
       }
   });
 
-
-}
-
-  
-
-
-
-function newLatLongPlotData(tleLine1,tleLine2){ 
-    // a new function for updating the map data 
-    var latHolder = [];
-    var latHolderPrevious = [];
-    var longHolder = [];
-    var longHolderPrevious = [];
-
-    for(var i = 0; i <= 90; i++){
-      var returned = convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,i); 
-      latHolder.push( parseFloat(returned["lat"]));
-      longHolder.push(parseFloat(returned["long"]));
-    }
-    for(var i = 0; i <= 90; i++){
-      var returned = convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,-i); 
-      latHolderPrevious.push( parseFloat(returned["lat"]));
-      longHolderPrevious.push(parseFloat(returned["long"]));
-    }
-    latlongHolder = [latHolder,longHolder,latHolderPrevious,longHolderPrevious];
-
-    return(latlongHolder);
 
 }
 
