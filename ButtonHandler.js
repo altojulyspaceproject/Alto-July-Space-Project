@@ -60,11 +60,22 @@
     document.getElementById('gsLongitude').innerHTML = gsLong;
     document.getElementById('gsAzimuth').innerHTML = gsAz;
     document.getElementById('gsElevation').innerHTML = gsEl;
-    document.getElementById("trackingAlgorithm").innerHTML = tracking;
+    changeVisualColorTrackingAlgorithm(tracking);
 
     document.getElementById("gsUTC").innerHTML = UTC.toUTCString();
+  }
 
 
+  function changeVisualColorTrackingAlgorithm(tracking){
+  
+    var trackingElement = document.getElementById("trackingAlgorithm");
 
+    trackingElement.innerHTML = tracking; //Set the value on screen
+    if(tracking == "On Target"){
+      trackingElement.style.color = '#66ff66'; //Lime Green
+    }
+    else if(tracking == "Off Target"){
+      trackingElement.style.color = '#ff3333'; // red
+    }
   }
   
