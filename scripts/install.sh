@@ -1,2 +1,1 @@
-echo "npm install"
-`npm install`
+npm i
