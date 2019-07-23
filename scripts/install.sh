@@ -1,3 +1,3 @@
 #!/bin/bash
-PATH = "~/.nvm/nvm.sh"
+source /home/ec2-user/.bash_profile
 npm i
