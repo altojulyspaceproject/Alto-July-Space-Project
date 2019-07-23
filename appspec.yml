@@ -24,6 +24,12 @@ permissions:
   - object: /home/ec2-user
     pattern: "**"
     owner: ec2-user
-    mode: 444
+    mode: 777
     type:
       - directory
+  - object: /home/ec2-user/project
+    pattern: "**"
+    owner: ec2-user
+    mode: 777
+    type:
+      - file
