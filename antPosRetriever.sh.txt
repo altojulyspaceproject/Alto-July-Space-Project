@@ -1,4 +1,4 @@
- #!/bin/bash
+#!/bin/bash
 
 #Antenna Position Retriever
 #
@@ -10,13 +10,13 @@
 #Inputs: satellite azimuth and elevation, radio and rotator specs 
 #
 # input order = [azimuth, elevation, rotator model number,]
-
-$Azimuth = $1
-$Elevation = $2
-$Model = $3
-
+#
+$Azimuth=$1
+$Elevation=$2
+$Model=$3
+#
 $rotctld --model=Model
-
+#
 [AzimuthAnt ElevationAnt]=\get_pos
 
 
