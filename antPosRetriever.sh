@@ -1,4 +1,5 @@
 #!/bin/bash
+$ chmod u+x antPosRet
 
 #Antenna Position Retriever
 #
@@ -11,14 +12,15 @@
 #
 # input order = [azimuth, elevation, rotator model number,]
 #
-$Azimuth=$1
-$Elevation=$2
-$Model=$3
+Azimuth=$1
+Elevation=$2
+Model=$3
 #
-$rotctld --model=Model
+rotctld --model=Model
 #
-[AzimuthAnt ElevationAnt]=\get_pos
-
+foo=$\get_pos
+echo "your variable"
+echo {$foo[@]}
 
 
 
