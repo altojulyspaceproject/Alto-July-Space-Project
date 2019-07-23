@@ -1,5 +1,5 @@
 #!/bin/bash
-$chmod +x antPosRetriever.sh
+$ chmod u+x antPosRetriever.sh
 
 #Antenna Position Retriever
 #
