@@ -1,5 +1,5 @@
 #!/bin/bash
-# $chmod +X antPosRetriever.sh
+# $chmod u+x antPosRetriever.sh
 #
 #Antenna Position Retriever
 #
@@ -16,9 +16,9 @@ Azimuth=$1
 Elevation=$2
 Model=$3
 #
-rotctld --model=$Model
+rotctld --model=$Model < \get_pos
 #
-\get_pos
+
 
 
 
