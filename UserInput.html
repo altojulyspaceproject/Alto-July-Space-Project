@@ -60,57 +60,65 @@
         .h7title{
           border-bottom: 2px solid white;
           margin-left: 75px;
+          margin-bottom: 3px;
+        }
+        .h7title2{
+          border-bottom: 2px solid white;
+          margin-left: 50px;
+          margin-bottom: 3px;
+
         }
        
 
       </style>
 
-      <div class='container'>
-        <div id='SatelliteInfo'  class="dataBox">
-          <h7 class='h7title'> Satellite Information</h7> <br>
-          <div id='StaticData'>
-            
-            <h7 id='satName'> Satellite Name: </h7>   <br>
-            <h7 id='satPeriod'> Satellite Period: </h7> <br>
-            <h7 id='satTimeTle'> Time since TLE: </h7> <br>
-            <h7 id='satAzimuth'> Satellite Aziumuth: </h7> <br>
-            <h7 id='nextPass'> Next Pass: </h7> <br>
-            <br>
-            <br>
+      <div style="display: flex">
+        <div class='container'>
+          <div id='SatelliteInfo'  class="dataBox">
+            <h7 class='h7title'> Satellite Information</h7> <br> <br>
+            <div id='StaticData'>
+              
+              <h7 id='satName'> Satellite Name: </h7>   <br>
+              <h7 id='satPeriod'> Satellite Period: </h7> <br>
+              <h7 id='satTimeTle'> Time since TLE: </h7> <br>
+              <h7 id='satAzimuth'> Satellite Aziumuth: </h7> <br>
+              <h7 id='nextPass'> Next Pass: </h7> <br>
+              <br>
+              <br>
+            </div>
+
+            <div >
+              <h7 id='changeElevation'> Change in Elevation: </h7> <br>
+              <h7 id='satAltitude'> Satellite Altitude:  </h7> <br>
+              <h7 id='satLatitude'> Satellite Latitude: </h7> <br>
+              <h7 id='satLongitude'> Satellite Longitude:  </h7> <br>
+              <h7 id='satSpeed'> Satellite Speed: </h7> <br>
+              <h7 id='satArrow'> Satellite Arrow: </h7> <br>
+              <br>
+              <br>
+
+            </div>
+
           </div>
+        </div>   <!-- end container -->
 
-          <div >
-            <h7 id='changeElevation'> Change in Elevation: </h7> <br>
-            <h7 id='satAltitude'> Satellite Altitude:  </h7> <br>
-            <h7 id='satLatitude'> Satellite Latitude: </h7> <br>
-            <h7 id='satLongitude'> Satellite Longitude:  </h7> <br>
-            <h7 id='satSpeed'> Satellite Speed: </h7> <br>
-            <h7 id='satArrow'> Satellite Arrow: </h7> <br>
-            <br>
-            <br>
-
+        <div class='container'>
+          <div id='groundStation' class="dataBox">
+            <div id='staticGSdata'>
+              <h7 class='h7title2'> Ground Station Information</h7> <br> <br>
+              <h7 id='gsLatitude'> Ground Station Latitude: </h7> <br>
+              <h7 id='gsLongitude'> Ground Station Longitude:  </h7> <br>
+              <h7 id='gsAzimuth'> Ground Station Azimuth </h7> <br>
+              <h7 id='gsElevation'> Ground Station Elevation </h7> <br>
+              <h7 id='trackingAlgorithm'> Tracking Algorithm: </h7> <br>
+              <h7 id='gsWeather'> Ground Station Weather: </h7> <br>
+              <h7 id='gsUTC'> UTC</h7> <br>
+              <br>
+              <br>
+            </div>
           </div>
-
-        </div>
-      </div>   <!-- end container -->
-
-      <div class='container'>
-        <div id='groundStation' class="dataBox">
-          <div id='staticGSdata'>
-            <h7  class='h7title'> Ground Station Information</h7> <br>
-            <h7 id='gsLatitude'> Ground Station Latitude: </h7> <br>
-            <h7 id='gsLongitude'> Ground Station Longitude:  </h7> <br>
-            <h7 id='gsAzimuth'> Ground Station Azimuth </h7> <br>
-            <h7 id='gsElevation'> Ground Station Elevation </h7> <br>
-            <h7 id='trackingAlgorithm'> Tracking Algorithm: </h7> <br>
-            <h7 id='gsWeather'> Ground Station Weather: </h7> <br>
-            <h7 id='gsUTC'> UTC</h7> <br>
-            <br>
-            <br>
-          </div>
-        </div>
-      </div>   <!-- end container -->
-     
+        </div>   <!-- end container -->
+      </div>
 
       <script>
 
@@ -124,10 +132,5 @@
         }
     
       </script>
-
-
-   
-
-
     </body>
   </html>

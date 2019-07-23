@@ -5,32 +5,37 @@
 
 
 
-function compareAzEl(antAz,antEl){
+function correctGroundStationTracking(){
    
   var acceptableRange = 0.10;
 
   var satAz = JSON.parse(window.localStorage.getItem('gsAziumth'));
   var satEl = JSON.parse(window.localStorage.getItem('gsElevation'));
 
+  var antAz = JSON.parse(window.localStorage.getItem('antAz'));
+  var antEl = JSON.parse(window.localStorage.getItem('antEl'));
 
+
+  //Calculate the difference between the current and actual targets
   var azDif = satAz - antAz;
   var elDif = satEl - antEl; 
 
-  console.log(azDif);
-  console.log(elDif);
-  console.log(satAz);
-  console.log(satEl);
+  //Check if within acceptable ranges
+  if ((azDif <  acceptableRange) && 
+      (azDif > -acceptableRange) && 
+      (elDif <  acceptableRange) && 
+      (elDif > -acceptableRange))  {
+        window.localStorage.setItem('trackingAlgorithm',JSON.stringify("On Target"));   
+  }
+  //Otherwise set the algorithm to the current location
+  else {
+    window.localStorage.setItem('trackingAlgorithm',JSON.stringify("Off Target"));
+    antAz = satAz;
+    antEl = satEl;
+  }
 
-  if (  (azDif < acceptableRange)  && 
-        (azDif > -acceptableRange) && 
-        (elDif < acceptableRange)  && 
-        (elDif>-acceptableRange))  {
-           document.getElementById("trackingAlgorithm").innerHTML = "On Target";
-  }
-  else{
-      document.getElementById("trackingAlgorithm").innerHTML = "Off Target";
-      antAz = satAz;
-      antEl = satEl;
-  }
+  window.localStorage.setItem('antAz', JSON.stringify(antAz)); 
+  window.localStorage.setItem('antEl', JSON.stringify(antEl)); 
+
   return [antAz,antEl];
 }

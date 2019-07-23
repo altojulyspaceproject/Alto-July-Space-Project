@@ -248,7 +248,9 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
          
           "gsLat":-37.8141,
           "gsLong":144.9633,
-          "gsAlt":0.054
+          "gsAlt":0.054,
+
+          "trackingAlgorithm":0,
         };
 
 
