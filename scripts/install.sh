@@ -1,3 +1,3 @@
 #!/bin/bash
-~/.nvm/nvm.sh
+PATH = "~/.nvm/nvm.sh"
 npm i
