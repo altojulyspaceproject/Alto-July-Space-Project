@@ -13,7 +13,6 @@
 #
 Azimuth=$1
 Elevation=$2
-Model=$3
 #
-echo "P $Azimuth $Elevation" | rotctl -m $Model
+echo "P $Azimuth $Elevation" | rotctl
 #
