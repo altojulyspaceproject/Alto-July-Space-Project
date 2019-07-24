@@ -7,7 +7,7 @@
 
 function correctGroundStationTracking(){
    
-  var acceptableRange = 0.10;
+  var acceptableRange = 0.2;
 
   var satAz = JSON.parse(window.localStorage.getItem('gsAziumth'));
   var satEl = JSON.parse(window.localStorage.getItem('gsElevation'));
@@ -17,8 +17,8 @@ function correctGroundStationTracking(){
 
 
   //Calculate the difference between the current and actual targets
-  var azDif = satAz - antAz;
-  var elDif = satEl - antEl; 
+  var azDif = satAz - antAz;  console.log(azDif);
+  var elDif = satEl - antEl; console.log(elDif);
 
   //Check if within acceptable ranges
   if ((azDif <  acceptableRange) && 
