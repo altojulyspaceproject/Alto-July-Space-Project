@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#Antenna Position Retriever
+#Antenna Position Setter
 #
 #
 # Author: Steph
@@ -15,5 +15,5 @@ Azimuth=$1
 Elevation=$2
 Model=$3
 #
-echo "p" | rotctl -m $Model
+echo "P $Azimuth $Elevation" | rotctl -m $Model
 #
