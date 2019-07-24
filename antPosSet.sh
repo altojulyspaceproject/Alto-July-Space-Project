@@ -13,6 +13,7 @@
 #
 Azimuth=$1
 Elevation=$2
+Model=1
 #
-echo "P $Azimuth $Elevation \n p" | rotctl
+echo "p \n P $Azimuth $Elevation \n sleep 5 \n p" | rotctl -m $Model
 #
