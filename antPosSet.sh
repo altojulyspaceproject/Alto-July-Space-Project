@@ -15,5 +15,5 @@ Azimuth=$1
 Elevation=$2
 Model=1
 #
-(echo "p \n P $Azimuth $Elevation \n"; echo "pause 2"; echo " \n p";) | rotctl -m $Model
+(echo "p \n P $Azimuth $Elevation \n pause 2 \n p";) | rotctl -m $Model
 #
