@@ -1,0 +1,1930 @@
+<html lang="en">
+<head>
+<title>Ham Radio Control Libraries 4.0~git</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="description" content="Ham Radio Control Libraries 4.0~git">
+<meta name="generator" content="makeinfo 4.8">
+<link title="Top" rel="top" href="#Top">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+This manual is for the Ham Radio Control Libraries (version 4.0~git
+updated 24 July 2019), which is a development effort to provide a
+consistent programming interface for programmers wanting to incorporate
+radio and rotor control into their programs.
+
+Copyright (C) 2013,2018 Nate Bargmann
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, no Front-Cover Texts, and
+     no Back-Cover Texts.  A copy of the license is included in the
+     section entitled "GNU Free Documentation License".
+   -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<h1 class="settitle">Ham Radio Control Libraries 4.0~git</h1>
+<div class="contents">
+<h2>Table of Contents</h2>
+<ul>
+<li><a name="toc_Top" href="#Top">Ham Radio Control Libraries</a>
+<li><a name="toc_Copying-and-Redistribution" href="#Copying-and-Redistribution">Copying and Redistribution</a>
+<li><a name="toc_Hamlib-in-a-Nutshell" href="#Hamlib-in-a-Nutshell">1 Hamlib in a Nutshell</a>
+<ul>
+<li><a href="#Overview">1.1 A view from the top of the tower</a>
+<li><a href="#The-Hamlib-project">1.2 Hamlib project information</a>
+<li><a href="#Applications-using-Hamlib">1.3 Applications using Hamlib</a>
+<li><a href="#Licensing-implications">1.4 Using Hamlib with your program</a>
+<li><a href="#Radio-cloning">1.5 Radios with a clone capability</a>
+<li><a href="#Pronunciation">1.6 Pronouncing Hamlib</a>
+</li></ul>
+<li><a name="toc_Getting-started" href="#Getting-started">2 Getting started</a>
+<ul>
+<li><a href="#Unix-binary-packages">2.1 Installing binary packages on Linux and BSD</a>
+<li><a href="#Source-options">2.2 A variety of Hamlib sources</a>
+<ul>
+<li><a href="#Source-releases">2.2.1 Getting released source</a>
+<li><a href="#Source-snapshots">2.2.2 Getting source snapshots</a>
+<li><a href="#Git-clone">2.2.3 Git repository</a>
+</li></ul>
+<li><a href="#Building-from-source">2.3 Building from source</a>
+<ul>
+<li><a href="#Compiling-source-tarballs">2.3.1 Compiling source tarballs</a>
+<ul>
+<li><a href="#configure">2.3.1.1 <samp><span class="command">configure</span></samp></a>
+<li><a href="#make">2.3.1.2 <samp><span class="command">make</span></samp></a>
+<li><a href="#make-install">2.3.1.3 <samp><span class="command">make install</span></samp></a>
+<li><a href="#ldconfig">2.3.1.4 <samp><span class="command">ldconfig</span></samp></a>
+</li></ul>
+<li><a href="#Bootstrapping-from-a-Git-clone">2.3.2 Bootstrapping from a <samp><span class="command">git clone</span></samp></a>
+<li><a href="#Other-make-targets">2.3.3 Other <samp><span class="command">make</span></samp> targets</a>
+<li><a href="#Parallel-build-trees">2.3.4 Parallel build trees</a>
+<li><a href="#Adding-debugging-symbols">2.3.5 Adding debugging symbols</a>
+<li><a href="#Compiling-Microsoft-Windows">2.3.6 Compiling for Microsoft Windows</a>
+</li></ul>
+<li><a href="#Microsft-Windows-binaries">2.4 Pre-compiled binaries for Microsoft Windows</a>
+</li></ul>
+<li><a name="toc_Utility-programs" href="#Utility-programs">3 Utility programs reference</a>
+<ul>
+<li><a href="#rigctl">3.1 <samp><span class="command">rigctl</span></samp></a>
+<ul>
+<li><a href="#Introduction-to-rigctl">3.1.1 Introduction to <samp><span class="command">rigctl</span></samp></a>
+<li><a href="#rigctl-reference">3.1.2 <samp><span class="command">rigctl</span></samp> reference</a>
+</li></ul>
+<li><a href="#rotctl">3.2 <samp><span class="command">rotctl</span></samp></a>
+<ul>
+<li><a href="#Introduction-to-rotctl">3.2.1 Introduction to <samp><span class="command">rotctl</span></samp></a>
+<li><a href="#rotctl-reference">3.2.2 <samp><span class="command">rotctl</span></samp> reference</a>
+</li></ul>
+<li><a href="#rigctld">3.3 <samp><span class="command">rigctld</span></samp></a>
+<ul>
+<li><a href="#Introduction-to-rigctld">3.3.1 Introduction to <samp><span class="command">rigctld</span></samp></a>
+<li><a href="#rigctld-reference">3.3.2 <samp><span class="command">rigctld</span></samp> reference</a>
+</li></ul>
+<li><a href="#rotctld">3.4 <samp><span class="command">rotctld</span></samp></a>
+<ul>
+<li><a href="#Introduction-to-rotctld">3.4.1 Introduction to <samp><span class="command">rotctld</span></samp></a>
+<li><a href="#rotctld-reference">3.4.2 <samp><span class="command">rotctld</span></samp> reference</a>
+</li></ul>
+<li><a href="#rigmem">3.5 <samp><span class="command">rigmem</span></samp></a>
+<ul>
+<li><a href="#Introduction-to-rigmem">3.5.1 Introduction to <samp><span class="command">rigmem</span></samp></a>
+<li><a href="#rigmem-reference">3.5.2 <samp><span class="command">rigmem</span></samp> reference</a>
+</li></ul>
+<li><a href="#rigsmtr">3.6 <samp><span class="command">rigsmtr</span></samp></a>
+<ul>
+<li><a href="#Introduction-to-rigsmtr">3.6.1 Introduction to <samp><span class="command">rigsmtr</span></samp></a>
+<li><a href="#rigsmtr-reference">3.6.2 <samp><span class="command">rigsmtr</span></samp> reference</a>
+</li></ul>
+<li><a href="#rigswr">3.7 <samp><span class="command">rigswr</span></samp></a>
+<ul>
+<li><a href="#Introduction-to-rigswr">3.7.1 Introduction to <samp><span class="command">rigswr</span></samp></a>
+<li><a href="#rigswr-reference">3.7.2 <samp><span class="command">rigswr</span></samp> reference</a>
+</li></ul>
+</li></ul>
+<li><a name="toc_GNU-Free-Documentation-License" href="#GNU-Free-Documentation-License">Appendix A GNU Free Documentation License</a>
+<li><a name="toc_Working-with-Git" href="#Working-with-Git">Appendix B Working with Git</a>
+<li><a name="toc_List-of-Figures" href="#List-of-Figures">List of Figures</a>
+<li><a name="toc_Concept-Index" href="#Concept-Index">Concept Index</a>
+</li></ul>
+</div>
+
+
+
+<p><a name="Top"></a>
+
+<h2 class="unnumbered">Ham Radio Control Libraries</h2>
+
+<p>This manual is for Ham Radio Control Libraries (Hamlib) (version 4.0~git,
+24 July 2019).
+
+<p><a name="Copying-and-Redistribution"></a>
+
+<h2 class="unnumbered">Copying and Redistribution</h2>
+
+<p><a name="index-Copying_002c-redistribution-1"></a><a name="index-Redistribution_002c-copying-2"></a><a name="index-Copyleft-3"></a>
+This manual documents Hamlib, a programming library and various supplied
+programs, which is
+<a href="http://en.wikipedia.org/wiki/Free_Software_Definition">Free Software</a>.  Besides often being distributed at no cost to
+you, Free in this context means that the copyright holders to Hamlib
+have agreed to offer their collective work under terms that give you
+certain rights that allow you to modify and/or redistribute Hamlib under
+the same terms that you received it from them.
+
+   <p>Such licensing is often termed
+<a href="http://en.wikipedia.org/wiki/Copyleft">copyleft</a> as a
+play against the common &ldquo;all rights reserved&rdquo; terms of normal
+<a href="http://en.wikipedia.org/wiki/Copyright">copyright</a>.  In
+general, copyleft provides everyone with a license to modify and
+distribute the modified work or to simply distribute a copyrighted work
+under certain terms.  Hamlib source code is copyrighted by its authors
+and is licensed by them under two common licenses&mdash;the
+<a href="http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License">GNU Lesser General Public License</a>
+<acronym>LGPL</acronym> for the &ldquo;front end&rdquo; and &ldquo;back end&rdquo; library source
+code files, and the
+<a href="http://en.wikipedia.org/wiki/GNU_General_Public_License">GNU General Public License</a> <acronym>GPL</acronym> for
+the supplied programs source code files.  The full text of the LGPL and
+the GPL can be found in the files COPYING.LIB and COPYING in the root
+directory of the Hamlib source archive.
+
+   <p>This manual is covered by the
+<a href="http://en.wikipedia.org/wiki/GNU_Free_Documentation_License">GNU Free Documentation License</a>
+<acronym>GFDL</acronym> with no Invariant Sections, no Front-Cover Texts, and no
+Back-Cover Texts.  Source code examples in this manual are parallel
+licensed under the GPL unless otherwise noted.
+
+   <p>As part of the Copyleft nature of the licenses, the authors of Hamlib
+must forbid you from distributing Hamlib under terms that forbid others
+from exercising the same rights you received.  You must give anyone you
+distribute Hamlib to the same rights to obtain, modify, and distribute
+the Hamlib source code that you received nor may you license Hamlib
+under other terms than those you received.  Any recipients of Hamlib
+must be informed of the rights to the source code that they have
+received.
+
+   <p><a name="index-NO-WARRANTY-4"></a>Finally, the authors of Hamlib require that it be understood that NO
+WARRANTY of any kind is offered to anyone receiving the Hamlib source
+code distribution.  Anyone distributing modified versions of Hamlib has
+the responsibility to inform any recipients that what they have is not
+the official release of Hamlib by its authors and should be prepared to
+support the modified version(s).  This is to preserve the reputations of
+the Hamlib authors and the Hamlib Project.  While it is not a
+requirement of the licenses, it is courteous to offer modifications back
+to the Hamlib authors for possible incorporation into their official
+release(s).
+
+<!--  Chapter - -->
+<p><a name="Hamlib-in-a-Nutshell"></a>
+
+<h2 class="chapter">1 Hamlib in a Nutshell</h2>
+
+<p><a name="index-Nutshell-5"></a>
+
+   <p>The <dfn>Ham Radio Control Libraries</dfn>, <dfn>Hamlib</dfn> for short, is a
+development effort to provide a consistent interface for programmers
+wanting to incorporate radio and rotator control in their programs.
+
+   <p>Hamlib is not a complete user application, rather, it is a software
+layer intended to make controlling various radios and other amateur
+radio station (shack) hardware much easier.  Hamlib will allow authors
+of software such as logging programs, digital communications programs,
+or those wanting to develop the ultimate radio control software to
+concentrate on the user interface and the basic function of the
+program rather than radio control.  Hamlib consists of several parts,
+the programming library, utility programs, and library interfaces to
+other programming languages.
+
+   <p>Most recent amateur radio transceivers allow external control of their
+functions through a serial interface.  Unfortunately, control commands
+are not always consistent across a manufacturer's product line and
+each manufacturer's product line differs greatly from its competitors.
+
+   <p>Hamlib attempts to solve this problem by presenting a "virtual radio"
+to the programmer by providing an interface to actions such as setting
+a given Variable Frequency Oscillator's (VFO) frequency, setting the
+operating mode, querying the radio of its current status and settings,
+and giving the application a list of a given radio's capabilities. 
+Unfortunately, what can be accomplished by Hamlib is limited by the
+radios themselves and some offer very limited capability.
+
+   <p>Other devices, such as antenna rotators, can be placed into the Hamlib
+control scheme.  Other recent developments include network interface
+servers and a USB interface capability.  Language bindings are
+provided for C, C++, Perl, Python, Lua and TCL (more to come).
+
+<p><a name="Overview"></a>
+
+<h3 class="section">1.1 A view from the top of the tower</h3>
+
+<p><a name="index-Overview-6"></a>
+<a name="index-Front-end-library-7"></a><a name="index-Virtual-radio-8"></a><a name="index-Virtual-rotator-9"></a>Hamlib is a <dfn>front end</dfn> library providing a <em>C</em> language
+Application Programming Interface <acronym>API</acronym> to programmers wishing
+to integrate radio or rotator control in their applications.  Hamlib
+presents a <dfn>virtual radio</dfn> or <dfn>virtual rotator</dfn> that is a
+consistent interface to an application despite wide differences in
+radio and rotator interfaces and capabilities.
+
+   <p><a name="index-Back-end-library-10"></a>The front end library uses a number of <dfn>back end</dfn> libraries to
+translate from the front end to the various individual radio and
+rotator models.  A back end library handles conversion of the front
+end variables to the format needed by the radio or rotator device it
+controls.  The back end libraries are generally grouped by
+manufacturer and in some cases by a common control protocol.
+
+   <blockquote>
+Since a picture is worth quite a few words, here is a visual representation
+of Hamlib's design. 
+<br><br>
+<div class="float">
+<a name="fig_003aimg1"></a><img src="Hamlib_design.png" alt="Hamlib Design">
+
+        <p><strong class="float-caption">Figure 1.1: Hamlib design&mdash;<i>courtesy of Martin Ewing, AA6E</i>.</strong></p></div>
+<br>
+</blockquote>
+
+   <p><a name="index-Scripting-languages-11"></a><a name="index-Languages_002c-scripting-12"></a><a name="index-Interface_002c-languages-13"></a>Hamlib also provides an interface library for each of several common
+<dfn>scripting</dfn> languages such as <a href="http://www.perl.org">Perl</a>, <a href="http://www.python.org">Python</a>,
+<a href="https://www.lua.org">Lua</a> and <a href="http://www.tcl.tk">TCL</a>.  These language <dfn>bindings</dfn> are generated through the use of
+<a href="http://www.swig.org">SWIG</a> a parser/generator for multiple
+language interfaces to a C library.  A native generated <em>C++</em>
+language interface is also provided.
+
+   <p><a name="index-Daemon_002c-network-14"></a><a name="index-Network_002c-daemon-15"></a>Besides the C and supplemental APIs, Hamlib also provides a pair of
+network daemons that provide a text command based API for controlling
+an attached radio or rotator through a <em>TCP/IP</em> network
+connection.  The daemons then handle the interface to the Hamlib C
+API.
+
+   <p>More than one type of device, radio or rotator, may be controlled at a
+time, however, there is generally a limit of one device per serial
+port or other port.
+
+<p><a name="The-Hamlib-project"></a>
+
+<h3 class="section">1.2 Hamlib project information</h3>
+
+<p><a name="index-Hamlib-project-16"></a><a name="index-Project_002c-Hamlib-17"></a>
+The Hamlib Project was founded by Frank Singleton,VK3FCS/KM5WS in July
+2000.  Shortly after Stephane Fillod, F8CFE, joined Frank on the
+Hamlib project and the API and implementation development led to a
+reasonable level of maturity in a few years.  A major milestone was
+reached when Hamlib 1.2.0 was released in March 2004.  The API and
+Application Binary Interface (<acronym>ABI</acronym>) interfaces have remained
+stable since that time up to the latest release of 3.2 in early 2018.
+
+   <p>Development continues through the major version number 3.x and beyond. 
+While some API tweaks are planned, ABI compatibility with the prior
+1.2.<i>x</i> releases remains a priority.  Other goals include
+streamlining the build system (done), improving the SWIG generated
+language bindings (done), improving the overall documentation (this
+manual, in progress), and other updates as warranted.
+
+   <p>The Project is hosted by <a href="https://sourceforge.net/">SourceForge.net</a> at the <a href="https://sourceforge.net/projects/hamlib/">Hamlib project page</a>.  As <a href="https://github.com/">GitHub</a> has become
+a very popular project hosting site, Hamlib also has a dedicated
+<a href="https://github.com/Hamlib/Hamlib">GitHub project page</a>.  GitHub
+also hosts the <a href="http://www.hamlib.org">hamlib.org</a> Web site and
+the <a href="https://github.com/Hamlib/Hamlib/wiki">Hamlib Wiki</a>.
+
+   <p>Development discussion and most user support take place on the
+<a href="https://sourceforge.net/p/hamlib/mailman/">hamlib-developer mailing list</a>.  While there are
+<a href="https://sourceforge.net/p/hamlib/discussion/">SourceForge.net discussion forums</a>, they are rarely used and not as closely read by
+the developers as the mailing list.
+
+   <p>For <dfn>source code management</dfn>, the project uses
+<a href="http://git-scm.com/">Git</a>, a fast, distributed content tracker. 
+Among its features is that every developer has the complete Hamlib
+development history available locally.  For more information on using
+Git, see <a href="#Working-with-Git">Working with Git</a>.
+
+   <blockquote>
+<b>Note:</b> While a canonical Git repository is hosted as SourceForge, its
+availability is not essential to continued development, although
+development work flows would change temporarily.  Several developers
+find the GitHub Web interface easier to use and lately development has
+centered around GitHub rather than SourceForge. 
+</blockquote>
+
+<p><a name="Applications-using-Hamlib"></a>
+
+<h3 class="section">1.3 Applications using Hamlib</h3>
+
+<p><a name="index-Hamlib-applications-18"></a><a name="index-Applications_002c-using-Hamlib-19"></a>
+A number of application developers have taken advantage of Hamlib's
+capabilities to implement radio and/or rotator control.  While not
+exhaustive, a list is maintained at the Hamlib Wiki,
+<a href="https://github.com/Hamlib/Hamlib/wiki/Applications-and-Screen-Shots">Applications/Screenshots</a>.  Developers are encouraged to request their
+applications be added to the gallery by way of the hamlib-developer
+mailing list.
+
+<p><a name="Licensing-implications"></a>
+
+<h3 class="section">1.4 Using Hamlib with your program</h3>
+
+<p><a name="index-Hamlib-licensing-20"></a><a name="index-Licensing_002c-Hamlib-21"></a>
+As with other Free Software projects, Hamlib relies heavily on
+copyleft licensing to encourage development contributions and provide
+an open atmosphere for development.  Hamlib's source code is released
+under two licenses, the Lesser General Public License (<acronym>LGPL</acronym>)
+for the library portion, and the General Public License
+(<acronym>GPL</acronym>) for the utility programs.
+
+   <p>The LGPL allows the library to be used (linked) by programs regardless
+of their individual license.  However, any contributions to the
+library source remain under copyleft which means that the library
+source code may not be used in violation of the terms of the LGPL.
+
+   <p>The utility program source files are released under the GPL.  Any direct
+use of these sources must be in a form that complies with the terms of
+the GPL.  Concepts learned by studying these sources for the purpose of
+understanding the Hamlib API is not covered nor prohibited by the GPL,
+however, directly copying GPL sources into any work that is incompatible
+with the terms of the GPL is prohibited.
+
+   <p>See <a href="#Copying-and-Redistribution">Copying and Redistribution</a>.
+
+<p><a name="Radio-cloning"></a>
+
+<h3 class="section">1.5 Radios with a clone capability</h3>
+
+<p><a name="index-Radio-cloning-22"></a><a name="index-Cloning_002c-radio-23"></a>
+Hamlib's focus is on controlling rigs that employ a port and command
+protocol for setting frequency, mode, VFO, PTT, etc.  Most VHF/UHF
+transceivers do not employ such control capability but do provide for
+cloning the memory contents from radio to another of the same model. 
+A related project, <a href="http://chirp.danplanet.com/">CHIRP</a>, aims to
+support radios with such a clone capability.  Please contact the CHIRP
+project for support of such radios.
+
+<p><a name="Pronunciation"></a>
+
+<h3 class="section">1.6 Pronouncing Hamlib</h3>
+
+<p><a name="index-Pronouncing-Hamlib-24"></a><a name="index-Hamlib_002c-pronouncing-25"></a>
+English speakers seem to have two alternate pronunciations for our
+project:
+
+     <ul>
+<li>Hamlib (Ham - lib, long "i", as in library.) IPA style: /'ham læb/
+<li>Hamlib (Ham - lib, short "i", as in liberty.) IPA style: /'ham lɪb/
+</ul>
+
+   <p>Then again, we have people who say Linux "L-eye-nux" and those who say
+"L-in-nux"...
+
+   <p>If you're French, the above does not apply! :-)
+
+<!--  Chapter - -->
+<p><a name="Getting-started"></a>
+
+<h2 class="chapter">2 Getting started</h2>
+
+<p>There are several ways to obtain a working installation of Hamlib. 
+The following sections discuss installing from a package manager,
+building from source, and installing Hamlib project supplied binaries
+on Microsoft Windows&reg;.
+
+<p><a name="Unix-binary-packages"></a>
+
+<h3 class="section">2.1 Installing binary packages on Linux and BSD</h3>
+
+<p><a name="index-Binary-packages_002c-Linux_002c-BSD-26"></a><a name="index-Linux-binary-packages-27"></a><a name="index-BSD-binary-packages-28"></a>
+The easiest way to install a released version of Hamlib on a Linux
+based distribution or a BSD variant is through the provided
+<dfn>package manager</dfn>.  While package managers vary according to the
+distribution (it's easy to lump BSD variants in this group too) their
+end goal is to provide ready to use software packages.  Since such a
+wide variety of package managers exist, it is best to recommend that
+the documentation for your chosen distribution be your guide.
+
+<p><a name="Source-options"></a>
+
+<h3 class="section">2.2 A variety of Hamlib sources</h3>
+
+<p><a name="index-Source-options-29"></a>
+Distribution packages are most often official Hamlib releases and in
+some cases could be quite old and lacking support for newer radios or
+rotators.  In some cases support is improved in existing radio or
+rotator back ends and bugs are fixed in newer releases.  Often times
+to get the improved support/bug fixes, building from source will be
+required.  Relax, it's not hard.  :-)
+
+   <p>Source code is available as official releases, testing snapshots,
+daily development snapshots, and the bleeding edge of development
+directly from the <a href="https://github.com/Hamlib/Hamlib">Git repository</a>.  As a rule, even the bleeding edge tarballs should
+configure and compile without error even though certain implementation
+work may be in progress and may be incomplete or have errors.
+
+<p><a name="Source-releases"></a>
+
+<h4 class="subsection">2.2.1 Getting released source</h4>
+
+<p><a name="index-Getting-released-source-30"></a><a name="index-Source_002c-getting-released-31"></a><a name="index-Source_002c-obtaining-releases-32"></a>
+Official Hamlib source releases, commonly called <dfn>tarballs</dfn> can be
+found on the
+<a href="http://sourceforge.net/projects/hamlib/files/hamlib/">SourceForge.net Hamlib files</a> Web page.  As a convenience, release
+archives are also mirrored at the
+<a href="https://github.com/Hamlib/Hamlib/releases">GitHub Hamlib releases</a> page.  The most recent release is listed first.
+
+<p><a name="Source-snapshots"></a>
+
+<h4 class="subsection">2.2.2 Getting source snapshots</h4>
+
+<p><a name="index-Getting-source-snapshots-33"></a><a name="index-Source_002c-getting-snapshots-34"></a><a name="index-Source_002c-obtaining-snapshots-35"></a><a name="index-Source_002c-daily-snapshots-36"></a><a name="index-Source_002c-release-candidates-37"></a><a name="index-Source_002c-RC-38"></a>
+Testing release candidates (RCs) are posted during the period (often a
+few weeks) before a planned release.  Beginning with the 3.2 release,
+RCs are hosted by the <a href="https://github.com/Hamlib/Hamlib/releases">GitHub release archive</a>.  RCs are identifed by having a <i>~rc</i>
+suffix.
+
+   <p>Daily snapshots of the development repository are available via the
+World Wide Web from <a href="http://n0nb.users.sourceforge.net/">Hamlib Git daily snapshots</a>.  These are not official releases but are
+provided for testing new features and bug fixes.
+
+   <p>The daily development snapshot is made and posted each day by around
+1030 UTC.  Daily snapshots <i>should</i> compile but sometimes a bug
+creeps in that prevents compilation.  If that should happen, please
+report it to the <a href="mailto:hamlib-developer@lists.sourceforge.net">hamlib-developer mailing list</a>.
+
+<p><a name="Git-clone"></a>
+
+<h4 class="subsection">2.2.3 Git repository</h4>
+
+<p><a name="index-Git-repository-39"></a><a name="index-Git-clone-40"></a>
+The source repository can be <dfn>cloned</dfn> which copies the repository
+to your computer including its entire history, branches, and release
+tag information.  In other words, once the <samp><span class="command">git</span></samp>
+<samp><span class="option">clone</span></samp> command is finished a complete copy of the Hamlib
+development will be on your computer.  You can do quite a lot with
+this as nothing is hidden from view since the entire
+history of Hamlib is right there all the way from the very first
+commit to the present.  None of the meta-data is hidden away on
+some central server.
+
+   <p>To clone the repository use the following command:
+
+<pre class="example">     git clone git://git.code.sf.net/p/hamlib/code hamlib
+</pre>
+   <p>or:
+
+<pre class="example">     git clone https://github.com/Hamlib/Hamlib.git
+</pre>
+   <p>Odds are that you will want to run the above command in a sub
+directory of your home directory.  The <samp><span class="file">hamlib</span></samp> directory will be
+created by Git and the <dfn>master</dfn> branch will be checked out for you
+as the <dfn>working copy</dfn>.  The master branch is one of several
+branches used in Hamlib development.  It is the main branch of new
+features and bug fixes.  The working copy will be the latest revision
+of every file at the time of the clone.  Later updates from the
+developers will require using another Git command to update your local
+repository.
+
+   <p>See <a href="#Working-with-Git">Working with Git</a>.
+
+<p><a name="Building-from-source"></a>
+
+<h3 class="section">2.3 Building from source</h3>
+
+<p><a name="index-Building-from-source-41"></a><a name="index-Source_002c-building-from-42"></a>
+Building from source will be required for various reasons.  Perhaps
+only an older release is provided by your distribution, or you would
+like to test recent changes to Hamlib&mdash;either a specific back end or
+API changes&mdash;and offer a report to the developers, or you'd like to
+take part in development and offer your contribution to the project,
+or you'd just like to learn how to build a relatively comprehensive
+package from source.  Any is a good reason to build from the source
+code archive.
+
+   <p>Before going further, this manual assumes familiarity with working
+from the command prompt in a Linux/BSD/Unix like system's <dfn>shell</dfn>
+environment, either in a <dfn>virtual console</dfn> (a text only screen
+with no graphics) or in a <dfn>terminal</dfn> in a desktop environment
+(<samp><span class="command">xterm</span></samp>, <samp><span class="command">rxvt</span></samp>, <samp><span class="command">konsole</span></samp>,
+<samp><span class="command">gnome-terminal</span></samp>, <samp><span class="command">xfce4-terminal</span></samp>,
+<samp><span class="command">terminal</span></samp>, etc.).  If this is new to you, take some time and
+read up on using the shell.  A good tutorial can be found at
+<a href="http://linuxcommand.org/">LinuxCommand.org</a> which also offers an
+in-depth book that can be purchased or downloaded for no cost (the
+Hamlib project is not associated with nor has any interest in the sale
+of this book, it just looks like a very good effort on the part of its
+author).
+
+   <p>Let's get started.
+
+<p><a name="Compiling-source-tarballs"></a>
+
+<h4 class="subsection">2.3.1 Compiling source tarballs</h4>
+
+<p><a name="index-Compiling-source-tarballs-43"></a><a name="index-Source-tarballs_002c-compiling-44"></a>
+Before proceeding, it is essential to read the information in the
+files, <samp><span class="file">README</span></samp>, <samp><span class="file">INSTALL</span></samp>, and <samp><span class="file">README.betatester</span></samp>
+supplied in the Hamlib <dfn>top-level</dfn> directory which will be named
+something like <samp><span class="file">hamlib-3.3~git</span></samp> where the latter part is the
+release version.  In this case the `<samp><span class="samp">3.3~git</span></samp>' indicates this is a
+development snapshot of the Git master branch.  These files provide
+detailed information for compiling Hamlib and will vary some from
+release to release.
+
+   <p>Compiling from a source tarball whether it is an official release or a
+testing or daily development snapshot follows the same set of
+commands, known as the <dfn>three step</dfn> which are each run from the
+top-level directory:
+
+<pre class="example">     ./configure
+     make
+     sudo make install
+</pre>
+   <p><a name="configure"></a>
+
+<h5 class="subsubsection">2.3.1.1 <samp><span class="command">configure</span></samp></h5>
+
+<p><a name="index-configure-45"></a>
+The <samp><span class="command">./configure</span></samp> command examines your system and checks it
+for any packages that are required or good to have options for
+compiling Hamlib.  The leading <samp><span class="file">./</span></samp> tells the shell to only run
+the <samp><span class="command">configure</span></samp> command found in the current directory.  It is
+always possible that a <samp><span class="command">configure</span></samp> command could be lurking
+elsewhere and we don't want to run that!
+
+   <p>Run:
+
+<pre class="example">     <samp><span class="command">./configure</span></samp>
+</pre>
+   <p>from the top-level directory.
+
+   <blockquote>
+<b>Note:</b> Some distributions are configured so commands can only be run from
+directories listed in the <samp><span class="env">PATH</span></samp> environment variable.  The
+<samp><span class="file">./</span></samp> is necessary or the <samp><span class="command">configure</span></samp> command will not be
+run as the <dfn>current directory</dfn> (defined as <samp><span class="file">.</span></samp>) is not in the
+<samp><span class="env">PATH</span></samp>.  This is considered a default security feature so that
+only programs provided by the distribution are run.  <samp><span class="env">PATH</span></samp> can be
+modified for your own session, but that is a topic for the
+LinuxCommand.org reference above. 
+</blockquote>
+
+   <p>Of course, things are usually complicated a bit by options and Hamlib
+is no exception.  The good news is that the defaults, i.e., no
+options, work well in most situations.  Options are needed to enable
+the compilation of certain portions of Hamlib such as the language
+bindings.  Optional features usually require that more development
+tools are installed.  The <samp><span class="file">INSTALL</span></samp>, and <samp><span class="file">README.betatester</span></samp>
+files in the Hamlib top-level directory will have details on the
+options available for that release.
+
+   <p>A useful option is `<samp><span class="samp">--prefix</span></samp>' which tells <samp><span class="command">configure</span></samp>
+where in the file system hierarchy Hamlib should be installed.  If it
+is not given, Hamlib will be installed in the <samp><span class="file">/usr/local</span></samp> file
+system hierarchy.  Perhaps you want to install to your home directory
+instead:
+
+<pre class="example">     <samp><span class="command">./configure --prefix=$HOME/local</span></samp>
+</pre>
+   <blockquote>
+<b>Note:</b> For practice you may wish to start out using the
+`<samp><span class="samp">--prefix=$HOME/local</span></samp>' option to install the Hamlib files into
+your home directory and avoid overwriting any version of Hamlib
+installed into the system directories.  The code examples in the
+remainder of this manual will assume Hamlib has been installed to
+`<samp><span class="samp">$HOME/local</span></samp>'. 
+</blockquote>
+
+   <p>All of the files will be installed in the <samp><span class="file">local</span></samp> directory of
+your home directory.  <samp><span class="file">local</span></samp> will be created if it does not
+exist during installation as will several other directories in it. 
+Installing in your home directory means that <dfn>root</dfn>, or superuser
+(administrator) privileges are not required when running <samp><span class="command">make
+install</span></samp>.  On the other hand, some extra work will need to be done so
+other programs can use the library.
+
+   <p>Another useful option is `<samp><span class="samp">--help</span></samp>' which will give a few screens
+full of options for <samp><span class="command">configure</span></samp>.  If in a desktop environment
+the scroll bar can be used to scroll back up through the output.  In
+either a terminal or a virtual console Linux supports the
+&lt;Shift-PageUp&gt; key combination to scroll back up.  Converesely
+&lt;Shift-PageDown&gt; can be used to scroll down toward the end of the
+output and the shell prompt (Shift-UpArrow/Shift-DownArrow may also
+work to scroll one line at a time).
+
+   <p>After a fair amount of time, depending on your computer, and a lot of
+screen output, <samp><span class="command">configure</span></samp> will finish its job.  So long as
+the few lines previous to the shell prompt don't say &ldquo;error&rdquo; or some
+such failure message Hamlib is ready to be compiled.  If there is an
+error and all of the required packages listed in
+<samp><span class="file">README.betatester</span></samp> have been installed, please ask for help on
+the <a href="mailto:hamlib-developer@lists.sourceforge.net">hamlib-developer mailing list</a>.
+
+<p><a name="make"></a>
+
+<h5 class="subsubsection">2.3.1.2 <samp><span class="command">make</span></samp></h5>
+
+<p><a name="index-make-46"></a>
+The <samp><span class="command">make</span></samp> command is responsible for running the
+<dfn>compiler</dfn> which reads the source files and from the instructions
+it finds in them writes <dfn>object</dfn> files which are the binary
+instructions the <acronym>CPU</acronym> of a computer can execute. 
+<samp><span class="command">make</span></samp> then calls the <dfn>linker</dfn> which puts the object files
+together in the correct order to create the Hamlib library files and
+its executable programs.
+
+   <p>Run:
+
+<pre class="example">     <samp><span class="command">make</span></samp>
+</pre>
+   <p>from the top-level directory.
+
+   <p>Any error that causes <samp><span class="command">make</span></samp> to stop early is cause for a
+question to the <a href="mailto:hamlib-developer@lists.sourceforge.net">hamlib-developer mailing list</a>.
+
+   <p>In general <samp><span class="command">make</span></samp> will take longer than <samp><span class="command">configure</span></samp> to
+complete its run.  As it is a system command and therefore found in
+the <samp><span class="env">PATH</span></samp>, prefixing <samp><span class="command">make</span></samp> with <samp><span class="file">./</span></samp> will cause a
+`<samp><span class="samp">command not found</span></samp>' error from the shell.
+
+<p><a name="make-install"></a>
+
+<h5 class="subsubsection">2.3.1.3 <samp><span class="command">make install</span></samp></h5>
+
+<p><a name="index-make-install-47"></a>
+Assuming that you have not set the installation prefix to your home
+directory, root (administrator) privileges will be required to install
+Hamlib to the system directories.  Two popular methods exist for
+gaining root privileges, <samp><span class="command">su</span></samp> and <samp><span class="command">sudo</span></samp>. 
+<samp><span class="command">sudo</span></samp> is probably the most popular these days, particularly
+when using the <a href="http://www.ubuntu.com">Ubuntu</a> family of
+distributions.
+
+   <p>Run:
+
+<pre class="example">     <samp><span class="command">sudo make install</span></samp>
+</pre>
+   <p>as root from the top-level directory.
+
+   <p>Running <samp><span class="command">make install</span></samp> will call the installer to put all of
+the newly compiled files and other files (such as this document) in
+predetermined places set by the `<samp><span class="samp">--prefix</span></samp>' option to
+<samp><span class="command">configure</span></samp> in the directory hierarchy (yes, this is by design
+and <samp><span class="command">make</span></samp> is not just flinging files any old place!).
+
+   <p>A lot of screen output will be generated.  Any errors will probably be
+rather early in the process and will likely be related to your
+<var>username</var> not having write permissions in the system directory
+structure.
+
+<p><a name="ldconfig"></a>
+
+<h5 class="subsubsection">2.3.1.4 <samp><span class="command">ldconfig</span></samp></h5>
+
+<p><a name="index-ldconfig-48"></a>
+Once the installation is complete one more step is required if Hamlib
+has never been installed from a local build before.  The
+<samp><span class="command">ldconfig</span></samp> command tells the system library loader where to
+find the newly installed Hamlib libraries.  It too will need to be run
+with root privileges:
+
+   <p>Run:
+
+<pre class="example">     <samp><span class="command">sudo ldconfig</span></samp>
+</pre>
+   <p>as root from any directory.
+
+   <blockquote>
+<b>Note:</b> Subsequent installations of Hamlib will not need to have
+<samp><span class="command">ldconfig</span></samp> run after each installation if a newer major
+version of Hamlib was not installed, i.e. when recompiling the same
+version during development. 
+</blockquote>
+
+   <p>On some distributions a bit of configuration will be needed before
+<samp><span class="command">ldconfig</span></samp> will add locally compiled software to its database. 
+Please consult your distribution's documentation.
+
+<p><a name="Bootstrapping-from-a-Git-clone"></a>
+
+<h4 class="subsection">2.3.2 Bootstrapping from a <samp><span class="command">git clone</span></samp></h4>
+
+<p><a name="index-Bootstrapping-from-a-Git-clone-49"></a><a name="index-Git-clone_002c-bootsrapping-50"></a>
+Choosing to build from from a <samp><span class="command">git clone</span></samp> requires a few more
+development tools (notice a theme here?) as detailed in
+<samp><span class="file">README.developer</span></samp>.  The most critical will be the GNU Autotools
+(<samp><span class="command">autoconf</span></samp>, <samp><span class="command">automake</span></samp>, <samp><span class="command">libtool</span></samp>, and more)
+from which the build system consisting of <samp><span class="file">configure</span></samp>, the
+various <samp><span class="file">Makefile.in</span></samp>s throughout the directory structure, and
+the final <samp><span class="file">Makefile</span></samp>s are generated.
+
+   <p>In the top-level directory is the <samp><span class="command">bootstrap</span></samp> script from
+which the build system is <dfn>bootsrapped</dfn>&mdash;the process of
+generating the Hamlib build system from <samp><span class="file">configure.ac</span></samp> and the
+various <samp><span class="file">Makefile.am</span></samp>s.  At its completion the
+<samp><span class="command">configure</span></samp> script will be present to configure the build
+system.
+
+   <p>Next <samp><span class="command">configure</span></samp> is run with any needed build options
+(<samp><span class="command">configure --help</span></samp> is useful) to enable certain features or
+provide paths for locating needed build dependencies, etc. 
+Environment variables intended for the preprocessor and/or compiler
+may also be set on the <samp><span class="command">configure</span></samp> command line.
+
+   <p>After the configuration is complete, the build may proceed with the
+<samp><span class="command">make</span></samp> step as for the source tarballs above.  Or
+<samp><span class="command">configure --help</span></samp> may be run, and <samp><span class="command">configure</span></samp> run
+again with specific options in which case the <samp><span class="file">Makefile</span></samp>s will be
+regenerated and the build can proceed with the new configuration.
+
+   <p>See <a href="#configure">configure</a>.
+
+<p><a name="Other-make-targets"></a>
+
+<h4 class="subsection">2.3.3 Other <samp><span class="command">make</span></samp> targets</h4>
+
+<p><a name="index-Other-_0040command_007bmake_007d-targets-51"></a><a name="index-g_t_0040command_007bmake_007d_002c-other-targets-52"></a>
+Besides <samp><span class="command">make install</span></samp>, other <dfn>targets</dfn> exist when running
+<samp><span class="command">make</span></samp>.  Running <samp><span class="command">make clean</span></samp> from the top-level
+directory removes all of the generated object and executable files
+generated by running <samp><span class="command">make</span></samp> freeing up considerable disk
+space.
+
+   <blockquote>
+<b>Note:</b> During development of individual source files, it is not necessary to
+run <samp><span class="command">make clean</span></samp> each time before <samp><span class="command">make</span></samp>.  Simply run
+<samp><span class="command">make</span></samp> and only the modified file(s) and any objects that
+depend on them will be recompiled.  This speeds up development time
+considerably. 
+</blockquote>
+
+   <p>To remove even the generated <samp><span class="file">Makefile</span></samp>s, run <samp><span class="command">make
+distclean</span></samp> from the top-level directory.  After this target is run,
+<samp><span class="command">configure</span></samp> will need to be run again to regenerate the
+<samp><span class="file">Makefile</span></samp>s.  This command may not be as useful as the
+<samp><span class="file">Makefile</span></samp>s do not take up much space, however it can be useful
+for rebuilding the <samp><span class="file">Makefile</span></samp>s when modifying a
+<samp><span class="file">Makefile.am</span></samp> or <samp><span class="file">confgure.ac</span></samp> during build system
+development.
+
+<p><a name="Parallel-build-trees"></a>
+
+<h4 class="subsection">2.3.4 Parallel build trees</h4>
+
+<p><a name="index-Parallel-build-trees-53"></a><a name="index-Build_002c-parallel-trees-54"></a>
+One feature of the GNU build system used by Hamlib is that the object
+files can be kept in a directory structure separate from the source
+files.  While this has no effect on the <samp><span class="command">make</span></samp> targets
+described above, it does help the developer find files in the source
+tree!  One such way of using parallel builds is described in
+<samp><span class="file">README.developer</span></samp>.
+
+   <p>Parallel builds can be very useful as one build directory can be
+configured for a release and another build directory can be configured
+for debugging with different options passed to <samp><span class="command">configure</span></samp>
+from each directory.  The generated <samp><span class="file">Makefile</span></samp>s are unique to
+each build directory and will not interfere with each other.
+
+<p><a name="Adding-debugging-symbols"></a>
+
+<h4 class="subsection">2.3.5 Adding debugging symbols</h4>
+
+<p><a name="index-Adding-debugging-symbols-55"></a>
+When additional debugging symbols are needed with, for example, the
+GNU Debugger, <samp><span class="command">gdb</span></samp>, the needed compiler and linker options
+are passed as environment variables.
+
+   <p>Run:
+<pre class="example">     <samp><span class="command">../hamlib/configure CFLAGS="-ggdb3 -O0" CXXFLAGS="-ggdb3 -O0"</span></samp>
+</pre>
+   <p>from a sibling build directory intended for a debugging build.
+
+   <p>The `<samp><span class="samp">-ggdb3</span></samp>' option tells the C compiler, this case the GNU C
+Compiler, <samp><span class="command">gcc</span></samp>, to add special symbols useful for GDB, the
+GNU debugger.  The `<samp><span class="samp">-O0</span></samp>' option tells <samp><span class="command">gcc</span></samp> to turn off
+all optimizations which will make it easier to follow some variables
+that might otherwise be optimized away.  `<samp><span class="samp">CFLAGS</span></samp>' and
+`<samp><span class="samp">CXXFLAGS</span></samp>' may be set independently for each compiler.
+
+   <blockquote>
+<b>Note:</b> There are a number compiler options available for controlling debugging
+symbols and setting optimization levels.  Please consult the compiler's
+manual for all the details. 
+</blockquote>
+
+<p><a name="Compiling-Microsoft-Windows"></a>
+
+<h4 class="subsection">2.3.6 Compiling for Microsoft Windows</h4>
+
+<p><a name="index-Compiling-for-Microsoft-Windows-56"></a><a name="index-Microsoft-Windows_002c-compiling-57"></a>
+Currently compiling is done on a Debian 8 (Jessie) virtual machine
+using <a href="http://www.mingw.org/">MinGW</a>.  <samp><span class="file">README.build-win32</span></samp>
+in the <samp><span class="file">scripts</span></samp> directory has details on how this is
+accomplished.
+
+   <p>Work is ongoing to correct build issues in the
+<a href="http://www.cygwin.com/">Cygwin</a> environment running on MS
+Windows.
+
+<p><a name="Microsft-Windows-binaries"></a>
+
+<h3 class="section">2.4 Pre-compiled binaries for Microsoft Windows</h3>
+
+<p><a name="index-Pre_002dcompiled-binaries-for-Microsoft-Windows-58"></a><a name="index-Microsoft-Windows_002c-compiled-binaries-59"></a><a name="index-Microsoft-Windows_002c-pre_002dcompiled-binaries-60"></a>
+Pre-compiled binaries for Microsoft Windows 32 and 64 bit
+architectures (Windows NT and newer) are available for both official
+releases and daily development snapshots.  Official releases are
+available through the
+<a href="http://sourceforge.net/projects/hamlib/files/hamlib/">SourceForge.net file download service</a>.  As an alternative, official
+releases are also available though the
+<a href="https://github.com/Hamlib/Hamlib/releases">Hamlib archive at GitHub</a>.  Daily development snapshots are available from
+<a href="http://n0nb.users.sourceforge.net/">http://n0nb.users.sourceforge.net/</a>.
+
+   <p>Beginning with the Hamlib 1.2.15.3 release a self-extracting installer
+is available.  Among its features are selecting which portions of
+Hamlib are installed.  The <samp><span class="env">PATH</span></samp> environment variable will need
+to be set manually per the included <samp><span class="file">README.w32-bin</span></samp> or
+<samp><span class="file">README.w64-bin</span></samp> file.
+
+   <p>Daily development snapshots feature both a .ZIP archive and the self
+extracting installer.
+
+   <p>Bug reports and questions about these archives should be sent to the
+<a href="mailto:hamlib-developer@lists.sourceforge.net">hamlib-developer mailing list</a>.
+
+<!--  Chapter - -->
+<p><a name="Utility-programs"></a>
+
+<h2 class="chapter">3 Utility programs reference</h2>
+
+<p>Included with the Hamlib distribution are several utility programs. 
+Besides providing a way for developers to test new code and bug fixes,
+the programs also offer a reference implementation for interfacing to
+the Hamlib library functions both through the C API (Application
+Programming Interface) and offering a network accessible API.
+
+   <p>This chapter focuses on the two test programs, <samp><span class="command">rigctl</span></samp> for
+testing radio back ends and <samp><span class="command">rotctl</span></samp> for testing rotator back
+ends and the two network daemons, <samp><span class="command">rigctld</span></samp> and
+<samp><span class="command">rotcltd</span></samp> for radio and rotator access via network sockets. 
+Also included are three demonstation utilities, <samp><span class="command">rigmem</span></samp>,
+<samp><span class="command">rigsmtr</span></samp>, and <samp><span class="command">rigswr</span></samp> which provide functional
+examples of how Hamlib may be used to accomplish various tasks.
+
+<p><a name="rigctl"></a>
+
+<h3 class="section">3.1 <samp><span class="command">rigctl</span></samp></h3>
+
+<p><a name="index-rigctl-61"></a>
+<samp><span class="command">rigctl</span></samp> is the most frequently used Hamlib utility.  As the
+other ctl utilities share many of the same characteristics, much of
+the introductory information presented in this section is applicable
+to the other utility programs.
+
+<p><a name="Introduction-to-rigctl"></a>
+
+<h4 class="subsection">3.1.1 Introduction to <samp><span class="command">rigctl</span></samp></h4>
+
+<p><a name="index-Introduction-to-_0040command_007brigctl_007d-62"></a><a name="index-g_t_0040command_007brigctl_007d_002c-introduction-to-63"></a>
+Most likely the first of the Hamlib utility programs that is used is
+<samp><span class="command">rigctl</span></samp>.  <samp><span class="command">rigctl</span></samp> is a character based interactive
+program and a command line program able to set or query a radio's
+value with a single command.  <samp><span class="command">rigctl</span></samp> is invoked from a shell
+command prompt with various options and additional commands.
+
+   <p>In its most simple use as a <dfn>command line</dfn> program,
+<samp><span class="command">rigctl</span></samp> is used to set frequency and mode by typing commands
+after any <samp><span class="command">rigctl</span></samp> options:
+
+<pre class="example">     <kbd>rigctl F 14205000</kbd>
+     <kbd>rigctl M USB 2400</kbd>
+</pre>
+   <p class="noindent">and then query those values:
+
+<pre class="example">     <kbd>rigctl f</kbd>
+     <kbd>rigctl m</kbd>
+</pre>
+   <p>Entering interactive mode is a simple matter of not placing any
+commands after any <samp><span class="command">rigctl</span></samp> options:
+
+<pre class="example">     <kbd>rigctl</kbd>
+</pre>
+   <p class="noindent">Entering <dfn>interactive mode</dfn> allows successive commands to be
+entered without exiting <samp><span class="command">rigctl</span></samp>.  Recent additions to
+<samp><span class="command">rigctl</span></samp> allow command editing and history recall through use
+of the <a href="https://tiswww.case.edu/php/chet/readline/rltop.html">Readline</a> library.
+
+   <p>Interactive mode is indicated by the spartan prompt:
+
+<pre class="example">     Rig command:
+</pre>
+   <p class="noindent">Commands are given at the prompt and follow the general rule that
+upper case letters set a value and lower case letters query a value:
+
+<pre class="example">     Rig command: <kbd>M</kbd>
+     Mode: <kbd>USB</kbd>
+     Passband: <kbd>2500</kbd>
+     
+     Rig command: <kbd>m</kbd>
+     Mode: USB
+     Passband: 2500
+     
+     Rig command:
+</pre>
+   <p>An additional prompt is printed when more information is required by
+the command.  For <kbd>M</kbd> above, <samp><span class="command">rigctl</span></samp> prompted for the
+&ldquo;Mode&rdquo; and &ldquo;Passband&rdquo; values.  For <kbd>m</kbd> above, <samp><span class="command">rigctl</span></samp>
+returned the &ldquo;Mode&rdquo; and &ldquo;Passband&rdquo; values without further prompts. 
+The command prompt is returned after each command invocation.
+
+   <p>The above examples invoked <samp><span class="command">rigctl</span></samp> without specifying a radio
+model.  This is a feature where the Hamlib internal radio <dfn>dummy</dfn> is
+used instead.  The dummy radio provides a way to test Hamlib functions
+with out the need for actual radio hardware.  However, to develop back
+end capability for a given radio, having the actual radio connected to
+the computer is necessary for debugging.
+
+   <p>For example, to quickly set frequency on an Elecraft K3:
+
+<pre class="example">     <kbd>rigctl -m 229 -r /dev/rig F 3900000</kbd>
+</pre>
+   <p class="noindent">and to query the frequency and then mode:
+
+<pre class="example">     <kbd>rigctl -m 229 -r /dev/rig f</kbd>
+     3900000
+     
+     <kbd>rigctl -m 229 -r /dev/rig m</kbd>
+     LSB
+     2000
+</pre>
+   <p class="noindent">The returned values do not have the prompt strings associated with
+interactive mode as shown above.
+
+   <p>The <samp><span class="option">-m</span></samp> option takes a numeric value that corresponds to a
+given radio back end model.  The <samp><span class="option">-r</span></samp> option takes the path to
+the port device on <acronym>POSIX</acronym> and the device name on Microsoft
+Windows.
+
+   <blockquote>
+<b>Note:</b> A complete list of supported radio models may be seen by use of the
+<samp><span class="option">-l</span></samp> option:
+
+     <pre class="example">          <kbd>rigctl -l</kbd>
+           Rig #  Mfg              Model         Version    Status
+               1  Hamlib           Dummy         0.5        Beta
+               2  Hamlib           NET rigctl    0.3        Beta
+             101  Yaesu            FT-847        0.5        Beta
+             103  Yaesu            FT-1000D      0.0.6      Alpha
+          .
+          .
+          .
+            2702  Rohde&amp;Schwarz    EB200         0.1        Untested
+            2801  Philips/Simoco   PRM8060       0.1        Alpha
+            2901  ADAT www.adat.ch ADT-200A      1.36       Beta
+     </pre>
+        <p class="noindent">The list is long so use <kbd>&lt;SHIFT&gt;-PageUp</kbd>/
+<kbd>&lt;SHIFT&gt;-PageDown</kbd> on Linux, <kbd>&lt;ScrollLock&gt;</kbd> then
+<kbd>&lt;PageUp&gt;</kbd>/<kbd>&lt;PageDown&gt;</kbd> on Free BSD, or use the
+scrollbar to the virtual terminal window (<samp><span class="command">cmd</span></samp> window on
+Microsoft Windows) or the output can be piped to '<samp><span class="command">more</span></samp>' or
+'<samp><span class="command">less</span></samp>', e.g. '<kbd>rigctl -l | more</kbd>' to scroll back up
+the list.  The list is sorted numerically by model number since Hamlib
+1.2.15.1.  Model numbers of a manufacturer/protocol family are
+grouped together. 
+</blockquote>
+
+<p><a name="rigctl-reference"></a>
+
+<h4 class="subsection">3.1.2 <samp><span class="command">rigctl</span></samp> reference</h4>
+
+<p><a name="index-g_t_0040command_007brigctl_007d-reference-64"></a><a name="index-reference_002c-_0040command_007brigctl_007d-65"></a>
+The complete reference for <samp><span class="command">rigctl</span></samp> can be found in the
+<kbd>rigctl</kbd>(1) Unix manual page.
+
+<p><a name="rotctl"></a>
+
+<h3 class="section">3.2 <samp><span class="command">rotctl</span></samp></h3>
+
+<p><a name="index-rotctl-66"></a>
+Identical in function to <samp><span class="command">rigctl</span></samp>, <samp><span class="command">rotctl</span></samp> provides a
+means for testing Hamlib functions useful for rotator control and
+<acronym>QTH</acronym> (Maidenhead gridsquare system, see
+<a href="https://en.wikipedia.org/wiki/Maidenhead_Locator_System">Maidenhead Locator System</a>) locator computations.  As rotators have a
+much narrower scope than radios, there are fewer command line options
+and commands for <samp><span class="command">rotctl</span></samp>.
+
+<p><a name="Introduction-to-rotctl"></a>
+
+<h4 class="subsection">3.2.1 Introduction to <samp><span class="command">rotctl</span></samp></h4>
+
+<p><a name="index-Introduction-to-_0040command_007brotctl_007d-67"></a><a name="index-g_t_0040command_007brotctl_007d_002c-introduction-to-68"></a>
+<samp><span class="command">rotctl</span></samp> is a character based interactive program and a
+command line program able to set or query a rotator's value with a
+single command.  <samp><span class="command">rotctl</span></samp> is invoked from a shell command
+prompt with various options and additional commands.
+
+   <p>In its most simple use as a command line program, <samp><span class="command">rotctl</span></samp> is
+used to set frequency and mode by typing commands after any
+<samp><span class="command">rotctl</span></samp> options:
+
+<pre class="example">     <kbd>rotctl P 145.0 23.0</kbd>
+     <kbd>rotctl M 8 25</kbd>
+</pre>
+   <p class="noindent">and then query those values:
+
+<pre class="example">     <kbd>rotctl p</kbd>
+</pre>
+   <p>Entering interactive mode is a simple matter of not placing any
+commands after any <samp><span class="command">rotctl</span></samp> options:
+
+<pre class="example">     <kbd>rotctl</kbd>
+</pre>
+   <p class="noindent">Entering interactive mode allows successive commands to be entered
+without exiting <samp><span class="command">rotctl</span></samp>.  Interactive mode allows for command
+editing and history recall through the use of the <a href="https://tiswww.case.edu/php/chet/readline/rltop.html">Readline</a>
+library.
+
+   <p>Interactive mode is indicated by the spartan prompt:
+
+<pre class="example">     Rotator command:
+</pre>
+   <p class="noindent">Commands are given at the prompt:
+
+<pre class="example">     Rotator command: <kbd>M</kbd>
+     Direction: 16
+     Speed: 60
+     
+     Rotator command: <kbd>p</kbd>
+     Azimuth: 11.352000
+     Elevation: 0.000000
+     
+     Rotator command: <kbd>p</kbd>
+     Azimuth: 27.594000
+     Elevation: 0.000000
+     
+     Rotator command:
+</pre>
+   <p>An additional prompt is printed when more information is required by
+the command.  For <kbd>M</kbd> above, <samp><span class="command">rotctl</span></samp> prompted for the
+&ldquo;Direction&rdquo; and &ldquo;Speed&rdquo; values.  For <kbd>p</kbd> above,
+<samp><span class="command">rotctl</span></samp> returned the &ldquo;Azimuth&rdquo; and &ldquo;Elevation&rdquo; values
+without further prompts.  The command prompt is returned after each
+command invocation.
+
+   <p>The above examples invoked <samp><span class="command">rotctl</span></samp> without specifying a
+rotator model.  This is a feature where the Hamlib internal rotator
+dummy is used instead.  The dummy rotator provides a way to test
+Hamlib functions with out the need for actual rotator hardware. 
+However, to develop back end capability for a given rotator, having
+the actual controller connected to the computer is necessary for
+debugging.
+
+   <p>For example, to quickly set position for RotorEZ:
+
+<pre class="example">     <kbd>rotctl -m 401 -r /dev/rotor P 100.0 0.0</kbd>
+</pre>
+   <p class="noindent">and to query the position:
+
+<pre class="example">     <kbd>rotctl -m 401 -r /dev/rotor p</kbd>
+     100.000000
+     0.000000
+     
+</pre>
+   <p class="noindent">The returned values do not have the prompt strings associated with
+interactive mode as shown above.
+
+   <p>The <samp><span class="option">-m</span></samp> option takes a numeric value that corresponds to a
+given rotator back end model.  The <samp><span class="option">-r</span></samp> option takes the path to
+the port device on <acronym>POSIX</acronym> or the device name on MS Windows.
+
+   <blockquote>
+<b>Note:</b> A complete list of supported radio models may be seen by use of the
+<samp><span class="option">-l</span></samp> option:
+
+     <pre class="example">          <kbd>rotctl -l</kbd>
+           Rot #  Mfg              Model         Version    Status
+               1  Hamlib           Dummy         0.5        Beta
+               2  Hamlib           NET rotctl    0.3        Beta
+             201  Hamlib           EasycommI     0.3        Beta
+             202  Hamlib           EasycommII    0.3        Beta
+          .
+          .
+          .
+            1201  AMSAT            IF-100        0.1        Untested
+            1301  LA7LKA           ts7400        0.1        Beta
+            1401  Celestron        NexStar       0.1        Untested
+     </pre>
+        <p class="noindent">The list is long so use <kbd>&lt;SHIFT&gt;-PageUp</kbd>/
+<kbd>&lt;SHIFT&gt;-PageDown</kbd> on Linux, <kbd>&lt;ScrollLock&gt;</kbd> then
+<kbd>&lt;PageUp&gt;</kbd>/<kbd>&lt;PageDown&gt;</kbd> on Free BSD, or use the
+scrollbar to the virtual terminal window (<samp><span class="command">cmd</span></samp> window on MS
+Windows) or the output can be piped to '<samp><span class="command">more</span></samp>' or
+'<samp><span class="command">less</span></samp>', e.g. '<kbd>rotctl -l | more</kbd>' to scroll back up
+the list.  The list is sorted numerically by model number since Hamlib
+1.2.15.1.  Model numbers of a manufacturer/protocol family are grouped
+together. 
+</blockquote>
+
+<p><a name="rotctl-reference"></a>
+
+<h4 class="subsection">3.2.2 <samp><span class="command">rotctl</span></samp> reference</h4>
+
+<p><a name="index-g_t_0040command_007brotctl_007d-reference-69"></a><a name="index-reference_002c-_0040command_007brotctl_007d-70"></a>
+The complete reference for <samp><span class="command">rotctl</span></samp> can be found in the
+<kbd>rotctl</kbd>(1) Unix manual page.
+
+<p><a name="rigctld"></a>
+
+<h3 class="section">3.3 <samp><span class="command">rigctld</span></samp></h3>
+
+<p><a name="index-rigctld-71"></a>
+The <samp><span class="command">rigctld</span></samp> program is a network server that accepts the
+familiar commands of <samp><span class="command">rigctl</span></samp> and provides the response data
+over a <acronym>TCP/IP</acronym> network socket to an application.  In this
+manner an application can access a <samp><span class="command">rigctld</span></samp> instance from
+nearly anywhere (caveat, no security is currently provided by
+<samp><span class="command">rigctld</span></samp>).  Applications using <samp><span class="command">rigctld</span></samp> do not link
+directly to Hamlib nor use its C API.
+
+<p><a name="Introduction-to-rigctld"></a>
+
+<h4 class="subsection">3.3.1 Introduction to <samp><span class="command">rigctld</span></samp></h4>
+
+<p><a name="index-Introduction-to-_0040command_007brigctld_007d-72"></a><a name="index-g_t_0040command_007brigctld_007d_002c-introduction-to-73"></a>
+<samp><span class="command">rigctld</span></samp> communicates to a client through a <acronym>TCP</acronym>
+network socket using text commands shared with <samp><span class="command">rigctl</span></samp>. The
+protocol is simple; commands are sent to <samp><span class="command">rigctld</span></samp> on one line
+and <samp><span class="command">rigctld</span></samp> responds to &ldquo;get&rdquo; commands with the requested
+values, one per line, when successful, otherwise, it responds with one
+line `<samp><span class="samp">RPRT x</span></samp>', where `<samp><span class="samp">x</span></samp>' is a negative number indicating the
+Hamlib error code.  Commands that do not return values respond with
+the line `<samp><span class="samp">RPRT x</span></samp>', where `<samp><span class="samp">x</span></samp>' is zero when successful,
+otherwise a negative number indicating the Hamlib error code.  Each
+line is terminated with a newline <code>\n</code> character.  This protocol
+is primarily for use by the <code>NET rigctl</code> (radio model 2) backend.
+
+   <p>A separate Extended Response protocol extends the above behavior by
+echoing the received command string as a header, any returned values
+as a key: value pair, and the `<samp><span class="samp">RPRT x</span></samp>' string as the end of
+response marker which includes the Hamlib success or failure value. 
+Consider using this protocol for clients that will interact with
+<samp><span class="command">rigctld</span></samp> directly through a <acronym>TCP</acronym> network socket.
+
+   <p>Multiple radios can be controlled on different <acronym>TCP</acronym> ports by
+use of multiple <samp><span class="command">rigctld</span></samp> processes each listening on a unique
+<acronym>TCP</acronym> port. It is hoped that <samp><span class="command">rigctld</span></samp> will be
+especially useful for client authors using languages such as
+<a href="http://www.perl.org/">Perl</a>, <a href="http://www.python.org/">Python</a>, <a href="http://php.net/">PHP</a>,
+<a href="http://www.ruby-lang.org/en/">Ruby</a>, <a href="http://www.tcl.tk/">TCL</a>, and others.
+
+<p><a name="rigctld-reference"></a>
+
+<h4 class="subsection">3.3.2 <samp><span class="command">rigctld</span></samp> reference</h4>
+
+<p><a name="index-g_t_0040command_007brigctld_007d-reference-74"></a><a name="index-reference_002c-_0040command_007brigctld_007d-75"></a>
+The complete reference for <samp><span class="command">rigctld</span></samp> can be found in the
+<kbd>rigctld</kbd>(1) Unix manual page.
+
+<p><a name="rotctld"></a>
+
+<h3 class="section">3.4 <samp><span class="command">rotctld</span></samp></h3>
+
+<p><a name="index-rotctld-76"></a>
+The <samp><span class="command">rotctld</span></samp> program is a network server that accepts the
+familiar commands of <samp><span class="command">rotctl</span></samp> and provides the response data
+over a <acronym>TCP/IP</acronym> network socket to an application.  In this
+manner an application can access a <samp><span class="command">rotctld</span></samp> instance from
+nearly anywhere (caveat, no security is currently provided by
+<samp><span class="command">rotctld</span></samp>).  Applications using <samp><span class="command">rotctld</span></samp> do not link
+directly to Hamlib nor use its C API.
+
+<p><a name="Introduction-to-rotctld"></a>
+
+<h4 class="subsection">3.4.1 Introduction to <samp><span class="command">rotctld</span></samp></h4>
+
+<p><a name="index-Introduction-to-_0040command_007brotctld_007d-77"></a><a name="index-g_t_0040command_007brotctld_007d_002c-introduction-to-78"></a>
+<samp><span class="command">rotctld</span></samp> communicates to a client through a <acronym>TCP</acronym>
+network socket using text commands shared with <samp><span class="command">rotctl</span></samp>. The
+protocol is simple, commands are sent to <samp><span class="command">rotctld</span></samp> on one line
+and <samp><span class="command">rotctld</span></samp> responds to &ldquo;get&rdquo; commands with the requested
+values, one per line, when successful, otherwise, it responds with one
+line `<samp><span class="samp">RPRT x</span></samp>', where `<samp><span class="samp">x</span></samp>' is a negative number indicating the
+Hamlib error code.  Commands that do not return values respond with
+the line `<samp><span class="samp">RPRT x</span></samp>', where `<samp><span class="samp">x</span></samp>' is zero when successful,
+otherwise a negative number indicating the Hamlib error code.  Each
+line is terminated with a newline <code>\n</code> character.  This protocol
+is primarily for use by the <code>NET rotctl</code> (rot model 2) backend.
+
+   <p>A separate Extended Response protocol extends the above behavior by
+echoing the received command string as a header, any returned values
+as a key: value pair, and the `<samp><span class="samp">RPRT x</span></samp>' string as the end of
+response marker which includes the Hamlib success or failure value. 
+Consider using this protocol for clients that will interact with
+<samp><span class="command">rotctld</span></samp> directly through a <acronym>TCP</acronym> network socket.
+
+   <p>Multiple rotators can be controlled on different <acronym>TCP</acronym> ports by
+use of multiple <samp><span class="command">rotctld</span></samp> processes each listening on a unique
+<acronym>TCP</acronym> port. It is hoped that <samp><span class="command">rotctld</span></samp> will be
+especially useful for client authors using languages such as
+<a href="http://www.perl.org/">Perl</a>, <a href="http://www.python.org/">Python</a>, <a href="http://php.net/">PHP</a>,
+<a href="http://www.ruby-lang.org/en/">Ruby</a>, <a href="http://www.tcl.tk/">TCL</a>, and others.
+
+<p><a name="rotctld-reference"></a>
+
+<h4 class="subsection">3.4.2 <samp><span class="command">rotctld</span></samp> reference</h4>
+
+<p><a name="index-g_t_0040command_007brotctld_007d-reference-79"></a><a name="index-reference_002c-_0040command_007brotctld_007d-80"></a>
+The complete reference for <samp><span class="command">rotctld</span></samp> can be found in the
+<kbd>rotctld</kbd>(1) Unix manual page.
+
+<p><a name="rigmem"></a>
+
+<h3 class="section">3.5 <samp><span class="command">rigmem</span></samp></h3>
+
+<p><a name="index-rigmem-81"></a>
+<samp><span class="command">rigmem</span></samp> may be used to backup and restore memory of radio
+transceivers and receivers.
+
+<p><a name="Introduction-to-rigmem"></a>
+
+<h4 class="subsection">3.5.1 Introduction to <samp><span class="command">rigmem</span></samp></h4>
+
+<p><a name="index-Introduction-to-_0040command_007brigmem_007d-82"></a><a name="index-g_t_0040command_007brigmem_007d_002c-introduction-to-83"></a>
+Backup and restore memory of radio transceivers and receivers. 
+<samp><span class="command">rigmem</span></samp> accepts `<samp><span class="samp">command</span></samp>'s from the command line only.
+
+<p><a name="rigmem-reference"></a>
+
+<h4 class="subsection">3.5.2 <samp><span class="command">rigmem</span></samp> reference</h4>
+
+<p><a name="index-g_t_0040command_007brigmem_007d-reference-84"></a><a name="index-reference_002c-_0040command_007brigmem_007d-85"></a>
+The complete reference for <samp><span class="command">rigmem</span></samp> can be found in the
+<kbd>rigmem</kbd>(1) Unix manual page.
+
+<p><a name="rigsmtr"></a>
+
+<h3 class="section">3.6 <samp><span class="command">rigsmtr</span></samp></h3>
+
+<p><a name="index-rigsmtr-86"></a>
+<samp><span class="command">rigsmtr</span></samp> uses Hamlib to control a radio to measure S-Meter
+value versus antenna azimuth.
+
+<p><a name="Introduction-to-rigsmtr"></a>
+
+<h4 class="subsection">3.6.1 Introduction to <samp><span class="command">rigsmtr</span></samp></h4>
+
+<p><a name="index-Introduction-to-_0040command_007brigsmtr_007d-87"></a><a name="index-g_t_0040command_007brigsmtr_007d_002c-introduction-to-88"></a>
+<samp><span class="command">rigsmtr</span></samp> rotates the antenna from minimum azimuth to maximum
+azimuth.  Every second, or time_step if specified in seconds, it
+retrieves the signal strength.  Azimuth in degrees and the
+corresponding S-Meter level in dB relative to S9 are then printed on
+stdout.
+
+   <p>To work correctly, <samp><span class="command">rigsmtr</span></samp> needs a radio that could measure
+S-Meter and a Hamlib backend that is able to retrieve it, connected to
+a Hamlib supported rotator.
+
+<p><a name="rigsmtr-reference"></a>
+
+<h4 class="subsection">3.6.2 <samp><span class="command">rigsmtr</span></samp> reference</h4>
+
+<p><a name="index-g_t_0040command_007brigsmtr_007d-reference-89"></a><a name="index-reference_002c-_0040command_007brigsmtr_007d-90"></a>
+The complete reference for <samp><span class="command">rigsmtr</span></samp> can be found in the
+<kbd>rigsmtr</kbd>(1) Unix manual page.
+
+<p><a name="rigswr"></a>
+
+<h3 class="section">3.7 <samp><span class="command">rigswr</span></samp></h3>
+
+<p><a name="index-rigswr-91"></a>
+<samp><span class="command">rigswr</span></samp> may be used to measure VSWR vs frequency.
+
+<p><a name="Introduction-to-rigswr"></a>
+
+<h4 class="subsection">3.7.1 Introduction to <samp><span class="command">rigswr</span></samp></h4>
+
+<p><a name="index-Introduction-to-_0040command_007brigswr_007d-92"></a><a name="index-g_t_0040command_007brigswr_007d_002c-introduction-to-93"></a>
+<samp><span class="command">rigswr</span></samp> uses Hamlib to control a radio to measure
+<acronym>VSWR</acronym> (Voltage Standing Wave Ratio) over a frequency range. 
+It scans frequencies from <var>start_freq</var> to <var>stop_freq</var> with an
+optional increment of <var>freq_step</var> (default step is 100 kHz).  All
+values must be entered as an integer in Hertz (cycles per second).
+
+   <blockquote>
+<b>Note:</b> <samp><span class="command">rigswr</span></samp> assumes that <var>start_freq</var> is less than or equal
+to <var>stop_freq</var>.  If it is greater, <samp><span class="command">rigswr</span></samp> will exit
+without doing anything. 
+</blockquote>
+
+   <p>For each frequency, <samp><span class="command">rigswr</span></samp> transmits at 25% of total POWER
+during 0.5 second in CW mode and reads <acronym>VSWR</acronym>.
+
+   <p>Frequency and the corresponding <acronym>VSWR</acronym> are then printed on
+<samp><span class="file">stdout</span></samp>.
+
+   <p>To work correctly, <samp><span class="command">rigswr</span></samp> needs a radio that can measure
+<acronym>VSWR</acronym> and a Hamlib backend that supports reading
+<acronym>VSWR</acronym> from the radio.
+
+<p><a name="rigswr-reference"></a>
+
+<h4 class="subsection">3.7.2 <samp><span class="command">rigswr</span></samp> reference</h4>
+
+<p><a name="index-g_t_0040command_007brigswr_007d-reference-94"></a><a name="index-reference_002c-_0040command_007brigswr_007d-95"></a>
+The complete reference for <samp><span class="command">rigswr</span></samp> can be found in the
+<kbd>rigswr</kbd>(1) Unix manual page.
+
+<!--  Appendixes start here - -->
+<p><a name="GNU-Free-Documentation-License"></a>
+
+<h2 class="appendix">Appendix A GNU Free Documentation License</h2>
+
+<!-- The GNU Free Documentation License. -->
+<div align="center">Version 1.3, 3 November 2008</div>
+
+<!-- This file is intended to be included within another document, -->
+<!-- hence no sectioning command or @node. -->
+<pre class="display">     Copyright &copy; 2000, 2001, 2002, 2007, 2008 Free Software Foundation, Inc.
+     <a href="http://fsf.org/">http://fsf.org/</a>
+     
+     Everyone is permitted to copy and distribute verbatim copies
+     of this license document, but changing it is not allowed.
+</pre>
+     <ol type=1 start=0>
+<li>PREAMBLE
+
+     <p>The purpose of this License is to make a manual, textbook, or other
+functional and useful document <dfn>free</dfn> in the sense of freedom: to
+assure everyone the effective freedom to copy and redistribute it,
+with or without modifying it, either commercially or noncommercially. 
+Secondarily, this License preserves for the author and publisher a way
+to get credit for their work, while not being considered responsible
+for modifications made by others.
+
+     <p>This License is a kind of &ldquo;copyleft&rdquo;, which means that derivative
+works of the document must themselves be free in the same sense.  It
+complements the GNU General Public License, which is a copyleft
+license designed for free software.
+
+     <p>We have designed this License in order to use it for manuals for free
+software, because free software needs free documentation: a free
+program should come with manuals providing the same freedoms that the
+software does.  But this License is not limited to software manuals;
+it can be used for any textual work, regardless of subject matter or
+whether it is published as a printed book.  We recommend this License
+principally for works whose purpose is instruction or reference.
+
+     <li>APPLICABILITY AND DEFINITIONS
+
+     <p>This License applies to any manual or other work, in any medium, that
+contains a notice placed by the copyright holder saying it can be
+distributed under the terms of this License.  Such a notice grants a
+world-wide, royalty-free license, unlimited in duration, to use that
+work under the conditions stated herein.  The &ldquo;Document&rdquo;, below,
+refers to any such manual or work.  Any member of the public is a
+licensee, and is addressed as &ldquo;you&rdquo;.  You accept the license if you
+copy, modify or distribute the work in a way requiring permission
+under copyright law.
+
+     <p>A &ldquo;Modified Version&rdquo; of the Document means any work containing the
+Document or a portion of it, either copied verbatim, or with
+modifications and/or translated into another language.
+
+     <p>A &ldquo;Secondary Section&rdquo; is a named appendix or a front-matter section
+of the Document that deals exclusively with the relationship of the
+publishers or authors of the Document to the Document's overall
+subject (or to related matters) and contains nothing that could fall
+directly within that overall subject.  (Thus, if the Document is in
+part a textbook of mathematics, a Secondary Section may not explain
+any mathematics.)  The relationship could be a matter of historical
+connection with the subject or with related matters, or of legal,
+commercial, philosophical, ethical or political position regarding
+them.
+
+     <p>The &ldquo;Invariant Sections&rdquo; are certain Secondary Sections whose titles
+are designated, as being those of Invariant Sections, in the notice
+that says that the Document is released under this License.  If a
+section does not fit the above definition of Secondary then it is not
+allowed to be designated as Invariant.  The Document may contain zero
+Invariant Sections.  If the Document does not identify any Invariant
+Sections then there are none.
+
+     <p>The &ldquo;Cover Texts&rdquo; are certain short passages of text that are listed,
+as Front-Cover Texts or Back-Cover Texts, in the notice that says that
+the Document is released under this License.  A Front-Cover Text may
+be at most 5 words, and a Back-Cover Text may be at most 25 words.
+
+     <p>A &ldquo;Transparent&rdquo; copy of the Document means a machine-readable copy,
+represented in a format whose specification is available to the
+general public, that is suitable for revising the document
+straightforwardly with generic text editors or (for images composed of
+pixels) generic paint programs or (for drawings) some widely available
+drawing editor, and that is suitable for input to text formatters or
+for automatic translation to a variety of formats suitable for input
+to text formatters.  A copy made in an otherwise Transparent file
+format whose markup, or absence of markup, has been arranged to thwart
+or discourage subsequent modification by readers is not Transparent. 
+An image format is not Transparent if used for any substantial amount
+of text.  A copy that is not &ldquo;Transparent&rdquo; is called &ldquo;Opaque&rdquo;.
+
+     <p>Examples of suitable formats for Transparent copies include plain
+ASCII without markup, Texinfo input format, LaTeX input
+format, SGML or XML using a publicly available
+DTD, and standard-conforming simple HTML,
+PostScript or PDF designed for human modification.  Examples
+of transparent image formats include PNG, XCF and
+JPG.  Opaque formats include proprietary formats that can be
+read and edited only by proprietary word processors, SGML or
+XML for which the DTD and/or processing tools are
+not generally available, and the machine-generated HTML,
+PostScript or PDF produced by some word processors for
+output purposes only.
+
+     <p>The &ldquo;Title Page&rdquo; means, for a printed book, the title page itself,
+plus such following pages as are needed to hold, legibly, the material
+this License requires to appear in the title page.  For works in
+formats which do not have any title page as such, &ldquo;Title Page&rdquo; means
+the text near the most prominent appearance of the work's title,
+preceding the beginning of the body of the text.
+
+     <p>The &ldquo;publisher&rdquo; means any person or entity that distributes copies
+of the Document to the public.
+
+     <p>A section &ldquo;Entitled XYZ&rdquo; means a named subunit of the Document whose
+title either is precisely XYZ or contains XYZ in parentheses following
+text that translates XYZ in another language.  (Here XYZ stands for a
+specific section name mentioned below, such as &ldquo;Acknowledgements&rdquo;,
+&ldquo;Dedications&rdquo;, &ldquo;Endorsements&rdquo;, or &ldquo;History&rdquo;.)  To &ldquo;Preserve the Title&rdquo;
+of such a section when you modify the Document means that it remains a
+section &ldquo;Entitled XYZ&rdquo; according to this definition.
+
+     <p>The Document may include Warranty Disclaimers next to the notice which
+states that this License applies to the Document.  These Warranty
+Disclaimers are considered to be included by reference in this
+License, but only as regards disclaiming warranties: any other
+implication that these Warranty Disclaimers may have is void and has
+no effect on the meaning of this License.
+
+     <li>VERBATIM COPYING
+
+     <p>You may copy and distribute the Document in any medium, either
+commercially or noncommercially, provided that this License, the
+copyright notices, and the license notice saying this License applies
+to the Document are reproduced in all copies, and that you add no other
+conditions whatsoever to those of this License.  You may not use
+technical measures to obstruct or control the reading or further
+copying of the copies you make or distribute.  However, you may accept
+compensation in exchange for copies.  If you distribute a large enough
+number of copies you must also follow the conditions in section 3.
+
+     <p>You may also lend copies, under the same conditions stated above, and
+you may publicly display copies.
+
+     <li>COPYING IN QUANTITY
+
+     <p>If you publish printed copies (or copies in media that commonly have
+printed covers) of the Document, numbering more than 100, and the
+Document's license notice requires Cover Texts, you must enclose the
+copies in covers that carry, clearly and legibly, all these Cover
+Texts: Front-Cover Texts on the front cover, and Back-Cover Texts on
+the back cover.  Both covers must also clearly and legibly identify
+you as the publisher of these copies.  The front cover must present
+the full title with all words of the title equally prominent and
+visible.  You may add other material on the covers in addition. 
+Copying with changes limited to the covers, as long as they preserve
+the title of the Document and satisfy these conditions, can be treated
+as verbatim copying in other respects.
+
+     <p>If the required texts for either cover are too voluminous to fit
+legibly, you should put the first ones listed (as many as fit
+reasonably) on the actual cover, and continue the rest onto adjacent
+pages.
+
+     <p>If you publish or distribute Opaque copies of the Document numbering
+more than 100, you must either include a machine-readable Transparent
+copy along with each Opaque copy, or state in or with each Opaque copy
+a computer-network location from which the general network-using
+public has access to download using public-standard network protocols
+a complete Transparent copy of the Document, free of added material. 
+If you use the latter option, you must take reasonably prudent steps,
+when you begin distribution of Opaque copies in quantity, to ensure
+that this Transparent copy will remain thus accessible at the stated
+location until at least one year after the last time you distribute an
+Opaque copy (directly or through your agents or retailers) of that
+edition to the public.
+
+     <p>It is requested, but not required, that you contact the authors of the
+Document well before redistributing any large number of copies, to give
+them a chance to provide you with an updated version of the Document.
+
+     <li>MODIFICATIONS
+
+     <p>You may copy and distribute a Modified Version of the Document under
+the conditions of sections 2 and 3 above, provided that you release
+the Modified Version under precisely this License, with the Modified
+Version filling the role of the Document, thus licensing distribution
+and modification of the Modified Version to whoever possesses a copy
+of it.  In addition, you must do these things in the Modified Version:
+
+          <ol type=A start=1>
+<li>Use in the Title Page (and on the covers, if any) a title distinct
+from that of the Document, and from those of previous versions
+(which should, if there were any, be listed in the History section
+of the Document).  You may use the same title as a previous version
+if the original publisher of that version gives permission.
+
+          <li>List on the Title Page, as authors, one or more persons or entities
+responsible for authorship of the modifications in the Modified
+Version, together with at least five of the principal authors of the
+Document (all of its principal authors, if it has fewer than five),
+unless they release you from this requirement.
+
+          <li>State on the Title page the name of the publisher of the
+Modified Version, as the publisher.
+
+          <li>Preserve all the copyright notices of the Document.
+
+          <li>Add an appropriate copyright notice for your modifications
+adjacent to the other copyright notices.
+
+          <li>Include, immediately after the copyright notices, a license notice
+giving the public permission to use the Modified Version under the
+terms of this License, in the form shown in the Addendum below.
+
+          <li>Preserve in that license notice the full lists of Invariant Sections
+and required Cover Texts given in the Document's license notice.
+
+          <li>Include an unaltered copy of this License.
+
+          <li>Preserve the section Entitled &ldquo;History&rdquo;, Preserve its Title, and add
+to it an item stating at least the title, year, new authors, and
+publisher of the Modified Version as given on the Title Page.  If
+there is no section Entitled &ldquo;History&rdquo; in the Document, create one
+stating the title, year, authors, and publisher of the Document as
+given on its Title Page, then add an item describing the Modified
+Version as stated in the previous sentence.
+
+          <li>Preserve the network location, if any, given in the Document for
+public access to a Transparent copy of the Document, and likewise
+the network locations given in the Document for previous versions
+it was based on.  These may be placed in the &ldquo;History&rdquo; section. 
+You may omit a network location for a work that was published at
+least four years before the Document itself, or if the original
+publisher of the version it refers to gives permission.
+
+          <li>For any section Entitled &ldquo;Acknowledgements&rdquo; or &ldquo;Dedications&rdquo;, Preserve
+the Title of the section, and preserve in the section all the
+substance and tone of each of the contributor acknowledgements and/or
+dedications given therein.
+
+          <li>Preserve all the Invariant Sections of the Document,
+unaltered in their text and in their titles.  Section numbers
+or the equivalent are not considered part of the section titles.
+
+          <li>Delete any section Entitled &ldquo;Endorsements&rdquo;.  Such a section
+may not be included in the Modified Version.
+
+          <li>Do not retitle any existing section to be Entitled &ldquo;Endorsements&rdquo; or
+to conflict in title with any Invariant Section.
+
+          <li>Preserve any Warranty Disclaimers.
+          </ol>
+
+     <p>If the Modified Version includes new front-matter sections or
+appendices that qualify as Secondary Sections and contain no material
+copied from the Document, you may at your option designate some or all
+of these sections as invariant.  To do this, add their titles to the
+list of Invariant Sections in the Modified Version's license notice. 
+These titles must be distinct from any other section titles.
+
+     <p>You may add a section Entitled &ldquo;Endorsements&rdquo;, provided it contains
+nothing but endorsements of your Modified Version by various
+parties&mdash;for example, statements of peer review or that the text has
+been approved by an organization as the authoritative definition of a
+standard.
+
+     <p>You may add a passage of up to five words as a Front-Cover Text, and a
+passage of up to 25 words as a Back-Cover Text, to the end of the list
+of Cover Texts in the Modified Version.  Only one passage of
+Front-Cover Text and one of Back-Cover Text may be added by (or
+through arrangements made by) any one entity.  If the Document already
+includes a cover text for the same cover, previously added by you or
+by arrangement made by the same entity you are acting on behalf of,
+you may not add another; but you may replace the old one, on explicit
+permission from the previous publisher that added the old one.
+
+     <p>The author(s) and publisher(s) of the Document do not by this License
+give permission to use their names for publicity for or to assert or
+imply endorsement of any Modified Version.
+
+     <li>COMBINING DOCUMENTS
+
+     <p>You may combine the Document with other documents released under this
+License, under the terms defined in section 4 above for modified
+versions, provided that you include in the combination all of the
+Invariant Sections of all of the original documents, unmodified, and
+list them all as Invariant Sections of your combined work in its
+license notice, and that you preserve all their Warranty Disclaimers.
+
+     <p>The combined work need only contain one copy of this License, and
+multiple identical Invariant Sections may be replaced with a single
+copy.  If there are multiple Invariant Sections with the same name but
+different contents, make the title of each such section unique by
+adding at the end of it, in parentheses, the name of the original
+author or publisher of that section if known, or else a unique number. 
+Make the same adjustment to the section titles in the list of
+Invariant Sections in the license notice of the combined work.
+
+     <p>In the combination, you must combine any sections Entitled &ldquo;History&rdquo;
+in the various original documents, forming one section Entitled
+&ldquo;History&rdquo;; likewise combine any sections Entitled &ldquo;Acknowledgements&rdquo;,
+and any sections Entitled &ldquo;Dedications&rdquo;.  You must delete all
+sections Entitled &ldquo;Endorsements.&rdquo;
+
+     <li>COLLECTIONS OF DOCUMENTS
+
+     <p>You may make a collection consisting of the Document and other documents
+released under this License, and replace the individual copies of this
+License in the various documents with a single copy that is included in
+the collection, provided that you follow the rules of this License for
+verbatim copying of each of the documents in all other respects.
+
+     <p>You may extract a single document from such a collection, and distribute
+it individually under this License, provided you insert a copy of this
+License into the extracted document, and follow this License in all
+other respects regarding verbatim copying of that document.
+
+     <li>AGGREGATION WITH INDEPENDENT WORKS
+
+     <p>A compilation of the Document or its derivatives with other separate
+and independent documents or works, in or on a volume of a storage or
+distribution medium, is called an &ldquo;aggregate&rdquo; if the copyright
+resulting from the compilation is not used to limit the legal rights
+of the compilation's users beyond what the individual works permit. 
+When the Document is included in an aggregate, this License does not
+apply to the other works in the aggregate which are not themselves
+derivative works of the Document.
+
+     <p>If the Cover Text requirement of section 3 is applicable to these
+copies of the Document, then if the Document is less than one half of
+the entire aggregate, the Document's Cover Texts may be placed on
+covers that bracket the Document within the aggregate, or the
+electronic equivalent of covers if the Document is in electronic form. 
+Otherwise they must appear on printed covers that bracket the whole
+aggregate.
+
+     <li>TRANSLATION
+
+     <p>Translation is considered a kind of modification, so you may
+distribute translations of the Document under the terms of section 4. 
+Replacing Invariant Sections with translations requires special
+permission from their copyright holders, but you may include
+translations of some or all Invariant Sections in addition to the
+original versions of these Invariant Sections.  You may include a
+translation of this License, and all the license notices in the
+Document, and any Warranty Disclaimers, provided that you also include
+the original English version of this License and the original versions
+of those notices and disclaimers.  In case of a disagreement between
+the translation and the original version of this License or a notice
+or disclaimer, the original version will prevail.
+
+     <p>If a section in the Document is Entitled &ldquo;Acknowledgements&rdquo;,
+&ldquo;Dedications&rdquo;, or &ldquo;History&rdquo;, the requirement (section 4) to Preserve
+its Title (section 1) will typically require changing the actual
+title.
+
+     <li>TERMINATION
+
+     <p>You may not copy, modify, sublicense, or distribute the Document
+except as expressly provided under this License.  Any attempt
+otherwise to copy, modify, sublicense, or distribute it is void, and
+will automatically terminate your rights under this License.
+
+     <p>However, if you cease all violation of this License, then your license
+from a particular copyright holder is reinstated (a) provisionally,
+unless and until the copyright holder explicitly and finally
+terminates your license, and (b) permanently, if the copyright holder
+fails to notify you of the violation by some reasonable means prior to
+60 days after the cessation.
+
+     <p>Moreover, your license from a particular copyright holder is
+reinstated permanently if the copyright holder notifies you of the
+violation by some reasonable means, this is the first time you have
+received notice of violation of this License (for any work) from that
+copyright holder, and you cure the violation prior to 30 days after
+your receipt of the notice.
+
+     <p>Termination of your rights under this section does not terminate the
+licenses of parties who have received copies or rights from you under
+this License.  If your rights have been terminated and not permanently
+reinstated, receipt of a copy of some or all of the same material does
+not give you any rights to use it.
+
+     <li>FUTURE REVISIONS OF THIS LICENSE
+
+     <p>The Free Software Foundation may publish new, revised versions
+of the GNU Free Documentation License from time to time.  Such new
+versions will be similar in spirit to the present version, but may
+differ in detail to address new problems or concerns.  See
+<a href="http://www.gnu.org/copyleft/">http://www.gnu.org/copyleft/</a>.
+
+     <p>Each version of the License is given a distinguishing version number. 
+If the Document specifies that a particular numbered version of this
+License &ldquo;or any later version&rdquo; applies to it, you have the option of
+following the terms and conditions either of that specified version or
+of any later version that has been published (not as a draft) by the
+Free Software Foundation.  If the Document does not specify a version
+number of this License, you may choose any version ever published (not
+as a draft) by the Free Software Foundation.  If the Document
+specifies that a proxy can decide which future versions of this
+License can be used, that proxy's public statement of acceptance of a
+version permanently authorizes you to choose that version for the
+Document.
+
+     <li>RELICENSING
+
+     <p>&ldquo;Massive Multiauthor Collaboration Site&rdquo; (or &ldquo;MMC Site&rdquo;) means any
+World Wide Web server that publishes copyrightable works and also
+provides prominent facilities for anybody to edit those works.  A
+public wiki that anybody can edit is an example of such a server.  A
+&ldquo;Massive Multiauthor Collaboration&rdquo; (or &ldquo;MMC&rdquo;) contained in the
+site means any set of copyrightable works thus published on the MMC
+site.
+
+     <p>&ldquo;CC-BY-SA&rdquo; means the Creative Commons Attribution-Share Alike 3.0
+license published by Creative Commons Corporation, a not-for-profit
+corporation with a principal place of business in San Francisco,
+California, as well as future copyleft versions of that license
+published by that same organization.
+
+     <p>&ldquo;Incorporate&rdquo; means to publish or republish a Document, in whole or
+in part, as part of another Document.
+
+     <p>An MMC is &ldquo;eligible for relicensing&rdquo; if it is licensed under this
+License, and if all works that were first published under this License
+somewhere other than this MMC, and subsequently incorporated in whole
+or in part into the MMC, (1) had no cover texts or invariant sections,
+and (2) were thus incorporated prior to November 1, 2008.
+
+     <p>The operator of an MMC Site may republish an MMC contained in the site
+under CC-BY-SA on the same site at any time before August 1, 2009,
+provided the MMC is eligible for relicensing.
+
+        </ol>
+
+<h3 class="heading">ADDENDUM: How to use this License for your documents</h3>
+
+<p>To use this License in a document you have written, include a copy of
+the License in the document and put the following copyright and
+license notices just after the title page:
+
+<pre class="smallexample">       Copyright (C)  <var>year</var>  <var>your name</var>.
+       Permission is granted to copy, distribute and/or modify this document
+       under the terms of the GNU Free Documentation License, Version 1.3
+       or any later version published by the Free Software Foundation;
+       with no Invariant Sections, no Front-Cover Texts, and no Back-Cover
+       Texts.  A copy of the license is included in the section entitled ``GNU
+       Free Documentation License''.
+</pre>
+   <p>If you have Invariant Sections, Front-Cover Texts and Back-Cover Texts,
+replace the &ldquo;with<small class="dots">...</small>Texts.&rdquo; line with this:
+
+<pre class="smallexample">         with the Invariant Sections being <var>list their titles</var>, with
+         the Front-Cover Texts being <var>list</var>, and with the Back-Cover Texts
+         being <var>list</var>.
+</pre>
+   <p>If you have Invariant Sections without Cover Texts, or some other
+combination of the three, merge those two alternatives to suit the
+situation.
+
+   <p>If your document contains nontrivial examples of program code, we
+recommend releasing these examples in parallel under your choice of
+free software license, such as the GNU General Public License,
+to permit their use in free software.
+
+<!-- Local Variables: -->
+<!-- ispell-local-pdict: "ispell-dict" -->
+<!-- End: -->
+<p><a name="Working-with-Git"></a>
+
+<h2 class="appendix">Appendix B Working with Git</h2>
+
+<p>Git offers a myriad of commands and options.  Fortunately, only a few
+are needed for Hamlib development.
+
+<p><a name="List-of-Figures"></a>
+
+<h2 class="unnumbered">List of Figures</h2>
+
+<ul class="listoffloats">
+     <li><a href="#fig_003aimg1">Figure 1.1: Hamlib design&mdash;<i>courtesy of Martin Ewing, AA6E</i>.</a></li>
+</ul>
+
+<p><a name="Concept-Index"></a>
+
+<h2 class="unnumbered">Concept Index</h2>
+
+
+
+<ul class="index-cp" compact>
+<li><a href="#index-Adding-debugging-symbols-55">Adding debugging symbols</a>: <a href="#Adding-debugging-symbols">Adding debugging symbols</a></li>
+<li><a href="#index-Applications_002c-using-Hamlib-19">Applications, using Hamlib</a>: <a href="#Applications-using-Hamlib">Applications using Hamlib</a></li>
+<li><a href="#index-Back-end-library-10">Back end library</a>: <a href="#Overview">Overview</a></li>
+<li><a href="#index-Binary-packages_002c-Linux_002c-BSD-26">Binary packages, Linux, BSD</a>: <a href="#Unix-binary-packages">Unix binary packages</a></li>
+<li><a href="#index-Bootstrapping-from-a-Git-clone-49">Bootstrapping from a Git clone</a>: <a href="#Bootstrapping-from-a-Git-clone">Bootstrapping from a Git clone</a></li>
+<li><a href="#index-BSD-binary-packages-28">BSD binary packages</a>: <a href="#Unix-binary-packages">Unix binary packages</a></li>
+<li><a href="#index-Build_002c-parallel-trees-54">Build, parallel trees</a>: <a href="#Parallel-build-trees">Parallel build trees</a></li>
+<li><a href="#index-Building-from-source-41">Building from source</a>: <a href="#Building-from-source">Building from source</a></li>
+<li><a href="#index-Cloning_002c-radio-23">Cloning, radio</a>: <a href="#Radio-cloning">Radio cloning</a></li>
+<li><a href="#index-Compiling-for-Microsoft-Windows-56">Compiling for Microsoft Windows</a>: <a href="#Compiling-Microsoft-Windows">Compiling Microsoft Windows</a></li>
+<li><a href="#index-Compiling-source-tarballs-43">Compiling source tarballs</a>: <a href="#Compiling-source-tarballs">Compiling source tarballs</a></li>
+<li><a href="#index-configure-45">configure</a>: <a href="#configure">configure</a></li>
+<li><a href="#index-Copying_002c-redistribution-1">Copying, redistribution</a>: <a href="#Copying-and-Redistribution">Copying and Redistribution</a></li>
+<li><a href="#index-Copyleft-3">Copyleft</a>: <a href="#Copying-and-Redistribution">Copying and Redistribution</a></li>
+<li><a href="#index-Daemon_002c-network-14">Daemon, network</a>: <a href="#Overview">Overview</a></li>
+<li><a href="#index-Front-end-library-7">Front end library</a>: <a href="#Overview">Overview</a></li>
+<li><a href="#index-Getting-released-source-30">Getting released source</a>: <a href="#Source-releases">Source releases</a></li>
+<li><a href="#index-Getting-source-snapshots-33">Getting source snapshots</a>: <a href="#Source-snapshots">Source snapshots</a></li>
+<li><a href="#index-Git-clone-40">Git clone</a>: <a href="#Git-clone">Git clone</a></li>
+<li><a href="#index-Git-clone_002c-bootsrapping-50">Git clone, bootsrapping</a>: <a href="#Bootstrapping-from-a-Git-clone">Bootstrapping from a Git clone</a></li>
+<li><a href="#index-Git-repository-39">Git repository</a>: <a href="#Git-clone">Git clone</a></li>
+<li><a href="#index-Hamlib-applications-18">Hamlib applications</a>: <a href="#Applications-using-Hamlib">Applications using Hamlib</a></li>
+<li><a href="#index-Hamlib-licensing-20">Hamlib licensing</a>: <a href="#Licensing-implications">Licensing implications</a></li>
+<li><a href="#index-Hamlib-project-16">Hamlib project</a>: <a href="#The-Hamlib-project">The Hamlib project</a></li>
+<li><a href="#index-Hamlib_002c-pronouncing-25">Hamlib, pronouncing</a>: <a href="#Pronunciation">Pronunciation</a></li>
+<li><a href="#index-Interface_002c-languages-13">Interface, languages</a>: <a href="#Overview">Overview</a></li>
+<li><a href="#index-Introduction-to-_0040command_007brigctl_007d-62">Introduction to <samp><span class="command">rigctl</span></samp></a>: <a href="#Introduction-to-rigctl">Introduction to rigctl</a></li>
+<li><a href="#index-Introduction-to-_0040command_007brigctld_007d-72">Introduction to <samp><span class="command">rigctld</span></samp></a>: <a href="#Introduction-to-rigctld">Introduction to rigctld</a></li>
+<li><a href="#index-Introduction-to-_0040command_007brigmem_007d-82">Introduction to <samp><span class="command">rigmem</span></samp></a>: <a href="#Introduction-to-rigmem">Introduction to rigmem</a></li>
+<li><a href="#index-Introduction-to-_0040command_007brigsmtr_007d-87">Introduction to <samp><span class="command">rigsmtr</span></samp></a>: <a href="#Introduction-to-rigsmtr">Introduction to rigsmtr</a></li>
+<li><a href="#index-Introduction-to-_0040command_007brigswr_007d-92">Introduction to <samp><span class="command">rigswr</span></samp></a>: <a href="#Introduction-to-rigswr">Introduction to rigswr</a></li>
+<li><a href="#index-Introduction-to-_0040command_007brotctl_007d-67">Introduction to <samp><span class="command">rotctl</span></samp></a>: <a href="#Introduction-to-rotctl">Introduction to rotctl</a></li>
+<li><a href="#index-Introduction-to-_0040command_007brotctld_007d-77">Introduction to <samp><span class="command">rotctld</span></samp></a>: <a href="#Introduction-to-rotctld">Introduction to rotctld</a></li>
+<li><a href="#index-Languages_002c-scripting-12">Languages, scripting</a>: <a href="#Overview">Overview</a></li>
+<li><a href="#index-ldconfig-48">ldconfig</a>: <a href="#ldconfig">ldconfig</a></li>
+<li><a href="#index-Licensing_002c-Hamlib-21">Licensing, Hamlib</a>: <a href="#Licensing-implications">Licensing implications</a></li>
+<li><a href="#index-Linux-binary-packages-27">Linux binary packages</a>: <a href="#Unix-binary-packages">Unix binary packages</a></li>
+<li><a href="#index-make-46">make</a>: <a href="#make">make</a></li>
+<li><a href="#index-make-install-47">make install</a>: <a href="#make-install">make install</a></li>
+<li><a href="#index-g_t_0040command_007bmake_007d_002c-other-targets-52"><samp><span class="command">make</span></samp>, other targets</a>: <a href="#Other-make-targets">Other make targets</a></li>
+<li><a href="#index-Microsoft-Windows_002c-compiled-binaries-59">Microsoft Windows, compiled binaries</a>: <a href="#Microsft-Windows-binaries">Microsft Windows binaries</a></li>
+<li><a href="#index-Microsoft-Windows_002c-compiling-57">Microsoft Windows, compiling</a>: <a href="#Compiling-Microsoft-Windows">Compiling Microsoft Windows</a></li>
+<li><a href="#index-Microsoft-Windows_002c-pre_002dcompiled-binaries-60">Microsoft Windows, pre-compiled binaries</a>: <a href="#Microsft-Windows-binaries">Microsft Windows binaries</a></li>
+<li><a href="#index-Network_002c-daemon-15">Network, daemon</a>: <a href="#Overview">Overview</a></li>
+<li><a href="#index-NO-WARRANTY-4">NO WARRANTY</a>: <a href="#Copying-and-Redistribution">Copying and Redistribution</a></li>
+<li><a href="#index-Nutshell-5">Nutshell</a>: <a href="#Hamlib-in-a-Nutshell">Hamlib in a Nutshell</a></li>
+<li><a href="#index-Other-_0040command_007bmake_007d-targets-51">Other <samp><span class="command">make</span></samp> targets</a>: <a href="#Other-make-targets">Other make targets</a></li>
+<li><a href="#index-Overview-6">Overview</a>: <a href="#Overview">Overview</a></li>
+<li><a href="#index-Parallel-build-trees-53">Parallel build trees</a>: <a href="#Parallel-build-trees">Parallel build trees</a></li>
+<li><a href="#index-Pre_002dcompiled-binaries-for-Microsoft-Windows-58">Pre-compiled binaries for Microsoft Windows</a>: <a href="#Microsft-Windows-binaries">Microsft Windows binaries</a></li>
+<li><a href="#index-Project_002c-Hamlib-17">Project, Hamlib</a>: <a href="#The-Hamlib-project">The Hamlib project</a></li>
+<li><a href="#index-Pronouncing-Hamlib-24">Pronouncing Hamlib</a>: <a href="#Pronunciation">Pronunciation</a></li>
+<li><a href="#index-Radio-cloning-22">Radio cloning</a>: <a href="#Radio-cloning">Radio cloning</a></li>
+<li><a href="#index-Redistribution_002c-copying-2">Redistribution, copying</a>: <a href="#Copying-and-Redistribution">Copying and Redistribution</a></li>
+<li><a href="#index-reference_002c-_0040command_007brigctl_007d-65">reference, <samp><span class="command">rigctl</span></samp></a>: <a href="#rigctl-reference">rigctl reference</a></li>
+<li><a href="#index-reference_002c-_0040command_007brigctld_007d-75">reference, <samp><span class="command">rigctld</span></samp></a>: <a href="#rigctld-reference">rigctld reference</a></li>
+<li><a href="#index-reference_002c-_0040command_007brigmem_007d-85">reference, <samp><span class="command">rigmem</span></samp></a>: <a href="#rigmem-reference">rigmem reference</a></li>
+<li><a href="#index-reference_002c-_0040command_007brigsmtr_007d-90">reference, <samp><span class="command">rigsmtr</span></samp></a>: <a href="#rigsmtr-reference">rigsmtr reference</a></li>
+<li><a href="#index-reference_002c-_0040command_007brigswr_007d-95">reference, <samp><span class="command">rigswr</span></samp></a>: <a href="#rigswr-reference">rigswr reference</a></li>
+<li><a href="#index-reference_002c-_0040command_007brotctl_007d-70">reference, <samp><span class="command">rotctl</span></samp></a>: <a href="#rotctl-reference">rotctl reference</a></li>
+<li><a href="#index-reference_002c-_0040command_007brotctld_007d-80">reference, <samp><span class="command">rotctld</span></samp></a>: <a href="#rotctld-reference">rotctld reference</a></li>
+<li><a href="#index-rigctl-61">rigctl</a>: <a href="#rigctl">rigctl</a></li>
+<li><a href="#index-g_t_0040command_007brigctl_007d-reference-64"><samp><span class="command">rigctl</span></samp> reference</a>: <a href="#rigctl-reference">rigctl reference</a></li>
+<li><a href="#index-g_t_0040command_007brigctl_007d_002c-introduction-to-63"><samp><span class="command">rigctl</span></samp>, introduction to</a>: <a href="#Introduction-to-rigctl">Introduction to rigctl</a></li>
+<li><a href="#index-rigctld-71">rigctld</a>: <a href="#rigctld">rigctld</a></li>
+<li><a href="#index-g_t_0040command_007brigctld_007d-reference-74"><samp><span class="command">rigctld</span></samp> reference</a>: <a href="#rigctld-reference">rigctld reference</a></li>
+<li><a href="#index-g_t_0040command_007brigctld_007d_002c-introduction-to-73"><samp><span class="command">rigctld</span></samp>, introduction to</a>: <a href="#Introduction-to-rigctld">Introduction to rigctld</a></li>
+<li><a href="#index-rigmem-81">rigmem</a>: <a href="#rigmem">rigmem</a></li>
+<li><a href="#index-g_t_0040command_007brigmem_007d-reference-84"><samp><span class="command">rigmem</span></samp> reference</a>: <a href="#rigmem-reference">rigmem reference</a></li>
+<li><a href="#index-g_t_0040command_007brigmem_007d_002c-introduction-to-83"><samp><span class="command">rigmem</span></samp>, introduction to</a>: <a href="#Introduction-to-rigmem">Introduction to rigmem</a></li>
+<li><a href="#index-rigsmtr-86">rigsmtr</a>: <a href="#rigsmtr">rigsmtr</a></li>
+<li><a href="#index-g_t_0040command_007brigsmtr_007d-reference-89"><samp><span class="command">rigsmtr</span></samp> reference</a>: <a href="#rigsmtr-reference">rigsmtr reference</a></li>
+<li><a href="#index-g_t_0040command_007brigsmtr_007d_002c-introduction-to-88"><samp><span class="command">rigsmtr</span></samp>, introduction to</a>: <a href="#Introduction-to-rigsmtr">Introduction to rigsmtr</a></li>
+<li><a href="#index-rigswr-91">rigswr</a>: <a href="#rigswr">rigswr</a></li>
+<li><a href="#index-g_t_0040command_007brigswr_007d-reference-94"><samp><span class="command">rigswr</span></samp> reference</a>: <a href="#rigswr-reference">rigswr reference</a></li>
+<li><a href="#index-g_t_0040command_007brigswr_007d_002c-introduction-to-93"><samp><span class="command">rigswr</span></samp>, introduction to</a>: <a href="#Introduction-to-rigswr">Introduction to rigswr</a></li>
+<li><a href="#index-rotctl-66">rotctl</a>: <a href="#rotctl">rotctl</a></li>
+<li><a href="#index-g_t_0040command_007brotctl_007d-reference-69"><samp><span class="command">rotctl</span></samp> reference</a>: <a href="#rotctl-reference">rotctl reference</a></li>
+<li><a href="#index-g_t_0040command_007brotctl_007d_002c-introduction-to-68"><samp><span class="command">rotctl</span></samp>, introduction to</a>: <a href="#Introduction-to-rotctl">Introduction to rotctl</a></li>
+<li><a href="#index-rotctld-76">rotctld</a>: <a href="#rotctld">rotctld</a></li>
+<li><a href="#index-g_t_0040command_007brotctld_007d-reference-79"><samp><span class="command">rotctld</span></samp> reference</a>: <a href="#rotctld-reference">rotctld reference</a></li>
+<li><a href="#index-g_t_0040command_007brotctld_007d_002c-introduction-to-78"><samp><span class="command">rotctld</span></samp>, introduction to</a>: <a href="#Introduction-to-rotctld">Introduction to rotctld</a></li>
+<li><a href="#index-Scripting-languages-11">Scripting languages</a>: <a href="#Overview">Overview</a></li>
+<li><a href="#index-Source-options-29">Source options</a>: <a href="#Source-options">Source options</a></li>
+<li><a href="#index-Source-tarballs_002c-compiling-44">Source tarballs, compiling</a>: <a href="#Compiling-source-tarballs">Compiling source tarballs</a></li>
+<li><a href="#index-Source_002c-building-from-42">Source, building from</a>: <a href="#Building-from-source">Building from source</a></li>
+<li><a href="#index-Source_002c-daily-snapshots-36">Source, daily snapshots</a>: <a href="#Source-snapshots">Source snapshots</a></li>
+<li><a href="#index-Source_002c-getting-released-31">Source, getting released</a>: <a href="#Source-releases">Source releases</a></li>
+<li><a href="#index-Source_002c-getting-snapshots-34">Source, getting snapshots</a>: <a href="#Source-snapshots">Source snapshots</a></li>
+<li><a href="#index-Source_002c-obtaining-releases-32">Source, obtaining releases</a>: <a href="#Source-releases">Source releases</a></li>
+<li><a href="#index-Source_002c-obtaining-snapshots-35">Source, obtaining snapshots</a>: <a href="#Source-snapshots">Source snapshots</a></li>
+<li><a href="#index-Source_002c-RC-38">Source, RC</a>: <a href="#Source-snapshots">Source snapshots</a></li>
+<li><a href="#index-Source_002c-release-candidates-37">Source, release candidates</a>: <a href="#Source-snapshots">Source snapshots</a></li>
+<li><a href="#index-Virtual-radio-8">Virtual radio</a>: <a href="#Overview">Overview</a></li>
+<li><a href="#index-Virtual-rotator-9">Virtual rotator</a>: <a href="#Overview">Overview</a></li>
+</ul></body></html>
+
