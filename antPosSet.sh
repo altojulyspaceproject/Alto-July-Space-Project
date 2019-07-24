@@ -16,3 +16,6 @@ Elevation=$2
 #
 echo "P $Azimuth $Elevation" | rotctl
 #
+echo "p" | rotctl
+sleep 1
+echo "p" | rotctl
