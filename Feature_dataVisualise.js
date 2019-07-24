@@ -203,10 +203,8 @@ function footprintPlot(latitude, longitude, radius) {
     Plotly.setPlotConfig({
       mapboxAccessToken: 'pk.eyJ1IjoiZXRwaW5hcmQiLCJhIjoiY2luMHIzdHE0MGFxNXVubTRxczZ2YmUxaCJ9.hwWZful0U2CQxit4ItNsiQ'
     });
+    
     Plotly.deleteTraces(container,0);
-     Plotly.plot(container, [trace],layout); // creating a new plot 
+    Plotly.plot(container, [trace],layout); // creating a new plot 
        
-      
-   
-     
   }

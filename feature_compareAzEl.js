@@ -17,8 +17,8 @@ function correctGroundStationTracking(){
 
 
   //Calculate the difference between the current and actual targets
-  var azDif = satAz - antAz;  console.log(azDif);
-  var elDif = satEl - antEl; console.log(elDif);
+  var azDif = satAz - antAz;  
+  var elDif = satEl - antEl; 
 
   //Check if within acceptable ranges
   if ((azDif <  acceptableRange) && 

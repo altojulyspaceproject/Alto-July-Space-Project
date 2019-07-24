@@ -116,7 +116,7 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
   var observerGd = {
     longitude: satellite.degreesToRadians(144.9633),       
     latitude: satellite.degreesToRadians(-37.8141),
-      height: 0.370
+    height: 0.370
   };
 
   // You will need GMST for some of the coordinate transforms.
