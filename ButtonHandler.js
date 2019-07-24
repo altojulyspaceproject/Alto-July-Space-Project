@@ -15,7 +15,7 @@
     
     setInterval(function(){
      
-      updateLocalStorageSatelliteData(); //Update current time to localStorage
+      updateLocalStorageSatelliteData(); //Update current satellite location to localStorage
       updateLocalStorageTimeData(); //Update Previous/Past Times to localStorage
       updateOnscreenValues(); //Change the Satellite and Groundstation Information
 
@@ -60,6 +60,7 @@
     document.getElementById('gsLongitude').innerHTML = gsLong;
     document.getElementById('gsAzimuth').innerHTML = gsAz;
     document.getElementById('gsElevation').innerHTML = gsEl;
+
     changeVisualColorTrackingAlgorithm(tracking);
 
     document.getElementById("gsUTC").innerHTML = UTC.toUTCString();

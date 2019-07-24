@@ -7,7 +7,7 @@
  * converts the TLE data to longitude and latitude data
  * 
  * Author: Craig Robinson (From satellite.js)
- * Last Modified date: 4/07/2019
+ * Last Modified date: 24/07/2019
  * 
  * Requirements: satellite.js 
  * 
@@ -98,8 +98,7 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
   var offsetDate = new Date(); 
   offsetDate.addMinutes(minutesToOffset);
 
-   // Initialize a satellite record
-   
+  // Initialize a satellite record
   var satrec = satellite.twoline2satrec(tleLine1, tleLine2);
  
   //  Propagate satellite using time since epoch (in minutes).
@@ -158,9 +157,6 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
  
 }
 
-
-
-
   /** 
    * 
    * Fetches TLE data from remote server (space-track.org)
@@ -169,8 +165,6 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
    */
   var latlongHolder=[];
   function fetchTLEFromServer(noradID, username, password){
-
-	
 
     $.ajax({
                 
@@ -198,7 +192,6 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
           tleLine2 = TLEdata["TLE_LINE2"];
         }
         else {
-          
           return;
         }
 
@@ -268,8 +261,7 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
           var key = prop; 
           var value = satelliteData[prop];
           window.localStorage.setItem(key, JSON.stringify(value));
-
-        };
+        }
         return(latlongHolder);
       }
   });
@@ -299,8 +291,7 @@ function updateLocalStorageSatelliteData(){
     var key = prop; 
     var value = satelliteData[prop];
     window.localStorage.setItem(key, JSON.stringify(value));
-   
-  };
+  }
 
 }
 
@@ -343,7 +334,7 @@ function updateLocalStorageTimeData(){
     var key = prop; 
     var value = satelliteData[prop];
     window.localStorage.setItem(key, JSON.stringify(value)); 
-  };
+  }
 
 
 }
