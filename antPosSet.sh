@@ -14,5 +14,5 @@
 Azimuth=$1
 Elevation=$2
 #
-echo "P $Azimuth $Elevation p" | rotctl
+echo "P $Azimuth $Elevation \n p" | rotctl
 #
