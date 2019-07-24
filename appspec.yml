@@ -19,7 +19,7 @@ hooks:
   ApplicationStop:
     - location: scripts/stop_server.sh
       timeout: 300
-      runas: ec2-user
+      runas: root
 permissions:
   - object: /home/ec2-user
     pattern: "**"
