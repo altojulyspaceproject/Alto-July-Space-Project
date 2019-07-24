@@ -16,5 +16,5 @@ Azimuth=$1
 Elevation=$2
 Model=$3
 #
-'p' | rotctl -m $Model
+echo "p" | rotctl -m $Model
 #
