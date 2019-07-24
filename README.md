@@ -1,182 +1,117 @@
-# Open MCT [![license](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
+<p align="center">
+  <img src="nasa.jpg" alt="Slate: API Documentation Generator" width="226">
+  <br>
+  <a href="https://travis-ci.org/lord/slate"><img src="https://travis-ci.org/lord/slate.svg?branch=master" alt="Build Status"></a>
+</p>
 
-Open MCT (Open Mission Control Technologies) is a next-generation mission control framework for visualization of data on desktop and mobile devices. It is developed at NASA's Ames Research Center, and is being used by NASA for data analysis of spacecraft missions, as well as planning and operation of experimental rover systems. As a generalizable and open source framework, Open MCT could be used as the basis for building applications for planning, operation, and analysis of any systems producing telemetry data.
+<p align="center">Slate helps you create beautiful, intelligent, responsive API documentation.</p>
 
-Please visit our [Official Site](https://nasa.github.io/openmct/) and [Getting Started Guide](https://nasa.github.io/openmct/getting-started/)
+<p align="center"><img src="https://raw.githubusercontent.com/lord/img/master/screenshot-slate.png" width=700 alt="Screenshot of Example Documentation created with Slate"></p>
 
-## See Open MCT in Action
+<p align="center"><em>The example above was created with Slate. Check it out at <a href="https://lord.github.io/slate">lord.github.io/slate</a>.</em></p>
 
-Try Open MCT now with our [live demo](https://openmct-demo.herokuapp.com/).
-![Demo](https://nasa.github.io/openmct/static/res/images/Open-MCT.Browse.Layout.Mars-Weather-1.jpg)
+Features
+------------
 
-## New API
+* **Clean, intuitive design** — With Slate, the description of your API is on the left side of your documentation, and all the code examples are on the right side. Inspired by [Stripe's](https://stripe.com/docs/api) and [PayPal's](https://developer.paypal.com/webapps/developer/docs/api/) API docs. Slate is responsive, so it looks great on tablets, phones, and even in print.
 
-A simpler, [easier-to-use API](https://nasa.github.io/openmct/docs/api/)
-has been added to Open MCT. Changes in this
-API include a move away from a declarative system of JSON configuration files
-towards an imperative system based on function calls. Developers will be able
-to extend and build on Open MCT by making direct function calls to a public
-API. Open MCT is also being refactored to minimize the dependencies that using
-Open MCT imposes on developers, such as the current requirement to use
-AngularJS.
+* **Everything on a single page** — Gone are the days when your users had to search through a million pages to find what they wanted. Slate puts the entire documentation on a single page. We haven't sacrificed linkability, though. As you scroll, your browser's hash will update to the nearest header, so linking to a particular point in the documentation is still natural and easy.
 
-We want Open MCT to be as easy to use, install, run, and develop for as
-possible, and your feedback will help us get there! Feedback can be provided via [GitHub issues](https://github.com/nasa/openmct/issues), or by emailing us at [arc-dl-openmct@mail.nasa.gov](mailto:arc-dl-openmct@mail.nasa.gov).
+* **Slate is just Markdown** — When you write docs with Slate, you're just writing Markdown, which makes it simple to edit and understand. Everything is written in Markdown — even the code samples are just Markdown code blocks.
 
-## Building and Running Open MCT Locally
+* **Write code samples in multiple languages** — If your API has bindings in multiple programming languages, you can easily put in tabs to switch between them. In your document, you'll distinguish different languages by specifying the language name at the top of each code block, just like with GitHub Flavored Markdown.
 
-Building and running Open MCT in your local dev environment is very easy. Be sure you have [Git](https://git-scm.com/downloads) and [Node.js](https://nodejs.org/) installed, then follow the directions below. Need additional information? Check out the [Getting Started](https://nasa.github.io/openmct/getting-started/) page on our website.
-(These instructions assume you are installing as a non-root user; developers have [reported issues](https://github.com/nasa/openmct/issues/1151) running these steps with root privileges.)
+* **Out-of-the-box syntax highlighting** for [over 100 languages](https://github.com/jneen/rouge/wiki/List-of-supported-languages-and-lexers), no configuration required.
 
-1. Clone the source code
+* **Automatic, smoothly scrolling table of contents** on the far left of the page. As you scroll, it displays your current position in the document. It's fast, too. We're using Slate at TripIt to build documentation for our new API, where our table of contents has over 180 entries. We've made sure that the performance remains excellent, even for larger documents.
 
- `git clone https://github.com/nasa/openmct.git`
+* **Let your users update your documentation for you** — By default, your Slate-generated documentation is hosted in a public GitHub repository. Not only does this mean you get free hosting for your docs with GitHub Pages, but it also makes it simple for other developers to make pull requests to your docs if they find typos or other problems. Of course, if you don't want to use GitHub, you're also welcome to host your docs elsewhere.
 
-2. Install development dependencies
+* **RTL Support** Full right-to-left layout for RTL languages such as Arabic, Persian (Farsi), Hebrew etc.
 
- `npm install`
+Getting started with Slate is super easy! Simply fork this repository and follow the instructions below. Or, if you'd like to check out what Slate is capable of, take a look at the [sample docs](http://lord.github.io/slate).
 
-3. Run a local development server
+Getting Started with Slate
+------------------------------
 
- `npm start`
+### Prerequisites
 
-Open MCT is now running, and can be accessed by pointing a web browser at [http://localhost:8080/](http://localhost:8080/)
+You're going to need:
 
-## Documentation
+ - **Linux or macOS** — Windows may work, but is unsupported.
+ - **Ruby, version 2.3.1 or newer**
+ - **Bundler** — If Ruby is already installed, but the `bundle` command doesn't work, just run `gem install bundler` in a terminal.
 
-Documentation is available on the [Open MCT website](https://nasa.github.io/openmct/documentation/). The documentation can also be built locally.
+### Getting Set Up
 
-### Examples
+1. Fork this repository on GitHub.
+2. Clone *your forked repository* (not our original one) to your hard drive with `git clone https://github.com/YOURUSERNAME/slate.git`
+3. `cd slate`
+4. Initialize and start Slate. You can either do this locally, or with Vagrant:
 
-The clearest examples for developing Open MCT plugins are in the
-[tutorials](https://github.com/nasa/openmct-tutorial) provided in
-our documentation.
+```shell
+# either run this to run locally
+bundle install
+bundle exec middleman server
 
-For a practical example of a telemetry adapter, see David Hudson's
-[Kerbal Space Program plugin](https://github.com/hudsonfoo/kerbal-openmct),
-which allows [Kerbal Space Program](https://kerbalspaceprogram.com) players
-to build and use displays for their own missions in Open MCT.
+# OR run this to run with vagrant
+vagrant up
+```
 
-Additional examples are available in the `examples` hierarchy of this
-repository; however, be aware that these examples are
-[not fully-documented](https://github.com/nasa/openmct/issues/846), so
-the tutorials will likely serve as a better starting point.
+You can now see the docs at http://localhost:4567. Whoa! That was fast!
 
-### Building the Open MCT Documentation Locally
-Open MCT's documentation is generated by an
-[npm](https://www.npmjs.com/)-based build.  It has additional dependencies that
-may not be available on every platform and thus is not covered in the standard
-npm install.  Ensure your system has [libcairo](http://cairographics.org/)
-installed and then run the following commands:
+Now that Slate is all set up on your machine, you'll probably want to learn more about [editing Slate markdown](https://github.com/lord/slate/wiki/Markdown-Syntax), or [how to publish your docs](https://github.com/lord/slate/wiki/Deploying-Slate).
 
-* `npm install`
-* `npm install canvas nomnoml`
-* `npm run docs`
+If you'd prefer to use Docker, instructions are available [in the wiki](https://github.com/lord/slate/wiki/Docker).
 
-Documentation will be generated in `target/docs`.
+### Note on JavaScript Runtime
 
-## Deploying Open MCT
+For those who don't have JavaScript runtime or are experiencing JavaScript runtime issues with ExecJS, it is recommended to add the [rubyracer gem](https://github.com/cowboyd/therubyracer) to your gemfile and run `bundle` again.
 
-Open MCT is built using [`npm`](http://npmjs.com/)
-and [`gulp`](http://gulpjs.com/).
+Companies Using Slate
+---------------------------------
 
-To build Open MCT for deployment:
+* [NASA](https://api.nasa.gov)
+* [Sony](http://developers.cimediacloud.com)
+* [Best Buy](https://bestbuyapis.github.io/api-documentation/)
+* [Travis-CI](https://docs.travis-ci.com/api/)
+* [Greenhouse](https://developers.greenhouse.io/harvest.html)
+* [Woocommerce](http://woocommerce.github.io/woocommerce-rest-api-docs/)
+* [Dwolla](https://docs.dwolla.com/)
+* [Clearbit](https://clearbit.com/docs)
+* [Coinbase](https://developers.coinbase.com/api)
+* [Parrot Drones](http://developer.parrot.com/docs/bebop/)
+* [Scale](https://docs.scaleapi.com/)
 
-`npm run prepare`
+You can view more in [the list on the wiki](https://github.com/lord/slate/wiki/Slate-in-the-Wild).
 
-This will compile and minify JavaScript sources, as well as copy over assets.
-The contents of the `dist` folder will contain a runnable Open MCT
-instance (e.g. by starting an HTTP server in that directory), including:
+Questions? Need Help? Found a bug?
+--------------------
 
-* A `main.js` file containing Open MCT source code.
-* Various assets in the `example` and `platform` directories.
-* An `index.html` that runs Open MCT in its default configuration.
+If you've got questions about setup, deploying, special feature implementation in your fork, or just want to chat with the developer, please feel free to [start a thread in our Spectrum community](https://spectrum.chat/slate)!
 
-Additional `gulp` tasks are defined in [the gulpfile](gulpfile.js).
+Found a bug with upstream Slate? Go ahead and [submit an issue](https://github.com/lord/slate/issues). And, of course, feel free to submit pull requests with bug fixes or changes to the `dev` branch.
 
-## Bundles
+Contributors
+--------------------
 
-A bundle is a group of software components (including source code, declared
-as AMD modules, as well as resources such as images and HTML templates)
-that is intended to be added or removed as a single unit. A plug-in for
-Open MCT will be expressed as a bundle; platform components are also
-expressed as bundles.
+Slate was built by [Robert Lord](https://lord.io) while interning at [TripIt](https://www.tripit.com/).
 
-A bundle is also just a directory which contains a file `bundle.json`,
-which declares its contents.
+Thanks to the following people who have submitted major pull requests:
 
-The file `bundles.json` (note the plural), at the top level of the
-repository, is a JSON file containing an array of all bundles (expressed as
-directory names) to include in a running instance of Open MCT. Adding or
-removing paths from this list will add or remove bundles from the running
-application.
+- [@chrissrogers](https://github.com/chrissrogers)
+- [@bootstraponline](https://github.com/bootstraponline)
+- [@realityking](https://github.com/realityking)
+- [@cvkef](https://github.com/cvkef)
 
-## Tests
+Also, thanks to [Sauce Labs](http://saucelabs.com) for sponsoring the development of the responsive styles.
 
-Tests are written for [Jasmine 1.3](http://jasmine.github.io/1.3/introduction.html)
-and run by [Karma](http://karma-runner.github.io). To run:
+Special Thanks
+--------------------
+- [Middleman](https://github.com/middleman/middleman)
+- [jquery.tocify.js](https://github.com/gfranko/jquery.tocify.js)
+- [middleman-syntax](https://github.com/middleman/middleman-syntax)
+- [middleman-gh-pages](https://github.com/edgecase/middleman-gh-pages)
+- [Font Awesome](http://fortawesome.github.io/Font-Awesome/)
 
-`npm test`
-
-The test suite is configured to load any scripts ending with `Spec.js` found
-in the `src` hierarchy. Full configuration details are found in
-`karma.conf.js`. By convention, unit test scripts should be located
-alongside the units that they test; for example, `src/foo/Bar.js` would be
-tested by `src/foo/BarSpec.js`. (For legacy reasons, some existing tests may
-be located in separate `test` folders near the units they test, but the
-naming convention is otherwise the same.)
-
-### Test Reporting
-
-When `npm test` is run, test results will be written as HTML to
-`target/tests`. Code coverage information is written to `target/coverage`.
-
-# Glossary
-
-Certain terms are used throughout Open MCT with consistent meanings
-or conventions. Any deviations from the below are issues and should be
-addressed (either by updating this glossary or changing code to reflect
-correct usage.) Other developer documentation, particularly in-line
-documentation, may presume an understanding of these terms.
-
-* _bundle_: A bundle is a removable, reusable grouping of software elements.
-  The application is composed of bundles. Plug-ins are bundles. For more
-  information, refer to framework documentation (under `platform/framework`.)
-* _capability_: An object which exposes dynamic behavior or non-persistent
-  state associated with a domain object.
-* _composition_: In the context of a domain object, this refers to the set of
-  other domain objects that compose or are contained by that object. A domain
-  object's composition is the set of domain objects that should appear
-  immediately beneath it in a tree hierarchy. A domain object's composition is
-  described in its model as an array of id's; its composition capability
-  provides a means to retrieve the actual domain object instances associated
-  with these identifiers asynchronously.
-* _description_: When used as an object property, this refers to the human-readable
-  description of a thing; usually a single sentence or short paragraph.
-  (Most often used in the context of extensions, domain
-  object models, or other similar application-specific objects.)
-* _domain object_: A meaningful object to the user; a distinct thing in
-  the work support by Open MCT. Anything that appears in the left-hand
-  tree is a domain object.
-* _extension_: An extension is a unit of functionality exposed to the
-  platform in a declarative fashion by a bundle. For more
-  information, refer to framework documentation (under `platform/framework`.)
-* _id_: A string which uniquely identifies a domain object.
-* _key_: When used as an object property, this refers to the machine-readable
-  identifier for a specific thing in a set of things. (Most often used in the
-  context of extensions or other similar application-specific object sets.)
-* _model_: The persistent state associated with a domain object. A domain
-  object's model is a JavaScript object which can be converted to JSON
-  without losing information (that is, it contains no methods.)
-* _name_: When used as an object property, this refers to the human-readable
-  name for a thing. (Most often used in the context of extensions, domain
-  object models, or other similar application-specific objects.)
-* _navigation_: Refers to the current state of the application with respect
-  to the user's expressed interest in a specific domain object; e.g. when
-  a user clicks on a domain object in the tree, they are _navigating_ to
-  it, and it is thereafter considered the _navigated_ object (until the
-  user makes another such choice.)
-* _space_: A name used to identify a persistence store. Interactions with
-  persistence will generally involve a `space` parameter in some form, to
-  distinguish multiple persistence stores from one another (for cases
-  where there are multiple valid persistence locations available.)
+New thanks 3
