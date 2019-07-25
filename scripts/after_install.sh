@@ -1,3 +1,4 @@
 #!/bin/bash
 source /home/ec2-user/.bash_profile
-echo "installed"
+cd /home/ec2-user/project
+npm i
