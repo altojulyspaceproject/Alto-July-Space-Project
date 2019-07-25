@@ -1,5 +1,5 @@
 #!/bin/bash
-cd Alto-July-Training-Project/Hamlib
+cd Hamlib
 ./bootstrap
 ./configure
 make
