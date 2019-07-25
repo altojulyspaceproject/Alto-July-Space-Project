@@ -45,7 +45,7 @@ function startHamlib(){
 
   $.ajax({
                 
-    url: 'http://localhost:8080/hamlib',
+    url: '/hamlib',
     type: 'POST',
     success: function(output) {
       console.log("Called Hamlib");
