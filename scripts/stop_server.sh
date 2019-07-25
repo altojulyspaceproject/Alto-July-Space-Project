@@ -1,2 +1,2 @@
 #!/bin/bash
-kill -f node
+kill -f node >> /tmp/SpaceApp.log
