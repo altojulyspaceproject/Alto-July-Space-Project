@@ -1,0 +1,35 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /home/ec2-user/project
+hooks:
+  BeforeInstall:
+    - location: scripts/install.sh
+      timeout: 300
+      runas: ec2-user
+  AfterInstall:
+    - location: scripts/after_install.sh
+      timeout: 300
+      runas: ec2-user
+  ApplicationStart:
+    - location: scripts/start_server.sh
+      timeout: 300
+      runas: ec2-user
+  ApplicationStop:
+    - location: scripts/stop_server.sh
+      timeout: 300
+      runas: ec2-user
+permissions:
+  - object: /home/ec2-user
+    pattern: "**"
+    owner: ec2-user
+    group: ec2-user
+    type:
+      - directory
+  - object: /home/ec2-user/project
+    pattern: "**"
+    owner: ec2-user
+    group: ec2-user
+    type:
+      - file

@@ -11,14 +11,11 @@
     <script src="tleToCoordinates.js"></script>
     <script src="dataPlot.js"></script>
     <script src="plotly-latest.min.js"></script>
-	
-	
-	
+
     <script>
         var THIRTY_MINUTES = 30 * 60 * 1000;
         document.addEventListener("DOMContentLoaded", function () {
-            //openmct.install(new OpenMCTMapPlugin());
-			
+
             openmct.install(openmct.plugins.MyItems());
             openmct.install(openmct.plugins.LocalStorage());
             openmct.install(openmct.plugins.Espresso());
@@ -26,7 +23,7 @@
             openmct.install(openmct.plugins.ExampleImagery());
             openmct.install(openmct.plugins.UTCTimeSystem());
             openmct.install(openmct.plugins.ImportExport());
-		
+
             openmct.install(openmct.plugins.Conductor({
                 menuOptions: [
                     {
@@ -53,9 +50,6 @@
             openmct.setAssetPath("node_modules/openmct/dist");
             openmct.start();
 
-            // var container = document.getElementById("plotlyGraph");
-            // dataPlot(container,latHolder,longHolder,latHolderPrevious,longHolderPrevious);
-
           });
     </script>
     <link rel="stylesheet" href="node_modules/openmct/dist/platform/commonUI/general/res/css/startup-base.css">
@@ -66,22 +60,9 @@
     <link rel="shortcut icon" href="node_modules/openmct/dist/platform/commonUI/general/res/images/favicons/favicon.ico">
 </head>
 <body class="user-environ">
-    <!-- <div class="l-splash-holder s-splash-holder">
-        <div class="l-splash s-splash"></div>
-    </div> -->
-
-    <div id='plotlyGraph'></div>
-
 
 </body>
 
 <br><br>
-			
+
 </html>
-
-
-
-
-
-
-

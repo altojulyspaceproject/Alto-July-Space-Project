@@ -80,25 +80,21 @@
 
     //Handle any post requests to the self made page
     app.all('/postExternal',function (req,res){
-    
-      //Maybe we just handle everything here? Cause modules are hard... 
-      // res.sendfile("helloWorld.html");
-      // res.sendfile("postExternal.js");
 
       var noradID = req.param('noradID');
       var username = req.param('username');
       var password = req.param('password');
 
-
       //TODO: Error Handling here
       if(noradID != undefined && username != undefined && password != undefined){
         console.log(noradID);
-        // res.send(noradID);
 
-        var tleHTML = 'https://www.space-track.org/basicspacedata/query/class/tle/NORAD_CAT_ID/ ' + noradID + '/orderby/EPOCH%20desc/limit/1';
+        var tleHTML = 'https://www.space-track.org/basicspacedata/query/class/tle/NORAD_CAT_ID/ ' 
+                    + noradID + '/orderby/EPOCH%20desc/limit/1';
 
-        //TODO: Error handing here, this is an unsafe command. 
-        var cmd = 'Curl   https://www.space-track.org/ajaxauth/login -d "identity=' + username +  '&password=' + password + '&query=' + tleHTML + '"';
+        //TODO: Error handing here
+        var cmd = 'curl   https://www.space-track.org/ajaxauth/login -d "identity=' 
+                + username +  '&password=' + password + '&query=' + tleHTML + '"';
 
         var util = require('util');
         var exec = require('child_process').exec;
@@ -108,7 +104,7 @@
 
             console.log('stdout: ' + stdout);
             returned = stdout;
-            
+
           if(error !== null){
             console.log('exec error: ' + error);
           }
@@ -123,11 +119,11 @@
       else{
         res.send('Error in parsing variables ');
       }
-      
+
     });
 
     // Finally, open the HTTP server and log the instance to the console
     app.listen(options.port, options.host, function() {
-        console.log('Open MCT application running at %s:%s', options.host, options.port)
+      console.log('Open MCT application running at %s:%s', options.host, options.port)
     });
 }());

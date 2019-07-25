@@ -23,12 +23,12 @@ jobs:
         - run:
             name: npm run test
             command: npm run test
-        - run:
-            name: npm run lint
-            command: npm run lint
-        - run:
-            name: npm run checkstyle
-            command: npm run checkstyle
+        # - run:
+        #     name: npm run lint
+        #     command: npm run lint
+        # - run:
+        #     name: npm run checkstyle
+        #     command: npm run checkstyle
         - store_artifacts:
             path: dist
             prefix: dist
@@ -37,4 +37,9 @@ workflows:
   version: 2
   test:
     jobs:
-      - build
+      - build:
+          filters:
+            branches:
+              only:
+                - stable
+                - master
