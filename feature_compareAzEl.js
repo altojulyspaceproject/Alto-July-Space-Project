@@ -39,3 +39,20 @@ function correctGroundStationTracking(){
 
   return [antAz,antEl];
 }
+
+
+function startHamlib(){
+
+  $.ajax({
+                
+    url: 'http://localhost:8080/hamlib',
+    type: 'POST',
+    success: function(output) {
+      console.log("Called Hamlib");
+    }
+
+  });
+
+
+
+}
