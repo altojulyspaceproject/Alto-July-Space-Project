@@ -1,0 +1,45 @@
+testrig: Hello, I am your main() !
+Port /dev/ttyS0 opened ok
+
+Setting 10m FM Narrow...
+ Freq: 29.620000 MHz, Mode: FM, Passband: 8.000 kHz
+
+Setting 15m USB...
+ Freq: 21.235175 MHz, Mode: USB, Passband: 2.400 kHz
+
+Setting 40m LSB...
+ Freq: 7.250100 MHz, Mode: LSB, Passband: 2.400 kHz
+
+Setting 80m AM Narrow...
+ Freq: 3.885000 MHz, Mode: AM, Passband: 2.400 kHz
+
+Setting 160m CW...
+ Freq: 1875.000 kHz, Mode: CW, Passband: 500 Hz
+
+Setting 160m CW Narrow...
+ Freq: 1875.000 kHz, Mode: CW, Passband: 50 Hz
+
+Setting Medium Wave AM...
+ Freq: 770.000 kHz, Mode: AM, Passband: 8.000 kHz
+
+Setting 20m on VFO A with two functions...
+ Freq: 14.250375 MHz, VFO: VFOA
+
+Setting  20m on VFO A with one function...
+ Freq: 14.295125 MHz, VFO: VFOA
+
+Setting rig Mode to LSB.
+Setting rig PTT ON.
+Setting rig PTT OFF.
+
+Get various raw rig values:
+rig_get_vfo: vfo = 1 
+rig_get_freq: freq = 14295125.000000
+rig_get_mode: mode = 8
+rig_get_strength: strength = -6 
+rig_set_func: Setting RIT ON
+rig_get_func: RIT: 1
+rig_set_func: Setting XIT ON
+rig_get_func: XIT: 1
+port /dev/ttyS0 closed ok 
+PASS testrig.sh (exit status: 0)

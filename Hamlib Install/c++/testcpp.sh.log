@@ -1,0 +1,43 @@
+rig_init called
+dummy: _init called
+rig_register called
+rig_register: rig_register (1)
+rig_register called
+rig_register: rig_register (2)
+rig_register called
+rig_register: rig_register (4)
+rig_register called
+rig_register: rig_register (5)
+dummy_init called
+rig_strvfo called
+rig_passband_normal called
+rig_strvfo called
+rig_passband_normal called
+rig_token_lookup called
+rig_confparam_lookup called
+rig_set_conf called
+rig_confparam_lookup called
+rig_set_conf: rig_pathname='/dev/ttyS1'
+rig_open called
+port_open called
+dummy_open called
+rig_get_vfo called
+rig_strvfo called
+dummy_get_vfo called: VFOA
+rig_set_freq called
+sprintf_freq called
+rig_strvfo called
+dummy_set_freq called: currVFO 144 MHz
+rig_get_level called
+rig_has_get_level called
+rig_setting2idx called
+rig_strlevel called
+dummy_get_level called: STRENGTH
+-48dB
+Modes for freq 14.332: 511
+rig_close called
+dummy_close called
+port_close called
+rig_cleanup called
+dummy_cleanup called
+PASS testcpp.sh (exit status: 0)
