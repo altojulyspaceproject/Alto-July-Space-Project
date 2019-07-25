@@ -174,7 +174,7 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
           
         console.log(output);
         //Handle the timeout of the data..
-        if(output == 'undefined'){
+        if(output == ''){
           fetchTLEFromServer(noradID, username, password);
           return;
         }
