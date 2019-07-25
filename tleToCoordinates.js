@@ -7,7 +7,7 @@
  * converts the TLE data to longitude and latitude data
  * 
  * Author: Craig Robinson (From satellite.js)
- * Last Modified date: 4/07/2019
+ * Last Modified date: 24/07/2019
  * 
  * Requirements: satellite.js 
  * 
@@ -98,8 +98,7 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
   var offsetDate = new Date(); 
   offsetDate.addMinutes(minutesToOffset);
 
-   // Initialize a satellite record
-   
+  // Initialize a satellite record
   var satrec = satellite.twoline2satrec(tleLine1, tleLine2);
  
   //  Propagate satellite using time since epoch (in minutes).
@@ -117,7 +116,7 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
   var observerGd = {
     longitude: satellite.degreesToRadians(144.9633),       
     latitude: satellite.degreesToRadians(-37.8141),
-      height: 0.370
+    height: 0.370
   };
 
   // You will need GMST for some of the coordinate transforms.
@@ -158,21 +157,14 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
  
 }
 
-
-
-
   /** 
    * 
    * Fetches TLE data from remote server (space-track.org)
-   * 
-   * Then uses a global to set the longitude and latitude 
    * 
    * 
    */
   var latlongHolder=[];
   function fetchTLEFromServer(noradID, username, password){
-
-	
 
     $.ajax({
                 
@@ -180,17 +172,27 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
       type: 'POST',
       success: function(output) {
           
+        console.log(output);
+        //Handle the timeout of the data..
+        if(output == 'undefined'){
+          fetchTLEFromServer(noradID, username, password);
+          return;
+        }
         //Parse the data coming from Space-Track
         TLEdata = JSON.parse(output)[0];
       
         //If successful 
         //Todo: error handling 
+       
         if(TLEdata != undefined){
           tleSatName = TLEdata["OBJECT_NAME"];
           tleEpoch = TLEdata["EPOCH"]; 
           tleLine0 = TLEdata["TLE_LINE0"];
           tleLine1 = TLEdata["TLE_LINE1"];
           tleLine2 = TLEdata["TLE_LINE2"];
+        }
+        else {
+          return;
         }
 
         var latHolder = [];
@@ -248,7 +250,9 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
          
           "gsLat":-37.8141,
           "gsLong":144.9633,
-          "gsAlt":0.054
+          "gsAlt":0.054,
+
+          "trackingAlgorithm":0,
         };
 
 
@@ -257,39 +261,11 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
           var key = prop; 
           var value = satelliteData[prop];
           window.localStorage.setItem(key, JSON.stringify(value));
-
-        };
+        }
         return(latlongHolder);
       }
   });
 
-
-}
-
-  
-
-
-
-function newLatLongPlotData(tleLine1,tleLine2){ 
-    // a new function for updating the map data 
-    var latHolder = [];
-    var latHolderPrevious = [];
-    var longHolder = [];
-    var longHolderPrevious = [];
-
-    for(var i = 0; i <= 90; i++){
-      var returned = convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,i); 
-      latHolder.push( parseFloat(returned["lat"]));
-      longHolder.push(parseFloat(returned["long"]));
-    }
-    for(var i = 0; i <= 90; i++){
-      var returned = convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,-i); 
-      latHolderPrevious.push( parseFloat(returned["lat"]));
-      longHolderPrevious.push(parseFloat(returned["long"]));
-    }
-    latlongHolder = [latHolder,longHolder,latHolderPrevious,longHolderPrevious];
-
-    return(latlongHolder);
 
 }
 
@@ -315,8 +291,7 @@ function updateLocalStorageSatelliteData(){
     var key = prop; 
     var value = satelliteData[prop];
     window.localStorage.setItem(key, JSON.stringify(value));
-   
-  };
+  }
 
 }
 
@@ -359,7 +334,7 @@ function updateLocalStorageTimeData(){
     var key = prop; 
     var value = satelliteData[prop];
     window.localStorage.setItem(key, JSON.stringify(value)); 
-  };
+  }
 
 
 }

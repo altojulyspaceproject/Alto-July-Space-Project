@@ -5,86 +5,78 @@
 
     //Fetch the TLE from Space-track  
     fetchTLEFromServer(noradID, username, password); //See tleToCoordinates.js
-
-    //Need to promise on the TLEFromServer
+    //TODO: promise on the TLEFromServer
     // .then(everything else)
-
 
     //Should be a set timeout that updates the localStorage every 3 seconds 
     setTimeout(function(){
-      plotReal(); // plot function to initiate the map
+      initialiseMap(); // plot function to initiate the map
     },3000);
     
-
-
-
-    var antAz,antEl = 0;
     setInterval(function(){
      
-      updateLocalStorageSatelliteData(); //Update current time to localStorage
+      updateLocalStorageSatelliteData(); //Update current satellite location to localStorage
       updateLocalStorageTimeData(); //Update Previous/Past Times to localStorage
-
-      updateOnscreenValues();
-
+      updateOnscreenValues(); //Change the Satellite and Groundstation Information
 
       setTimeout(function(){ 
-        plotReal1(); // updating the plot 
+        updateAndRedrawMap(); // updating the plot 
       },500);  
 
-      
-      var newAnt = compareAzEl(antAz,antEl);
-      antAz = newAnt[0];
-      antEl = newAnt[1];
-      
-      window.localStorage.setItem('antAz', JSON.stringify(antAz)); 
-      window.localStorage.setItem('antEl', JSON.stringify(antEl)); 
-     
+      correctGroundStationTracking(); //CHeck if the ground station is pointing in the right direction
 
     },3000);
 
   }
 
 
-
-
   function updateOnscreenValues(){
+
+    var satEpoch = JSON.parse(window.localStorage.getItem('epoch'));
+    var satName = JSON.parse(window.localStorage.getItem('satName'));
+    var satAlt = JSON.parse(window.localStorage.getItem('altitude')).toFixed(2);
+    var satLat = JSON.parse(window.localStorage.getItem('lat')).toFixed(4);
+    var satLong = JSON.parse(window.localStorage.getItem('long')).toFixed(4);
+
+    var gsLat = JSON.parse(window.localStorage.getItem('gsLat')).toFixed(4);
+    var gsLong = JSON.parse(window.localStorage.getItem('gsLong')).toFixed(4);
+    var gsAlt = JSON.parse(window.localStorage.getItem('gsAlt')).toFixed(2); 
+
+    var gsAz = JSON.parse(window.localStorage.getItem('gsAziumth')).toFixed(4);
+    var gsEl = JSON.parse(window.localStorage.getItem('gsElevation')).toFixed(4);
+    
+    var tracking = JSON.parse(window.localStorage.getItem('trackingAlgorithm'));
+
+    var UTC = new Date();
+        
+    //Update container
+    document.getElementById('satTimeTle').innerHTML =  satEpoch;
+    document.getElementById('satName').innerHTML = satName;
+    document.getElementById('satAltitude').innerHTML = satAlt;
+    document.getElementById('satLatitude').innerHTML = satLat;
+    document.getElementById('satLongitude').innerHTML = satLong;
+    
+    document.getElementById('gsLatitude').innerHTML = gsLat;
+    document.getElementById('gsLongitude').innerHTML = gsLong;
+    document.getElementById('gsAzimuth').innerHTML = gsAz;
+    document.getElementById('gsElevation').innerHTML = gsEl;
+
+    changeVisualColorTrackingAlgorithm(tracking);
+
+    document.getElementById("gsUTC").innerHTML = UTC.toUTCString();
+  }
+
+
+  function changeVisualColorTrackingAlgorithm(tracking){
   
+    var trackingElement = document.getElementById("trackingAlgorithm");
 
-    var gsLat = JSON.parse(window.localStorage.getItem('gsLat'));
-    var gsLong = JSON.parse(window.localStorage.getItem('gsLong'));
-    var gsAlt = JSON.parse(window.localStorage.getItem('gsAlt')); 
-
-    var satAz = JSON.parse(window.localStorage.getItem('gsAziumth'));
-    var satEl = JSON.parse(window.localStorage.getItem('gsElevation'));
-
-    var antAz = JSON.parse(window.localStorage.getItem('antAz'));
-    var antEl = JSON.parse(window.localStorage.getItem('antEl'));
-
-    var satLat = JSON.parse(window.localStorage.getItem('lat'));
-    var satLong = JSON.parse(window.localStorage.getItem('long'));
-    var satAlt = JSON.parse(window.localStorage.getItem('altitude'));
-
-
-
-    //Update Inputs
-    document.getElementById('GSLatitude').value = gsLat;
-    document.getElementById('GSLongitude').value = gsLong;
-    document.getElementById('GSAltitude').value = gsAlt;
-    document.getElementById('AntAz').value = satAz;
-    document.getElementById('AntEl').value = satEl;
-    document.getElementById('AntAlt').value = gsAlt;
-
-    //Update Text Display
-    document.getElementById('dataLatitude').value = satLat;
-    document.getElementById('dataLongitude').value = satLong;
-    document.getElementById('dataAltitude').value = satAlt;
-    // document.getElementById('dataTime').value = '1234';
-    document.getElementById('dataAzimuth').value = antAz;
-    document.getElementById('dataElevation').value = antEl;
-
-
-
-
-
+    trackingElement.innerHTML = tracking; //Set the value on screen
+    if(tracking == "On Target"){
+      trackingElement.style.color = '#66ff66'; //Lime Green
+    }
+    else if(tracking == "Off Target"){
+      trackingElement.style.color = '#ff3333'; // red
+    }
   }
   
