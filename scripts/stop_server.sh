@@ -1,2 +1,2 @@
 #!/bin/bash
-killall -9 node
+kill -f node
