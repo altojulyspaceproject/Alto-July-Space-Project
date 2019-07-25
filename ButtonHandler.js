@@ -16,6 +16,8 @@
       updateLocalStorageSatelliteData(); //Update current satellite location to localStorage
       updateLocalStorageTimeData(); //Update Previous/Past Times to localStorage
       updateOnscreenValues(); //Change the Satellite and Groundstation Information
+      startHamlib();
+
 
       setTimeout(function(){ 
         updateAndRedrawMap(); // updating the plot 

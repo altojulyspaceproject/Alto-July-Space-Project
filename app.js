@@ -78,6 +78,18 @@
     // Expose everything else as static files
     app.use(express['static'](options.directory));
 
+    //Handle the hamlib post requests
+
+    app.all('/hamlib',function (req,res){
+
+
+      var cmd = ' hamlib elevation aziumuth ';
+
+      console.log(cmd);
+
+    });
+
+
     //Handle any post requests to the self made page
     app.all('/postExternal',function (req,res){
 
