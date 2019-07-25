@@ -6,7 +6,7 @@ var refreshCounter=0;
 		plotReal(latlongHolder[0],latlongHolder[1],latlongHolder[2],latlongHolder[3]); // plot function to initiate the map
 	
 	},3000);
-	antPosSet(130, 15);
+	
 		setInterval(function(){
 		newLatLongPlotData(tleLine1,tleLine2) //retriveing new lat/long data for the map 
 
