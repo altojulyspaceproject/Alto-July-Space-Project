@@ -83,7 +83,7 @@
     app.all('/hamlib',function (req,res){
 
 
-      var cmd = 'sh antPosSet.sh 179.110 18.123;
+      var cmd = 'sh antPosSet.sh 179.110 18.123';
       var exec = require('child_process').exec;
         var returned;
 
