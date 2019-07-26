@@ -83,9 +83,22 @@
     app.all('/hamlib',function (req,res){
 
 
-      var cmd = ' hamlib elevation aziumuth ';
+      var cmd = 'sh antPosSet.sh 179.110 18.123;
+      var exec = require('child_process').exec;
+        var returned;
 
-      console.log(cmd);
+        var child = exec(cmd, function(error, stdout, stderr){
+
+            console.log('stdout: ' + stdout);
+            returned = stdout;
+
+          if(error !== null){
+            console.log('exec error: ' + error);
+          }
+
+        });
+
+      console.log(stdout);
 
     });
 
