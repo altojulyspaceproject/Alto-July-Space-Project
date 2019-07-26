@@ -168,7 +168,7 @@ function convertTLEtoCoordinatesTimeOffset(tleLine1,tleLine2,minutesToOffset){
 
     $.ajax({
                 
-      url: 'http://localhost:8080/postExternal?noradID=' + noradID + '&username=' + username + '&password=' + password,
+      url: '/postExternal?noradID=' + noradID + '&username=' + username + '&password=' + password,
       type: 'POST',
       success: function(output) {
           
